@@ -1,0 +1,45 @@
+import type { Song } from '../types';
+
+export const defaultSongs: Song[] = [
+  {
+    id: 'hallelujah',
+    title: 'Hallelujah',
+    artist: 'Leonard Cohen',
+    defaultKey: 'C',
+    lines: [
+      { type: 'section', label: 'Verse 1' },
+      { type: 'line', content: "I heard there was a [C]secret chord" },
+      { type: 'line', content: "That David played and it [Am]pleased the Lord" },
+      { type: 'line', content: "But you don't really [C]care for music, [G]do ya?" },
+      { type: 'line', content: "It goes like this, the [F]fourth, the [G]fifth" },
+      { type: 'line', content: "The [Am]minor fall, the [F]major lift" },
+      { type: 'line', content: "The [G]baffled king com[Em]posing Halle[F]lujah" },
+      { type: 'spacer' },
+      { type: 'section', label: 'Chorus' },
+      { type: 'line', content: "Halle[C]lujah, Halle[Am]lujah" },
+      { type: 'line', content: "Halle[F]lujah, Halle[G]lu[C]jah" },
+    ],
+  },
+  {
+    id: 'wonderwall',
+    title: 'Wonderwall',
+    artist: 'Oasis',
+    defaultKey: 'Em',
+    capo: 2,
+    lines: [
+      { type: 'section', label: 'Verse 1' },
+      { type: 'line', content: "[Em]Today is gonna be the day that they're gonna throw it back to [G]you" },
+      { type: 'line', content: "By now you should've somehow real[Dsus4]ized what you gotta [A7sus4]do" },
+      { type: 'line', content: "I don't believe that [Em]anybody feels the [G]way I do about you [Dsus4]now [A7sus4]" },
+      { type: 'spacer' },
+      { type: 'section', label: 'Chorus' },
+      { type: 'line', content: "[Cadd9]And all the roads we [Dsus4]have to walk are [Em]winding" },
+      { type: 'line', content: "[Cadd9]And all the lights that [Dsus4]lead us there are [Em]blinding" },
+      { type: 'line', content: "There are many things that [Cadd9]I would like to [Dsus4]say to you but I [G]don't know how" },
+      { type: 'spacer' },
+      { type: 'section', label: 'Hook' },
+      { type: 'line', content: "Because [Em]maybe [G] you're gonna be the one that [Dsus4]saves me? [A7sus4]" },
+      { type: 'line', content: "And after [Em]all [G] you're my wonder[Dsus4]wall [A7sus4]" },
+    ],
+  },
+];
