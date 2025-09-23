@@ -53,7 +53,7 @@ const ChordDiagram = memo(({ chord, shape }: Props) => {
       aria-label={`${chord} chord diagram`}
       style={{ overflow: 'visible' }}
     >
-      <text x={WIDTH / 2} y={24} textAnchor="middle" fontSize="18" fontWeight={700} fill="#0f172a">
+      <text x={WIDTH / 2} y={24} textAnchor="middle" fontSize="18" fontWeight={700} fill="var(--chord-diagram-title)">
         {chord}
       </text>
       {!shape.isOpen && startFret > 1 && (
@@ -62,7 +62,7 @@ const ChordDiagram = memo(({ chord, shape }: Props) => {
           y={TOP_MARGIN + fretSpacing / 2}
           fontSize="13"
           fontWeight={700}
-          fill="#334155"
+          fill="var(--chord-diagram-label)"
           textAnchor="end"
         >
           {startFret}fr
@@ -78,7 +78,7 @@ const ChordDiagram = memo(({ chord, shape }: Props) => {
             y1={y}
             x2={stringPositions[NUM_STRINGS - 1]}
             y2={y}
-            stroke="#1f2937"
+            stroke="var(--chord-diagram-grid)"
             strokeWidth={strokeWidth}
             strokeLinecap="round"
           />
@@ -91,7 +91,7 @@ const ChordDiagram = memo(({ chord, shape }: Props) => {
           y1={TOP_MARGIN}
           x2={x}
           y2={HEIGHT - BOTTOM_MARGIN}
-          stroke="#1f2937"
+          stroke="var(--chord-diagram-grid)"
           strokeWidth={1.5}
         />
       ))}
@@ -99,7 +99,15 @@ const ChordDiagram = memo(({ chord, shape }: Props) => {
         const x = stringPositions[stringIndex];
         if (value === 'x') {
           return (
-            <text key={`mute-${stringIndex}`} x={x} y={TOP_MARGIN - 10} textAnchor="middle" fontSize="14" fill="#ef4444" fontWeight={600}>
+            <text
+              key={`mute-${stringIndex}`}
+              x={x}
+              y={TOP_MARGIN - 10}
+              textAnchor="middle"
+              fontSize="14"
+              fill="var(--chord-diagram-muted)"
+              fontWeight={600}
+            >
               ×
             </text>
           );
@@ -111,7 +119,7 @@ const ChordDiagram = memo(({ chord, shape }: Props) => {
               cx={x}
               cy={TOP_MARGIN - 16}
               r={4}
-              stroke="#1f2937"
+              stroke="var(--chord-diagram-open)"
               strokeWidth={1.5}
               fill="transparent"
             />
@@ -127,14 +135,14 @@ const ChordDiagram = memo(({ chord, shape }: Props) => {
         const y = TOP_MARGIN + fretSpacing * fretOffset;
         return (
           <g key={`fret-${stringIndex}`}>
-            <circle cx={x} cy={y} r={7} fill="#111827" />
+            <circle cx={x} cy={y} r={7} fill="var(--chord-diagram-dot)" />
             {shape.fingers?.[stringIndex] ? (
               <text
                 x={x}
                 y={y + 3}
                 fontSize="10"
                 fontWeight={600}
-                fill="#f8fafc"
+                fill="var(--chord-diagram-dot-text)"
                 textAnchor="middle"
               >
                 {shape.fingers[stringIndex]}
@@ -161,7 +169,7 @@ const ChordDiagram = memo(({ chord, shape }: Props) => {
               y1={y}
               x2={x2}
               y2={y}
-              stroke="#111827"
+              stroke="var(--chord-diagram-barre)"
               strokeWidth={12}
               strokeLinecap="round"
               opacity={0.9}

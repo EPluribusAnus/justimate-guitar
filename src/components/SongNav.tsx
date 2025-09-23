@@ -9,6 +9,8 @@ interface Props {
   onAddSong: () => void;
   onExport: () => void;
   onImport: () => void;
+  theme: 'light' | 'dark';
+  onToggleTheme: () => void;
 }
 
 type ArtistGroup = {
@@ -30,7 +32,7 @@ const getLetter = (artist: string) => {
   return /[A-Z]/.test(first) ? first : '#';
 };
 
-const SongNav = ({ songs, selectedSongId, onSelect, onAddSong, onExport, onImport }: Props) => {
+const SongNav = ({ songs, selectedSongId, onSelect, onAddSong, onExport, onImport, theme, onToggleTheme }: Props) => {
   const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.matchMedia('(max-width: 900px)').matches : false));
   const [isOpen, setIsOpen] = useState(() => !isMobile);
 
@@ -100,8 +102,17 @@ const SongNav = ({ songs, selectedSongId, onSelect, onAddSong, onExport, onImpor
         >
           ☰
         </button>
-        <h2>Your Library</h2>
+        <h2>justimate-guitar</h2>
         <div className="song-nav__actions">
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            className="song-nav__theme"
+            aria-pressed={theme === 'dark'}
+            aria-label={theme === 'dark' ? 'Activate light mode' : 'Activate dark mode'}
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
           <button type="button" onClick={onImport} className="song-nav__import">
             Import
           </button>

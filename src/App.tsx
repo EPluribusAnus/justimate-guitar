@@ -12,6 +12,7 @@ import { transposeChord } from './utils/chords';
 import './App.css';
 
 const App = () => {
+  const [theme, setTheme] = useLocalStorage<'light' | 'dark'>('jg/theme/v1', 'light');
   const [customSongs, setCustomSongs] = useLocalStorage<Song[]>('jg/customSongs/v1', []);
   const [favoriteTranspositions, setFavoriteTranspositions] = useLocalStorage<Record<string, number>>(
     'jg/favorites/v1',
@@ -35,6 +36,13 @@ const App = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const selectedSong = useMemo(() => songs.find((song) => song.id === selectedSongId) ?? null, [songs, selectedSongId]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return;
+    }
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   useEffect(() => {
     if (!selectedSongId && songs.length) {
@@ -155,6 +163,10 @@ const App = () => {
     }
 
     setFormState({ mode: 'copy', song: selectedSong });
+  };
+
+  const handleToggleTheme = () => {
+    setTheme((current) => (current === 'dark' ? 'light' : 'dark'));
   };
 
   const handleExport = () => {
@@ -291,6 +303,8 @@ const App = () => {
         onAddSong={() => setFormState({ mode: 'create' })}
         onExport={handleExport}
         onImport={handleImportClick}
+        theme={theme}
+        onToggleTheme={handleToggleTheme}
       />
       <input
         ref={fileInputRef}
