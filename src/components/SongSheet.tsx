@@ -29,7 +29,7 @@ const SongSheet = ({ song, transposeSteps }: Props) => {
         return { type: 'spacer' } as ParsedLine;
       }
 
-      const segments = transposeSegments(parseLyricLine(line.content), transposeSteps, transposeChord);
+      const segments = transposeSegments(parseLyricLine(line.content, line.chords), transposeSteps, transposeChord);
       segments.forEach((segment) => {
         if (segment.chord) {
           collected.add(segment.chord);

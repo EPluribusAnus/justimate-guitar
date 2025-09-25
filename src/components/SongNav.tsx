@@ -9,6 +9,8 @@ interface Props {
   onAddSong: () => void;
   onExport: () => void;
   onImport: () => void;
+  onImportUltimateGuitar: () => void;
+  isImportingUltimateGuitar: boolean;
   theme: 'light' | 'dark';
   onToggleTheme: () => void;
 }
@@ -32,7 +34,18 @@ const getLetter = (artist: string) => {
   return /[A-Z]/.test(first) ? first : '#';
 };
 
-const SongNav = ({ songs, selectedSongId, onSelect, onAddSong, onExport, onImport, theme, onToggleTheme }: Props) => {
+const SongNav = ({
+  songs,
+  selectedSongId,
+  onSelect,
+  onAddSong,
+  onExport,
+  onImport,
+  onImportUltimateGuitar,
+  isImportingUltimateGuitar,
+  theme,
+  onToggleTheme,
+}: Props) => {
   const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.matchMedia('(max-width: 900px)').matches : false));
   const [isOpen, setIsOpen] = useState(() => !isMobile);
 
@@ -115,6 +128,14 @@ const SongNav = ({ songs, selectedSongId, onSelect, onAddSong, onExport, onImpor
           </button>
           <button type="button" onClick={onImport} className="song-nav__import">
             Import
+          </button>
+          <button
+            type="button"
+            onClick={onImportUltimateGuitar}
+            className="song-nav__import"
+            disabled={isImportingUltimateGuitar}
+          >
+            {isImportingUltimateGuitar ? 'Importing...' : 'Import from UG'}
           </button>
           <button type="button" onClick={onExport} className="song-nav__export">
             Export

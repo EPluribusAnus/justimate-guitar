@@ -34,6 +34,7 @@ const App = () => {
   const [transposeSteps, setTransposeSteps] = useState(0);
   const [formState, setFormState] = useState<{ mode: 'create' | 'edit' | 'copy'; song?: Song } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isImportingFromUltimateGuitar, setIsImportingFromUltimateGuitar] = useState(false);
 
   const selectedSong = useMemo(() => songs.find((song) => song.id === selectedSongId) ?? null, [songs, selectedSongId]);
 
@@ -133,6 +134,49 @@ const App = () => {
   };
 
   const currentKey = selectedSong ? transposeChord(selectedSong.defaultKey, transposeSteps) : '';
+
+  const handleImportUltimateGuitar = async () => {
+    if (isImportingFromUltimateGuitar || typeof window === 'undefined') {
+      return;
+    }
+
+    const source = window.prompt('Paste an Ultimate Guitar URL or tab id:');
+    if (!source) {
+      return;
+    }
+
+    setIsImportingFromUltimateGuitar(true);
+    try {
+      const response = await fetch('/api/ultimate-guitar/import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ source }),
+      });
+
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error((payload as { error?: string }).error ?? `Request failed with status ${response.status}`);
+      }
+
+      const result = (payload as { result?: { song?: Song } }).result;
+      if (!result?.song) {
+        throw new Error('Import did not return a song.');
+      }
+
+      const importedSong = result.song;
+      const uniqueId = ensureUniqueId(importedSong.id);
+      const preparedSong: Song = {
+        ...importedSong,
+        id: uniqueId,
+      };
+
+      setFormState({ mode: 'create', song: preparedSong });
+    } catch (error) {
+      window.alert(`Ultimate Guitar import failed: ${(error as Error).message}`);
+    } finally {
+      setIsImportingFromUltimateGuitar(false);
+    }
+  };
 
   const handleHideDefaultSong = () => {
     if (!selectedSong || !isDefaultSong) {
@@ -303,6 +347,8 @@ const App = () => {
         onAddSong={() => setFormState({ mode: 'create' })}
         onExport={handleExport}
         onImport={handleImportClick}
+        onImportUltimateGuitar={handleImportUltimateGuitar}
+        isImportingUltimateGuitar={isImportingFromUltimateGuitar}
         theme={theme}
         onToggleTheme={handleToggleTheme}
       />

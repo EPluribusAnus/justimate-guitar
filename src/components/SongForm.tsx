@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
-import type { Song, SongLine } from '../types';
+import type { Song } from '../types';
+import { buildSongId, parseContent, stringifyLines } from '../utils/songContent';
 
 interface Props {
   onSave: (song: Song) => void;
@@ -8,43 +9,6 @@ interface Props {
   initialSong?: Song;
   preserveId?: boolean;
 }
-
-const slugify = (value: string) =>
-  value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '')
-    .slice(0, 60);
-
-const buildSongId = (title: string, artist: string) => {
-  const base = `${slugify(artist)}-${slugify(title)}`.replace(/^-+|-+$/g, '');
-  const fallback = slugify(title) || 'song';
-  return base || fallback;
-};
-
-const parseContent = (content: string): SongLine[] => {
-  const lines = content.replace(/\r\n/g, '\n').split('\n');
-  const result: SongLine[] = [];
-
-  lines.forEach((line) => {
-    if (!line.trim()) {
-      if (result[result.length - 1]?.type !== 'spacer') {
-        result.push({ type: 'spacer' });
-      }
-      return;
-    }
-
-    if (line.trim().startsWith('#')) {
-      const label = line.replace(/^#+/, '').trim() || 'Section';
-      result.push({ type: 'section', label });
-      return;
-    }
-
-    result.push({ type: 'line', content: line });
-  });
-
-  return result;
-};
 
 const SongForm = ({ onSave, onCancel, initialSong, preserveId = false }: Props) => {
   const isEdit = Boolean(initialSong && preserveId);
@@ -76,7 +40,7 @@ const SongForm = ({ onSave, onCancel, initialSong, preserveId = false }: Props) 
     }
 
     const lines = parseContent(content);
-    const hasLyrics = lines.some((line) => line.type === 'line');
+    const hasLyrics = lines.some((line) => line.type === 'line' && line.content.trim());
     if (!hasLyrics) {
       setError('Add at least one lyric line.');
       return;
@@ -141,7 +105,7 @@ const SongForm = ({ onSave, onCancel, initialSong, preserveId = false }: Props) 
             rows={12}
           />
           <p className="song-form__hint">
-            Use [Chord] syntax inline. Start a line with # to create a section header. Blank lines insert spacing.
+            Place chord lines above the matching lyric, like Ultimate Guitar. Wrap section names in [Verse] or use # Verse. Blank lines add spacing.
           </p>
         </div>
         {error && <p className="song-form__error">{error}</p>}
@@ -158,19 +122,6 @@ const SongForm = ({ onSave, onCancel, initialSong, preserveId = false }: Props) 
   );
 };
 
-const sampleContent = `# Verse 1\n[G]Sample lyric line goes [D]here\n[C]Add chords wherever you need them\n\n# Chorus\n[Em]Leave blank lines for spacing`;
-
-const stringifyLines = (lines: SongLine[]): string =>
-  lines
-    .map((line) => {
-      if (line.type === 'section') {
-        return `# ${line.label}`.trim();
-      }
-      if (line.type === 'spacer') {
-        return '';
-      }
-      return line.content;
-    })
-    .join('\n');
+const sampleContent = `[Verse]\n   C\nIf pain was a color to paint on you\n     E7\nYour heart would be the color blue\n\n[Chorus]\n      Am     D7\nKeep chords on the line above`;
 
 export default SongForm;
