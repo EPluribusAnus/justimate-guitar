@@ -47,9 +47,15 @@ const handleImportRequest = async (req: IncomingMessage, res: ServerResponse) =>
   }
 };
 
-const registerMiddleware = (server: { middlewares: { use: (path: string, handler: (req: IncomingMessage, res: ServerResponse, next: () => void) => void) => void } }) => {
-  server.middlewares.use('/api/ultimate-guitar/import', (req, res, next) => {
-    if (req.url && req.url.startsWith('/api/ultimate-guitar/import')) {
+const registerMiddleware = (server: {
+  middlewares: {
+    use: (
+      handler: (req: IncomingMessage, res: ServerResponse, next: () => void) => void,
+    ) => void;
+  };
+}) => {
+  server.middlewares.use((req, res, next) => {
+    if (req.url?.startsWith('/api/ultimate-guitar/import')) {
       handleImportRequest(req, res);
       return;
     }
