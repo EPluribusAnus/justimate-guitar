@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "Node16",
+    "moduleResolution": "node16",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "outDir": "server-dist",
+    "rootDir": ".",
+    "types": ["node"]
+  },
+  "include": [
+    "server/**/*.ts",
+    "scripts/**/*.ts",
+    "src/utils/**/*.ts",
+    "src/types.ts"
+  ]
+}
