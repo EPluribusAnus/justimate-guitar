@@ -1,6 +1,7 @@
 // server/index.ts
 import path from "path";
 import { fileURLToPath } from "url";
+import fs from "fs/promises";
 import express from "express";
 
 // scripts/ultimateGuitar.ts
@@ -489,6 +490,37 @@ app.post("/api/ultimate-guitar/search", async (req, res) => {
     res.json({ results });
   } catch (error) {
     res.status(400).json({ error: error.message || "Unable to search Ultimate Guitar" });
+  }
+});
+var libraryFile = path.resolve(process.cwd(), "data/library.json");
+var ensureDir = (target) => fs.mkdir(target, { recursive: true }).catch(() => void 0);
+var readLibrary = async () => {
+  try {
+    const raw = await fs.readFile(libraryFile, "utf8");
+    return JSON.parse(raw);
+  } catch (error) {
+    return null;
+  }
+};
+var writeLibrary = async (data) => {
+  await ensureDir(path.dirname(libraryFile));
+  await fs.writeFile(libraryFile, JSON.stringify({ savedAt: (/* @__PURE__ */ new Date()).toISOString(), ...data ?? {} }, null, 2), "utf8");
+};
+app.get("/api/library", async (_req, res) => {
+  const data = await readLibrary();
+  if (!data) {
+    res.json({ result: null });
+    return;
+  }
+  res.json({ result: data });
+});
+app.post("/api/library", async (req, res) => {
+  try {
+    const payload = req.body ?? {};
+    await writeLibrary(payload);
+    res.json({ ok: true });
+  } catch (error) {
+    res.status(400).json({ error: error.message || "Unable to save library" });
   }
 });
 var __dirname = path.dirname(fileURLToPath(import.meta.url));

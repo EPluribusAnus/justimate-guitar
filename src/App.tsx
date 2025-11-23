@@ -63,6 +63,8 @@ const App = () => {
   const [ugSearchError, setUgSearchError] = useState<string | null>(null);
   const [isSearchingUg, setIsSearchingUg] = useState(false);
   const [ugImportValue, setUgImportValue] = useState('');
+  const [isSavingLibrary, setIsSavingLibrary] = useState(false);
+  const saveTimer = useRef<number | null>(null);
 
   const selectedSong = useMemo(() => songs.find((song) => song.id === selectedSongId) ?? null, [songs, selectedSongId]);
 
@@ -96,6 +98,36 @@ const App = () => {
     const initial = storedFavorite ?? storedRecent ?? 0;
     setTransposeSteps(initial);
   }, [selectedSongId, favoriteTranspositions, recentTranspositions]);
+
+  useEffect(() => {
+    queueSaveLibrary();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [customSongs, favoriteTranspositions, recentTranspositions, hiddenDefaultSongs]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    const handleStorage = () => queueSaveLibrary();
+    window.addEventListener('jg-local-storage', handleStorage);
+    return () => window.removeEventListener('jg-local-storage', handleStorage);
+  }, []);
+
+  useEffect(() => {
+    const loadFromServer = async () => {
+      try {
+        const response = await fetch('/api/library');
+        const payload = await response.json().catch(() => ({}));
+        const result = (payload as { result?: object | null }).result;
+        if (result && typeof result === 'object') {
+          applyImportedLibrary(result as object, false);
+        }
+      } catch (error) {
+        console.warn('Unable to load shared library', error);
+      }
+    };
+    void loadFromServer();
+  }, []);
 
   const isFavorite = selectedSongId ? favoriteTranspositions[selectedSongId] === transposeSteps : false;
   const isCustomSong = selectedSong ? customSongs.some((song) => song.id === selectedSong.id) : false;
@@ -298,6 +330,43 @@ const App = () => {
     }
   };
 
+  const saveLibraryToServer = async () => {
+    if (isSavingLibrary) {
+      return;
+    }
+    setIsSavingLibrary(true);
+    try {
+      const payload = {
+        customSongs,
+        favoriteTranspositions,
+        recentTranspositions,
+        hiddenDefaultSongs,
+        notes: getLocalNotes(),
+      };
+      await fetch('/api/library', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+    } catch (error) {
+      console.error('Failed to save library to server', error);
+    } finally {
+      setIsSavingLibrary(false);
+    }
+  };
+
+  const queueSaveLibrary = () => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    if (saveTimer.current !== null) {
+      window.clearTimeout(saveTimer.current);
+    }
+    saveTimer.current = window.setTimeout(() => {
+      saveLibraryToServer().catch(() => undefined);
+    }, 800);
+  };
+
   const handleHideDefaultSong = () => {
     if (!selectedSong || !isDefaultSong) {
       return;
@@ -384,6 +453,104 @@ const App = () => {
     fileInputRef.current?.click();
   };
 
+  const getLocalNotes = () => {
+    const notesPrefix = 'jg/notes/';
+    const notes: Record<string, string> = {};
+    if (typeof window === 'undefined') {
+      return notes;
+    }
+    for (let index = 0; index < window.localStorage.length; index += 1) {
+      const key = window.localStorage.key(index);
+      if (!key || !key.startsWith(notesPrefix)) {
+        continue;
+      }
+      const songId = key.slice(notesPrefix.length);
+      const value = window.localStorage.getItem(key);
+      if (typeof value === 'string') {
+        try {
+          notes[songId] = JSON.parse(value) as string;
+        } catch {
+          notes[songId] = value;
+        }
+      }
+    }
+    return notes;
+  };
+
+  const applyImportedLibrary = (
+    data: Partial<{
+      customSongs: Song[];
+      favoriteTranspositions: Record<string, number>;
+      recentTranspositions: Record<string, number>;
+      hiddenDefaultSongs: string[];
+      notes: Record<string, unknown>;
+    }>,
+    showAlert = false,
+  ) => {
+    const sanitizedSongs: Song[] = Array.isArray(data.customSongs)
+      ? data.customSongs
+          .filter((song): song is Song => Boolean(song && song.title && song.artist && song.lines))
+          .map((song) => ({
+            ...song,
+            id: typeof song.id === 'string' && song.id.trim() ? song.id : buildSongId(song.title, song.artist),
+          }))
+      : [];
+
+    const importedHiddenDefaults = Array.isArray(data.hiddenDefaultSongs)
+      ? data.hiddenDefaultSongs.filter((id): id is string => typeof id === 'string')
+      : [];
+
+    setCustomSongs(sanitizedSongs);
+    setFavoriteTranspositions(data.favoriteTranspositions ?? {});
+    setRecentTranspositions(data.recentTranspositions ?? {});
+    setHiddenDefaultSongs(importedHiddenDefaults);
+
+    if (typeof window !== 'undefined') {
+      const prefix = 'jg/notes/';
+      const keysToRemove: string[] = [];
+      for (let index = 0; index < window.localStorage.length; index += 1) {
+        const key = window.localStorage.key(index);
+        if (key && key.startsWith(prefix)) {
+          keysToRemove.push(key);
+        }
+      }
+      keysToRemove.forEach((key) => window.localStorage.removeItem(key));
+
+      if (data.notes && typeof data.notes === 'object') {
+        Object.entries(data.notes).forEach(([songId, stored]) => {
+          let note = '';
+          if (typeof stored === 'string') {
+            note = stored;
+          } else if (stored && typeof stored === 'object') {
+            const first = Object.values(stored).find((value) => typeof value === 'string' && value.trim());
+            if (first && typeof first === 'string') {
+              note = first;
+            }
+          }
+          window.localStorage.setItem(`${prefix}${songId}`, JSON.stringify(note));
+        });
+      }
+
+      window.localStorage.setItem('jg/customSongs/v1', JSON.stringify(sanitizedSongs));
+      window.localStorage.setItem('jg/favorites/v1', JSON.stringify(data.favoriteTranspositions ?? {}));
+      window.localStorage.setItem('jg/recentTranspose/v1', JSON.stringify(data.recentTranspositions ?? {}));
+      window.localStorage.setItem('jg/hiddenDefaults/v1', JSON.stringify(importedHiddenDefaults));
+      window.dispatchEvent(new Event('jg-local-storage'));
+    }
+
+    const visibleAfterImport = defaultSongs.filter((song) => !importedHiddenDefaults.includes(song.id));
+    const firstSongId = (sanitizedSongs[0]?.id ?? visibleAfterImport[0]?.id) ?? null;
+    setSelectedSongId(firstSongId);
+
+    if (showAlert && typeof window !== 'undefined') {
+      window.alert(
+        `Imported ${sanitizedSongs.length} custom song${sanitizedSongs.length === 1 ? '' : 's'} and ${
+          Object.keys(data.favoriteTranspositions ?? {}).length
+        } favorite${Object.keys(data.favoriteTranspositions ?? {}).length === 1 ? '' : 's'}.`,
+      );
+    }
+  };
+
   const handleImportFile = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) {
@@ -405,68 +572,7 @@ const App = () => {
           notes: Record<string, unknown>;
         }>;
 
-        const sanitizedSongs: Song[] = Array.isArray(data.customSongs)
-          ? data.customSongs
-              .filter((song): song is Song => Boolean(song && song.title && song.artist && song.lines))
-              .map((song) => ({
-                ...song,
-                id: typeof song.id === 'string' && song.id.trim() ? song.id : buildSongId(song.title, song.artist),
-              }))
-          : [];
-
-        const importedHiddenDefaults = Array.isArray(data.hiddenDefaultSongs)
-          ? data.hiddenDefaultSongs.filter((id): id is string => typeof id === 'string')
-          : [];
-
-        setCustomSongs(sanitizedSongs);
-        setFavoriteTranspositions(data.favoriteTranspositions ?? {});
-        setRecentTranspositions(data.recentTranspositions ?? {});
-        setHiddenDefaultSongs(importedHiddenDefaults);
-
-        if (typeof window !== 'undefined') {
-          const prefix = 'jg/notes/';
-          const keysToRemove: string[] = [];
-          for (let index = 0; index < window.localStorage.length; index += 1) {
-            const key = window.localStorage.key(index);
-            if (key && key.startsWith(prefix)) {
-              keysToRemove.push(key);
-            }
-          }
-          keysToRemove.forEach((key) => window.localStorage.removeItem(key));
-
-          if (data.notes && typeof data.notes === 'object') {
-            Object.entries(data.notes).forEach(([songId, stored]) => {
-              let note = '';
-              if (typeof stored === 'string') {
-                note = stored;
-              } else if (stored && typeof stored === 'object') {
-                const first = Object.values(stored).find((value) => typeof value === 'string' && value.trim());
-                if (first && typeof first === 'string') {
-                  note = first;
-                }
-              }
-              window.localStorage.setItem(`${prefix}${songId}`, JSON.stringify(note));
-            });
-          }
-
-          // Persist imported state immediately so any listeners read the latest values.
-          window.localStorage.setItem('jg/customSongs/v1', JSON.stringify(sanitizedSongs));
-          window.localStorage.setItem('jg/favorites/v1', JSON.stringify(data.favoriteTranspositions ?? {}));
-          window.localStorage.setItem('jg/recentTranspose/v1', JSON.stringify(data.recentTranspositions ?? {}));
-          window.localStorage.setItem('jg/hiddenDefaults/v1', JSON.stringify(importedHiddenDefaults));
-        }
-
-        const visibleAfterImport = defaultSongs.filter((song) => !importedHiddenDefaults.includes(song.id));
-        const firstSongId = (sanitizedSongs[0]?.id ?? visibleAfterImport[0]?.id) ?? null;
-        setSelectedSongId(firstSongId);
-        if (typeof window !== 'undefined') {
-          window.alert(
-            `Imported ${sanitizedSongs.length} custom song${sanitizedSongs.length === 1 ? '' : 's'} and ${
-              Object.keys(data.favoriteTranspositions ?? {}).length
-            } favorite${Object.keys(data.favoriteTranspositions ?? {}).length === 1 ? '' : 's'}.`,
-          );
-          window.dispatchEvent(new Event('jg-local-storage'));
-        }
+        applyImportedLibrary(data, true);
       } catch (error) {
         console.error('Failed to import library', error);
         if (typeof window !== 'undefined') {

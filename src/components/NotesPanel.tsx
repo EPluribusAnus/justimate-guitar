@@ -11,6 +11,9 @@ const NotesPanel = ({ songId, currentKey }: Props) => {
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setNote(event.target.value);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('jg-local-storage'));
+    }
   };
 
   return (

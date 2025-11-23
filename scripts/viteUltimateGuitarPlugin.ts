@@ -1,3 +1,5 @@
+import path from 'node:path';
+import fs from 'node:fs/promises';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Plugin } from 'vite';
 import { fetchUltimateGuitarSong, searchUltimateGuitar } from './ultimateGuitar';
@@ -75,6 +77,44 @@ const handleSearchRequest = async (req: IncomingMessage, res: ServerResponse) =>
   }
 };
 
+const libraryFile = path.resolve(process.cwd(), 'data/library.json');
+const ensureDir = (target: string) => fs.mkdir(target, { recursive: true }).catch(() => undefined);
+
+const readLibrary = async () => {
+  try {
+    const raw = await fs.readFile(libraryFile, 'utf8');
+    return JSON.parse(raw) as unknown;
+  } catch (error) {
+    return null;
+  }
+};
+
+const writeLibrary = async (data: unknown) => {
+  await ensureDir(path.dirname(libraryFile));
+  await fs.writeFile(libraryFile, JSON.stringify({ savedAt: new Date().toISOString(), ...((data as object) ?? {}) }, null, 2), 'utf8');
+};
+
+const handleLibraryGet = async (_req: IncomingMessage, res: ServerResponse) => {
+  const data = await readLibrary();
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ result: data }));
+};
+
+const handleLibrarySave = async (req: IncomingMessage, res: ServerResponse) => {
+  try {
+    const body = await parseBody(req);
+    await writeLibrary(body);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ ok: true }));
+  } catch (error) {
+    res.statusCode = 400;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ error: (error as Error).message || 'Unable to save library' }));
+  }
+};
+
 const registerMiddleware = (server: {
   middlewares: {
     use: (
@@ -89,6 +129,18 @@ const registerMiddleware = (server: {
     }
     if (req.url?.startsWith('/api/ultimate-guitar/search')) {
       handleSearchRequest(req, res);
+      return;
+    }
+    if (req.url?.startsWith('/api/library')) {
+      if (req.method === 'GET') {
+        handleLibraryGet(req, res);
+      } else if (req.method === 'POST') {
+        handleLibrarySave(req, res);
+      } else {
+        res.statusCode = 405;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ error: 'Method not allowed' }));
+      }
       return;
     }
     next();
