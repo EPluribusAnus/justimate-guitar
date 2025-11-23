@@ -9,6 +9,7 @@ import { useLocalStorage } from './hooks/useLocalStorage';
 import { defaultSongs } from './data/songs';
 import type { Song } from './types';
 import { transposeChord } from './utils/chords';
+import { buildSongId } from './utils/songContent';
 import './App.css';
 
 const AUTOSCROLL_SPEED_STEPS: number[] = [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80];
@@ -404,15 +405,20 @@ const App = () => {
           notes: Record<string, unknown>;
         }>;
 
-        if (!Array.isArray(data.customSongs)) {
-          data.customSongs = [];
-        }
+        const sanitizedSongs: Song[] = Array.isArray(data.customSongs)
+          ? data.customSongs
+              .filter((song): song is Song => Boolean(song && song.title && song.artist && song.lines))
+              .map((song) => ({
+                ...song,
+                id: typeof song.id === 'string' && song.id.trim() ? song.id : buildSongId(song.title, song.artist),
+              }))
+          : [];
 
         const importedHiddenDefaults = Array.isArray(data.hiddenDefaultSongs)
           ? data.hiddenDefaultSongs.filter((id): id is string => typeof id === 'string')
           : [];
 
-        setCustomSongs(data.customSongs);
+        setCustomSongs(sanitizedSongs);
         setFavoriteTranspositions(data.favoriteTranspositions ?? {});
         setRecentTranspositions(data.recentTranspositions ?? {});
         setHiddenDefaultSongs(importedHiddenDefaults);
@@ -443,14 +449,29 @@ const App = () => {
             });
           }
 
-          window.dispatchEvent(new Event('jg-local-storage'));
+          // Persist imported state immediately so any listeners read the latest values.
+          window.localStorage.setItem('jg/customSongs/v1', JSON.stringify(sanitizedSongs));
+          window.localStorage.setItem('jg/favorites/v1', JSON.stringify(data.favoriteTranspositions ?? {}));
+          window.localStorage.setItem('jg/recentTranspose/v1', JSON.stringify(data.recentTranspositions ?? {}));
+          window.localStorage.setItem('jg/hiddenDefaults/v1', JSON.stringify(importedHiddenDefaults));
         }
 
         const visibleAfterImport = defaultSongs.filter((song) => !importedHiddenDefaults.includes(song.id));
-        const firstSongId = (data.customSongs?.[0]?.id ?? visibleAfterImport[0]?.id) ?? null;
+        const firstSongId = (sanitizedSongs[0]?.id ?? visibleAfterImport[0]?.id) ?? null;
         setSelectedSongId(firstSongId);
+        if (typeof window !== 'undefined') {
+          window.alert(
+            `Imported ${sanitizedSongs.length} custom song${sanitizedSongs.length === 1 ? '' : 's'} and ${
+              Object.keys(data.favoriteTranspositions ?? {}).length
+            } favorite${Object.keys(data.favoriteTranspositions ?? {}).length === 1 ? '' : 's'}.`,
+          );
+          window.dispatchEvent(new Event('jg-local-storage'));
+        }
       } catch (error) {
         console.error('Failed to import library', error);
+        if (typeof window !== 'undefined') {
+          window.alert(`Import failed: ${(error as Error).message}`);
+        }
       } finally {
         event.target.value = '';
       }
