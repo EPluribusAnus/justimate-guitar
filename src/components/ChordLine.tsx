@@ -10,7 +10,7 @@ const ChordLine = ({ segments }: Props) => {
     <div className="chord-line">
       {segments.map((segment, index) => {
         const lyric = segment.lyric ?? '';
-        const approximateWidth = Math.max(lyric.length, segment.chord ? segment.chord.length + 1 : 1);
+        const approximateWidth = Math.max(lyric.length, segment.chord ? segment.chord.length : 1);
         return (
           <span
             key={`${segment.chord ?? 'lyric'}-${index}`}

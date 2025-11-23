@@ -7,26 +7,20 @@ interface Props {
 }
 
 const NotesPanel = ({ songId, currentKey }: Props) => {
-  const [notesByKey, setNotesByKey] = useLocalStorage<Record<string, string>>(
-    `jg/notes/${songId}`,
-    {},
-  );
-
-  const value = notesByKey[currentKey] ?? '';
+  const [note, setNote] = useLocalStorage<string>(`jg/notes/${songId}`, '');
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const next = { ...notesByKey, [currentKey]: event.target.value };
-    setNotesByKey(next);
+    setNote(event.target.value);
   };
 
   return (
     <section className="notes-panel">
       <div className="notes-panel__header">
-        <h3>Notes for {currentKey}</h3>
-        <span className="notes-panel__hint">Saved locally</span>
+        <h3>Notes</h3>
+        <span className="notes-panel__hint">Saved per song (current key: {currentKey || 'n/a'})</span>
       </div>
       <textarea
-        value={value}
+        value={note}
         placeholder="Add reminders, fingerings, or lyrics tweaks..."
         onChange={handleChange}
         rows={6}

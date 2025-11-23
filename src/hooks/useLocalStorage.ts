@@ -22,6 +22,12 @@ export function useLocalStorage<T>(key: string, defaultValue: T) {
 
   const [value, setValue] = useState<T>(readValue);
 
+  // Refresh when the storage key changes (e.g., switching songs).
+  useEffect(() => {
+    setValue(readValue());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+
   useEffect(() => {
     if (!isBrowser) {
       return;

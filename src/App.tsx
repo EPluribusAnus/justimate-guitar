@@ -11,6 +11,21 @@ import type { Song } from './types';
 import { transposeChord } from './utils/chords';
 import './App.css';
 
+const AUTOSCROLL_SPEED_STEPS: number[] = [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80];
+
+const normalizeAutoScrollSpeed = (value: number): number => {
+  let closest = AUTOSCROLL_SPEED_STEPS[0];
+  let smallestDiff = Math.abs(value - closest);
+  AUTOSCROLL_SPEED_STEPS.forEach((step) => {
+    const diff = Math.abs(value - step);
+    if (diff < smallestDiff) {
+      closest = step;
+      smallestDiff = diff;
+    }
+  });
+  return closest;
+};
+
 const App = () => {
   const [theme, setTheme] = useLocalStorage<'light' | 'dark'>('jg/theme/v1', 'light');
   const [customSongs, setCustomSongs] = useLocalStorage<Song[]>('jg/customSongs/v1', []);
@@ -35,6 +50,18 @@ const App = () => {
   const [formState, setFormState] = useState<{ mode: 'create' | 'edit' | 'copy'; song?: Song } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isImportingFromUltimateGuitar, setIsImportingFromUltimateGuitar] = useState(false);
+  const [autoScrollEnabled, setAutoScrollEnabled] = useState(false);
+  const [autoScrollSpeed, setAutoScrollSpeed] = useLocalStorage<number>('jg/autoscroll/speed/v1', 50);
+  const autoScrollFrame = useRef<number | null>(null);
+  const autoScrollLast = useRef<number | null>(null);
+  const [ugSearchOpen, setUgSearchOpen] = useState(false);
+  const [ugSearchQuery, setUgSearchQuery] = useState('');
+  const [ugSearchResults, setUgSearchResults] = useState<
+    { tabId: number; title: string; artist: string; type: string; rating: number; votes: number; defaultKey?: string; url?: string }[]
+  >([]);
+  const [ugSearchError, setUgSearchError] = useState<string | null>(null);
+  const [isSearchingUg, setIsSearchingUg] = useState(false);
+  const [ugImportValue, setUgImportValue] = useState('');
 
   const selectedSong = useMemo(() => songs.find((song) => song.id === selectedSongId) ?? null, [songs, selectedSongId]);
 
@@ -49,7 +76,15 @@ const App = () => {
     if (!selectedSongId && songs.length) {
       setSelectedSongId(songs[0].id);
     }
+    setAutoScrollEnabled(false);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0 });
+    }
   }, [selectedSongId, songs]);
+
+  useEffect(() => {
+    setAutoScrollSpeed((current) => normalizeAutoScrollSpeed(current));
+  }, [setAutoScrollSpeed]);
 
   useEffect(() => {
     if (!selectedSongId) {
@@ -135,13 +170,67 @@ const App = () => {
 
   const currentKey = selectedSong ? transposeChord(selectedSong.defaultKey, transposeSteps) : '';
 
-  const handleImportUltimateGuitar = async () => {
-    if (isImportingFromUltimateGuitar || typeof window === 'undefined') {
+  useEffect(() => {
+    if (formState) {
+      setAutoScrollEnabled(false);
+    }
+  }, [formState]);
+
+  useEffect(() => {
+    if (!autoScrollEnabled || typeof window === 'undefined') {
+      if (autoScrollFrame.current !== null) {
+        cancelAnimationFrame(autoScrollFrame.current);
+        autoScrollFrame.current = null;
+      }
+      autoScrollLast.current = null;
       return;
     }
 
-    const source = window.prompt('Paste an Ultimate Guitar URL or tab id:');
-    if (!source) {
+    const scrollElement = document.scrollingElement ?? document.documentElement;
+
+    const step = (timestamp: number) => {
+      if (!autoScrollEnabled) {
+        return;
+      }
+
+      const last = autoScrollLast.current ?? timestamp;
+      const deltaSeconds = (timestamp - last) / 1000;
+      autoScrollLast.current = timestamp;
+
+      const increment = autoScrollSpeed * deltaSeconds;
+      const maxScroll = scrollElement.scrollHeight - window.innerHeight;
+      const next = Math.min(scrollElement.scrollTop + increment, maxScroll);
+      scrollElement.scrollTop = next;
+
+      if (next >= maxScroll - 1) {
+        setAutoScrollEnabled(false);
+        return;
+      }
+
+      autoScrollFrame.current = requestAnimationFrame(step);
+    };
+
+    autoScrollFrame.current = requestAnimationFrame(step);
+
+    const handleInterrupt = () => setAutoScrollEnabled(false);
+    window.addEventListener('wheel', handleInterrupt, { passive: true });
+    window.addEventListener('touchstart', handleInterrupt, { passive: true });
+    window.addEventListener('keydown', handleInterrupt);
+
+    return () => {
+      if (autoScrollFrame.current !== null) {
+        cancelAnimationFrame(autoScrollFrame.current);
+        autoScrollFrame.current = null;
+      }
+      autoScrollLast.current = null;
+      window.removeEventListener('wheel', handleInterrupt);
+      window.removeEventListener('touchstart', handleInterrupt);
+      window.removeEventListener('keydown', handleInterrupt);
+    };
+  }, [autoScrollEnabled, autoScrollSpeed]);
+
+  const handleImportUltimateGuitarSource = async (source: string) => {
+    if (isImportingFromUltimateGuitar || typeof window === 'undefined') {
       return;
     }
 
@@ -175,6 +264,36 @@ const App = () => {
       window.alert(`Ultimate Guitar import failed: ${(error as Error).message}`);
     } finally {
       setIsImportingFromUltimateGuitar(false);
+    }
+  };
+
+  const handleSearchUltimateGuitar = async (event?: { preventDefault?: () => void }) => {
+    event?.preventDefault?.();
+    if (isSearchingUg) {
+      return;
+    }
+    setUgSearchError(null);
+    setIsSearchingUg(true);
+    try {
+      const response = await fetch('/api/ultimate-guitar/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: ugSearchQuery.trim(), limit: 12 }),
+      });
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error((payload as { error?: string }).error ?? `Search failed with status ${response.status}`);
+      }
+      setUgSearchResults(
+        ((payload as { results?: typeof ugSearchResults }).results ?? []).map((result) => ({
+          ...result,
+        })),
+      );
+    } catch (error) {
+      setUgSearchError((error as Error).message);
+      setUgSearchResults([]);
+    } finally {
+      setIsSearchingUg(false);
     }
   };
 
@@ -219,7 +338,7 @@ const App = () => {
     }
 
     const notesPrefix = 'jg/notes/';
-    const notes: Record<string, Record<string, string>> = {};
+    const notes: Record<string, string> = {};
 
     for (let index = 0; index < window.localStorage.length; index += 1) {
       const key = window.localStorage.key(index);
@@ -231,7 +350,7 @@ const App = () => {
       try {
         const value = window.localStorage.getItem(key);
         if (value) {
-          notes[songId] = JSON.parse(value) as Record<string, string>;
+          notes[songId] = JSON.parse(value) as string;
         }
       } catch (error) {
         console.warn('Unable to export notes for', songId, error);
@@ -282,7 +401,7 @@ const App = () => {
           favoriteTranspositions: Record<string, number>;
           recentTranspositions: Record<string, number>;
           hiddenDefaultSongs: string[];
-          notes: Record<string, Record<string, string>>;
+          notes: Record<string, unknown>;
         }>;
 
         if (!Array.isArray(data.customSongs)) {
@@ -310,10 +429,17 @@ const App = () => {
           keysToRemove.forEach((key) => window.localStorage.removeItem(key));
 
           if (data.notes && typeof data.notes === 'object') {
-            Object.entries(data.notes).forEach(([songId, notesByKey]) => {
-              if (notesByKey && typeof notesByKey === 'object') {
-                window.localStorage.setItem(`${prefix}${songId}`, JSON.stringify(notesByKey));
+            Object.entries(data.notes).forEach(([songId, stored]) => {
+              let note = '';
+              if (typeof stored === 'string') {
+                note = stored;
+              } else if (stored && typeof stored === 'object') {
+                const first = Object.values(stored).find((value) => typeof value === 'string' && value.trim());
+                if (first && typeof first === 'string') {
+                  note = first;
+                }
               }
+              window.localStorage.setItem(`${prefix}${songId}`, JSON.stringify(note));
             });
           }
 
@@ -347,7 +473,10 @@ const App = () => {
         onAddSong={() => setFormState({ mode: 'create' })}
         onExport={handleExport}
         onImport={handleImportClick}
-        onImportUltimateGuitar={handleImportUltimateGuitar}
+        onOpenUltimateGuitar={() => {
+          setUgSearchOpen(true);
+          setUgImportValue('');
+        }}
         isImportingUltimateGuitar={isImportingFromUltimateGuitar}
         theme={theme}
         onToggleTheme={handleToggleTheme}
@@ -364,6 +493,47 @@ const App = () => {
           <>
             <div className="app__toolbar">
               <TransposerControls defaultKey={selectedSong.defaultKey} steps={transposeSteps} onChange={handleTransposeChange} />
+              <div className="app__autoscroll">
+                <button
+                  type="button"
+                  className={`app__autoscroll-toggle${autoScrollEnabled ? ' is-active' : ''}`}
+                  onClick={() => setAutoScrollEnabled((current) => !current)}
+                >
+                  {autoScrollEnabled ? 'Pause autoscroll' : 'Start autoscroll'}
+                </button>
+                <label className="app__autoscroll-speed">
+                  <span>Speed</span>
+                  <div className="app__autoscroll-stepper" role="group" aria-label="Autoscroll speed">
+                    <button
+                      type="button"
+                      aria-label="Decrease autoscroll speed"
+                      onClick={() =>
+                        setAutoScrollSpeed((current) => {
+                          const index = AUTOSCROLL_SPEED_STEPS.indexOf(normalizeAutoScrollSpeed(current));
+                          const prev = (index - 1 + AUTOSCROLL_SPEED_STEPS.length) % AUTOSCROLL_SPEED_STEPS.length;
+                          return AUTOSCROLL_SPEED_STEPS[prev];
+                        })
+                      }
+                    >
+                      –
+                    </button>
+                    <span className="app__autoscroll-speed-value">{Math.round(autoScrollSpeed)} px/s</span>
+                    <button
+                      type="button"
+                      aria-label="Increase autoscroll speed"
+                      onClick={() =>
+                        setAutoScrollSpeed((current) => {
+                          const index = AUTOSCROLL_SPEED_STEPS.indexOf(normalizeAutoScrollSpeed(current));
+                          const next = (index + 1) % AUTOSCROLL_SPEED_STEPS.length;
+                          return AUTOSCROLL_SPEED_STEPS[next];
+                        })
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
+                </label>
+              </div>
               <div className="app__toolbar-actions">
                 <FavoriteButton isFavorite={isFavorite} onToggle={handleToggleFavorite} />
                 {isCustomSong ? (
@@ -395,6 +565,91 @@ const App = () => {
           <div className="app__empty">Select a song to get started.</div>
         )}
       </main>
+      {ugSearchOpen && (
+        <div className="ug-search__backdrop" role="dialog" aria-modal="true">
+          <div className="ug-search">
+            <header className="ug-search__header">
+              <h2>Search Ultimate Guitar</h2>
+              <button type="button" className="ug-search__close" aria-label="Close" onClick={() => setUgSearchOpen(false)}>
+                ×
+              </button>
+            </header>
+            <div className="ug-search__controls">
+              <form
+                className="ug-search__row"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  if (ugImportValue.trim()) {
+                    setUgSearchOpen(false);
+                    void handleImportUltimateGuitarSource(ugImportValue.trim());
+                  }
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Paste UG URL or tab ID"
+                  value={ugImportValue}
+                  onChange={(event) => setUgImportValue(event.target.value)}
+                  autoFocus
+                />
+                <button type="submit" disabled={isImportingFromUltimateGuitar}>
+                  {isImportingFromUltimateGuitar ? 'Importing…' : 'Import'}
+                </button>
+              </form>
+              <form className="ug-search__row" onSubmit={handleSearchUltimateGuitar}>
+                <input
+                  type="text"
+                  placeholder="Search UG (song or artist)"
+                  value={ugSearchQuery}
+                  onChange={(event) => setUgSearchQuery(event.target.value)}
+                />
+                <button type="submit" disabled={isSearchingUg}>
+                  {isSearchingUg ? 'Searching…' : 'Search'}
+                </button>
+              </form>
+            </div>
+            {ugSearchError && <p className="ug-search__error">{ugSearchError}</p>}
+            <div className="ug-search__results">
+              {isSearchingUg ? <p className="ug-search__hint">Searching tabs…</p> : null}
+              {!isSearchingUg && !ugSearchResults.length ? <p className="ug-search__hint">No results yet.</p> : null}
+              <ul>
+                {ugSearchResults.map((result) => (
+                  <li key={result.tabId} className="ug-search__result">
+                    <div className="ug-search__meta">
+                      <p className="ug-search__title">{result.title}</p>
+                      <p className="ug-search__artist">{result.artist}</p>
+                      <div className="ug-search__badges">
+                        <span className="ug-search__badge">{result.type}</span>
+                        {result.defaultKey ? <span className="ug-search__badge">Key: {result.defaultKey}</span> : null}
+                        <span className="ug-search__badge">
+                          {result.rating.toFixed(2)} ({result.votes} votes)
+                        </span>
+                      </div>
+                    </div>
+                    <div className="ug-search__actions">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setUgSearchOpen(false);
+                          void handleImportUltimateGuitarSource(String(result.tabId));
+                        }}
+                        disabled={isImportingFromUltimateGuitar}
+                      >
+                        Import
+                      </button>
+                      {result.url ? (
+                        <a href={result.url} target="_blank" rel="noreferrer" className="ug-search__link">
+                          View
+                        </a>
+                      ) : null}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
       {formState && (
         <SongForm
           key={`${formState.mode}-${formState.song?.id ?? 'new'}`}

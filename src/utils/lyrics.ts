@@ -15,7 +15,8 @@ const isLikelyChordToken = (token: string): boolean => {
   if (!cleaned) {
     return false;
   }
-  return Boolean(parseChord(cleaned));
+  const parsed = parseChord(cleaned);
+  return Boolean(parsed && parsed.quality !== 'unknown');
 };
 
 export const isLikelyChordGuideLine = (line: string): boolean => {

@@ -33,13 +33,31 @@ export const parseContent = (content: string): SongLine[] => {
       return;
     }
 
+    if (isLikelyChordGuideLine(line)) {
+      if (pendingChordGuide !== null) {
+        result.push({ type: 'line', content: '', chords: pendingChordGuide });
+      }
+      pendingChordGuide = line;
+      return;
+    }
+
     const sectionFromBrackets = trimmed.match(/^\[(.+)\]$/);
     if (sectionFromBrackets) {
+      const labelContent = sectionFromBrackets[1];
+      // Lines like "[C] [G] [Am]" should be treated as chord guides, not section headers.
+      if (isLikelyChordGuideLine(labelContent)) {
+        if (pendingChordGuide !== null) {
+          result.push({ type: 'line', content: '', chords: pendingChordGuide });
+        }
+        pendingChordGuide = labelContent;
+        return;
+      }
+
       if (pendingChordGuide !== null) {
         result.push({ type: 'line', content: '', chords: pendingChordGuide });
         pendingChordGuide = null;
       }
-      const label = sectionFromBrackets[1].trim() || 'Section';
+      const label = labelContent.trim() || 'Section';
       result.push({ type: 'section', label });
       return;
     }
@@ -51,14 +69,6 @@ export const parseContent = (content: string): SongLine[] => {
       }
       const label = line.replace(/^#+/, '').trim() || 'Section';
       result.push({ type: 'section', label });
-      return;
-    }
-
-    if (isLikelyChordGuideLine(line)) {
-      if (pendingChordGuide !== null) {
-        result.push({ type: 'line', content: '', chords: pendingChordGuide });
-      }
-      pendingChordGuide = line;
       return;
     }
 

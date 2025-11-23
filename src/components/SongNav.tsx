@@ -9,7 +9,7 @@ interface Props {
   onAddSong: () => void;
   onExport: () => void;
   onImport: () => void;
-  onImportUltimateGuitar: () => void;
+  onOpenUltimateGuitar: () => void;
   isImportingUltimateGuitar: boolean;
   theme: 'light' | 'dark';
   onToggleTheme: () => void;
@@ -41,7 +41,7 @@ const SongNav = ({
   onAddSong,
   onExport,
   onImport,
-  onImportUltimateGuitar,
+  onOpenUltimateGuitar,
   isImportingUltimateGuitar,
   theme,
   onToggleTheme,
@@ -131,11 +131,11 @@ const SongNav = ({
           </button>
           <button
             type="button"
-            onClick={onImportUltimateGuitar}
+            onClick={onOpenUltimateGuitar}
             className="song-nav__import"
             disabled={isImportingUltimateGuitar}
           >
-            {isImportingUltimateGuitar ? 'Importing...' : 'Import from UG'}
+            {isImportingUltimateGuitar ? 'Importing...' : 'UG import/search'}
           </button>
           <button type="button" onClick={onExport} className="song-nav__export">
             Export

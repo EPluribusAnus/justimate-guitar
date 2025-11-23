@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Plugin } from 'vite';
-import { fetchUltimateGuitarSong } from './ultimateGuitar';
+import { fetchUltimateGuitarSong, searchUltimateGuitar } from './ultimateGuitar';
 
 const parseBody = (req: IncomingMessage): Promise<Record<string, unknown>> =>
   new Promise((resolve, reject) => {
@@ -47,6 +47,34 @@ const handleImportRequest = async (req: IncomingMessage, res: ServerResponse) =>
   }
 };
 
+const handleSearchRequest = async (req: IncomingMessage, res: ServerResponse) => {
+  if (req.method !== 'POST') {
+    res.statusCode = 405;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ error: 'Method not allowed' }));
+    return;
+  }
+
+  try {
+    const body = await parseBody(req);
+    const query = typeof body.query === 'string' ? body.query : '';
+    const page = typeof body.page === 'number' && body.page > 0 ? body.page : 1;
+    const limit = typeof body.limit === 'number' && body.limit > 0 && body.limit <= 25 ? body.limit : 12;
+    const results = await searchUltimateGuitar(query, page, limit);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ results }));
+  } catch (error) {
+    res.statusCode = 400;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(
+      JSON.stringify({
+        error: (error as Error).message || 'Unable to search Ultimate Guitar',
+      }),
+    );
+  }
+};
+
 const registerMiddleware = (server: {
   middlewares: {
     use: (
@@ -57,6 +85,10 @@ const registerMiddleware = (server: {
   server.middlewares.use((req, res, next) => {
     if (req.url?.startsWith('/api/ultimate-guitar/import')) {
       handleImportRequest(req, res);
+      return;
+    }
+    if (req.url?.startsWith('/api/ultimate-guitar/search')) {
+      handleSearchRequest(req, res);
       return;
     }
     next();
