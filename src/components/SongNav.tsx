@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import type { Song } from '../types';
 
@@ -7,12 +7,19 @@ interface Props {
   selectedSongId: string | null;
   onSelect: (id: string) => void;
   onAddSong: () => void;
+  onAddFromSearch: () => void;
+  onAddFromLink: () => void;
   onExport: () => void;
   onImport: () => void;
-  onOpenUltimateGuitar: () => void;
   isImportingUltimateGuitar: boolean;
-  theme: 'light' | 'dark';
-  onToggleTheme: () => void;
+  onSaveRemote: () => void;
+  version: string;
+  isCustomSong: boolean;
+  isDefaultSong: boolean;
+  onEditSong: () => void;
+  onRemoveSong: () => void;
+  onHideDefault: () => void;
+  onCreateCopy: () => void;
 }
 
 type ArtistGroup = {
@@ -39,15 +46,32 @@ const SongNav = ({
   selectedSongId,
   onSelect,
   onAddSong,
+  onAddFromSearch,
+  onAddFromLink,
   onExport,
   onImport,
-  onOpenUltimateGuitar,
   isImportingUltimateGuitar,
-  theme,
-  onToggleTheme,
+  onSaveRemote,
+  version,
+  isCustomSong,
+  isDefaultSong,
+  onEditSong,
+  onRemoveSong,
+  onHideDefault,
+  onCreateCopy,
 }: Props) => {
   const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.matchMedia('(max-width: 900px)').matches : false));
-  const [isOpen, setIsOpen] = useState(() => !isMobile);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isActionsOpen, setIsActionsOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [openSongMenuId, setOpenSongMenuId] = useState<string | null>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const songToggleRef = useRef<HTMLButtonElement>(null);
+  const addButtonRef = useRef<HTMLButtonElement>(null);
+  const addMenuRef = useRef<HTMLDivElement>(null);
+  const actionsButtonRef = useRef<HTMLButtonElement>(null);
+  const actionsMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -66,12 +90,76 @@ const SongNav = ({
   }, []);
 
   useEffect(() => {
-    if (!isMobile) {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-    }
+    setIsOpen(false);
+    setOpenSongMenuId(null);
+    setIsActionsOpen(false);
+    setIsAddOpen(false);
   }, [isMobile]);
+
+  useEffect(() => {
+    const handlePointerDown = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node | null;
+      if (!target) return;
+
+      const nav = navRef.current;
+      const overlay = overlayRef.current;
+      const toggle = songToggleRef.current;
+      const addButton = addButtonRef.current;
+      const addMenu = addMenuRef.current;
+      const actionsButton = actionsButtonRef.current;
+      const actionsMenu = actionsMenuRef.current;
+
+      const insideNav = nav?.contains(target);
+
+      if (!insideNav) {
+        setIsOpen(false);
+        setIsAddOpen(false);
+        setIsActionsOpen(false);
+        setOpenSongMenuId(null);
+        return;
+      }
+
+      if (isOpen) {
+        const insideOverlay = overlay?.contains(target);
+        const onToggle = toggle?.contains(target);
+        if (!insideOverlay && !onToggle) {
+          setIsOpen(false);
+          setOpenSongMenuId(null);
+        }
+      }
+
+      if (isAddOpen) {
+        const inAdd = addMenu?.contains(target);
+        const onAddToggle = addButton?.contains(target);
+        if (!inAdd && !onAddToggle) {
+          setIsAddOpen(false);
+        }
+      }
+
+      if (isActionsOpen) {
+        const inActions = actionsMenu?.contains(target);
+        const onActionsToggle = actionsButton?.contains(target);
+        if (!inActions && !onActionsToggle) {
+          setIsActionsOpen(false);
+        }
+      }
+
+      if (openSongMenuId && target instanceof Element) {
+        const inItemMenu = target.closest('.song-nav__menu-panel--item');
+        const onItemToggle = target.closest('.song-nav__item-actions');
+        if (!inItemMenu && !onItemToggle) {
+          setOpenSongMenuId(null);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('touchstart', handlePointerDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('touchstart', handlePointerDown);
+    };
+  }, [isOpen, isAddOpen, isActionsOpen, openSongMenuId]);
 
   const groups = useMemo<LetterGroup[]>(() => {
     const artistMap = new Map<string, Song[]>();
@@ -102,74 +190,188 @@ const SongNav = ({
       .sort((a, b) => a.letter.localeCompare(b.letter));
   }, [songs]);
 
+  const handleSongSelect = (id: string) => {
+    onSelect(id);
+    setIsOpen(false);
+    setOpenSongMenuId(null);
+  };
+
   return (
-    <nav className={clsx('song-nav', { 'song-nav--collapsed': isMobile && !isOpen })} aria-label="Song navigation">
+    <nav className="song-nav" aria-label="Song navigation" ref={navRef}>
       <div className="song-nav__header">
         <button
           type="button"
-          className="song-nav__toggle"
-          onClick={() => setIsOpen((prev) => !prev)}
-          disabled={!isMobile}
+          className={clsx('song-nav__toggle', { 'is-active': isOpen })}
+          ref={songToggleRef}
+          aria-label="Toggle song list"
+          onClick={() => {
+            setIsOpen((prev) => !prev);
+            setIsAddOpen(false);
+            setIsActionsOpen(false);
+            setOpenSongMenuId(null);
+          }}
           aria-expanded={isOpen}
-          aria-controls="song-nav-sections"
+          aria-controls="song-nav-panel"
         >
-          ☰
+          ♫
         </button>
-        <h2>justimate-guitar</h2>
         <div className="song-nav__actions">
-          <button
-            type="button"
-            onClick={onToggleTheme}
-            className="song-nav__theme"
-            aria-pressed={theme === 'dark'}
-            aria-label={theme === 'dark' ? 'Activate light mode' : 'Activate dark mode'}
-          >
-            {theme === 'dark' ? '☀️' : '🌙'}
-          </button>
-          <button type="button" onClick={onImport} className="song-nav__import">
-            Import
-          </button>
-          <button
-            type="button"
-            onClick={onOpenUltimateGuitar}
-            className="song-nav__import"
-            disabled={isImportingUltimateGuitar}
-          >
-            {isImportingUltimateGuitar ? 'Importing...' : 'UG import/search'}
-          </button>
-          <button type="button" onClick={onExport} className="song-nav__export">
-            Export
-          </button>
-          <button type="button" onClick={onAddSong} className="song-nav__add">
-            + Add Song
-          </button>
+          <div className="song-nav__menu" ref={addMenuRef}>
+            <button
+              type="button"
+              aria-label="Add song options"
+              onClick={() => {
+                onSelect(selectedSongId ?? songs[0]?.id ?? '');
+                setIsAddOpen((prev) => !prev);
+                setIsActionsOpen(false);
+                setOpenSongMenuId(null);
+              }}
+              className="song-nav__add"
+              aria-expanded={isAddOpen}
+              ref={addButtonRef}
+            >
+              +
+            </button>
+            {isAddOpen && (
+              <div className="song-nav__menu-panel">
+                <button type="button" onClick={() => { onAddSong(); setIsAddOpen(false); }}>
+                  Create new
+                </button>
+                <button type="button" disabled={isImportingUltimateGuitar} onClick={() => { onAddFromSearch(); setIsAddOpen(false); }}>
+                  Search UG
+                </button>
+                <button type="button" disabled={isImportingUltimateGuitar} onClick={() => { onAddFromLink(); setIsAddOpen(false); }}>
+                  Import UG link
+                </button>
+              </div>
+            )}
+          </div>
+          <div className="song-nav__menu" ref={actionsMenuRef}>
+            <button
+              type="button"
+              className="song-nav__more"
+              aria-label="Settings and actions"
+              onClick={() => {
+                onSelect(selectedSongId ?? songs[0]?.id ?? '');
+                setIsActionsOpen((prev) => !prev);
+                setIsAddOpen(false);
+                setOpenSongMenuId(null);
+              }}
+              aria-expanded={isActionsOpen}
+              ref={actionsButtonRef}
+            >
+              ⚙
+            </button>
+            {isActionsOpen && (
+              <div className="song-nav__menu-panel">
+                <button type="button" onClick={() => { onImport(); setIsActionsOpen(false); }}>
+                  Import library
+                </button>
+                <button type="button" onClick={() => { onExport(); setIsActionsOpen(false); }}>
+                  Export library
+                </button>
+                <button type="button" onClick={() => { onSaveRemote(); setIsActionsOpen(false); }}>
+                  Save to server
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="song-nav__title">
+          <h2>justimate-guitar</h2>
+          <p className="song-nav__version">{version}</p>
         </div>
       </div>
-      <div id="song-nav-sections" className={clsx('song-nav__scroll', { 'is-hidden': isMobile && !isOpen })}>
-        {groups.map((group) => (
-          <section key={group.letter} className="song-nav__letter-group">
-            <h3>{group.letter}</h3>
-            {group.artists.map((artist) => (
-              <div key={artist.artist} className="song-nav__artist">
-                <p>{artist.artist}</p>
-                <ul>
-                  {artist.songs.map((song) => (
-                    <li key={song.id}>
-                      <button
-                        type="button"
-                        className={clsx({ 'is-active': song.id === selectedSongId })}
-                        onClick={() => onSelect(song.id)}
-                      >
-                        {song.title}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+      {isOpen ? (
+        <div
+          id="song-nav-panel"
+          className={clsx('song-nav__overlay', { 'song-nav__overlay--mobile': isMobile })}
+          role={isMobile ? 'dialog' : undefined}
+          aria-modal={isMobile ? true : undefined}
+          ref={overlayRef}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              setIsOpen(false);
+            }
+          }}
+        >
+          <div className="song-nav__panel">
+            <div className="song-nav__panel-header">
+              <div>
+                <h3>Songs</h3>
+                <p className="song-nav__panel-subtitle">{songs.length} total</p>
               </div>
-            ))}
-          </section>
-        ))}
-      </div>
+              <button type="button" className="song-nav__close" aria-label="Close song list" onClick={() => setIsOpen(false)}>
+                ×
+              </button>
+            </div>
+            <div id="song-nav-sections" className="song-nav__scroll">
+              {groups.map((group) => (
+                <section key={group.letter} className="song-nav__letter-group">
+                  <h3>{group.letter}</h3>
+                  {group.artists.map((artist) => (
+                    <div key={artist.artist} className="song-nav__artist">
+                      <p>{artist.artist}</p>
+                      <ul>
+                        {artist.songs.map((song) => (
+                          <li key={song.id} className={clsx('song-nav__item', { 'is-active': song.id === selectedSongId })}>
+                            <div className="song-nav__item-main">
+                              <button
+                                type="button"
+                                className={clsx({ 'is-active': song.id === selectedSongId })}
+                                onClick={() => handleSongSelect(song.id)}
+                              >
+                                {song.title}
+                              </button>
+                              <div className="song-nav__item-actions">
+                                <button
+                                  type="button"
+                                  className="song-nav__more"
+                                  onClick={() => {
+                                    onSelect(song.id);
+                                    setOpenSongMenuId((prev) => (prev === song.id ? null : song.id));
+                                  }}
+                                  aria-expanded={openSongMenuId === song.id}
+                                >
+                                  ⋯
+                                </button>
+                                {openSongMenuId === song.id ? (
+                                  <div className="song-nav__menu-panel song-nav__menu-panel--item">
+                                    {isCustomSong ? (
+                                      <>
+                                        <button type="button" onClick={() => { onEditSong(); setOpenSongMenuId(null); setIsOpen(false); }}>
+                                          Edit
+                                        </button>
+                                        <button type="button" className="song-nav__danger" onClick={() => { onRemoveSong(); setOpenSongMenuId(null); }}>
+                                          Delete
+                                        </button>
+                                      </>
+                                    ) : null}
+                                    {isDefaultSong ? (
+                                      <>
+                                        <button type="button" onClick={() => { onCreateCopy(); setOpenSongMenuId(null); }}>
+                                          Edit copy
+                                        </button>
+                                        <button type="button" onClick={() => { onHideDefault(); setOpenSongMenuId(null); }}>
+                                          Hide sample
+                                        </button>
+                                      </>
+                                    ) : null}
+                                  </div>
+                                ) : null}
+                              </div>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </section>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : null}
     </nav>
   );
 };

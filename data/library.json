@@ -1,0 +1,2046 @@
+{
+  "savedAt": "2025-11-24T04:50:03.600Z",
+  "customSongs": [
+    {
+      "id": "the-beatles-hey-jude",
+      "title": "Hey Jude",
+      "artist": "The Beatles",
+      "defaultKey": "D",
+      "lines": [
+        {
+          "type": "section",
+          "label": "Verse 1"
+        },
+        {
+          "type": "line",
+          "content": "[C]Hey ___, don’t make it [G]bad"
+        },
+        {
+          "type": "line",
+          "content": "[Am]Take a sad song and [F]make it better"
+        },
+        {
+          "type": "line",
+          "content": "[C]Remember to let her into your [G]heart"
+        },
+        {
+          "type": "line",
+          "content": "Then you can [C]start to make it [F]better"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "line",
+          "content": "[F]And anytime you [C]feel the pain, hey ___, re[G]frain"
+        },
+        {
+          "type": "line",
+          "content": "Don’t carry the [C]world upon your [F]shoulders"
+        },
+        {
+          "type": "line",
+          "content": "[F]For well you know that it’s a [C]fool who plays it [G]cool"
+        },
+        {
+          "type": "line",
+          "content": "By making his [C]world a little [F"
+        }
+      ]
+    },
+    {
+      "id": "portugal-the-man-so-american",
+      "title": "So American",
+      "artist": "Portugal. The Man",
+      "defaultKey": "C",
+      "lines": [
+        {
+          "type": "section",
+          "label": "Intro"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "C  E  x2"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "If pain was a color to paint on you",
+          "chords": "   C"
+        },
+        {
+          "type": "line",
+          "content": "Your heart would be the color blue",
+          "chords": "     E7"
+        },
+        {
+          "type": "line",
+          "content": "Be a gradient from there till your body met your hair",
+          "chords": "     Am"
+        },
+        {
+          "type": "line",
+          "content": "Which would remain a silver hue",
+          "chords": "D"
+        },
+        {
+          "type": "line",
+          "content": "You are the one they call Jesus Christ",
+          "chords": "C"
+        },
+        {
+          "type": "line",
+          "content": "Who didn't know no rock and roll",
+          "chords": "    E7"
+        },
+        {
+          "type": "line",
+          "content": "Just a mission and a gun to paint rainbows in Vietnam",
+          "chords": "       Am"
+        },
+        {
+          "type": "line",
+          "content": "And a heart that always told you",
+          "chords": "      D"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "There's a madness in us all",
+          "chords": "          F             C"
+        },
+        {
+          "type": "line",
+          "content": "There's a madness in us all",
+          "chords": "          F             C"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "So who broke the rules?",
+          "chords": "   C"
+        },
+        {
+          "type": "line",
+          "content": "Who broke the rules?",
+          "chords": "E"
+        },
+        {
+          "type": "line",
+          "content": "Who broke the rules?",
+          "chords": "Am"
+        },
+        {
+          "type": "line",
+          "content": "They said every one of you will never try to lend a hand",
+          "chords": "          F                           C"
+        },
+        {
+          "type": "line",
+          "content": "When the policemen don't understand",
+          "chords": "         E                          Am"
+        },
+        {
+          "type": "line",
+          "content": "Boys, all you boys",
+          "chords": "C             F"
+        },
+        {
+          "type": "line",
+          "content": "Think you're so American",
+          "chords": "                 Am         G"
+        },
+        {
+          "type": "line",
+          "content": "Girls, all you girls",
+          "chords": "C              F"
+        },
+        {
+          "type": "line",
+          "content": "Yeah, you're so American",
+          "chords": "                 Am         G"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "He may not be born of this land",
+          "chords": "C"
+        },
+        {
+          "type": "line",
+          "content": "But he was born of this world",
+          "chords": "    E7"
+        },
+        {
+          "type": "line",
+          "content": "He was born of all the mothers and the colors of our brothers",
+          "chords": "       Am"
+        },
+        {
+          "type": "line",
+          "content": "And the love that was taught to",
+          "chords": "        D"
+        },
+        {
+          "type": "line",
+          "content": "you by the one they call Jesus Christ",
+          "chords": "C"
+        },
+        {
+          "type": "line",
+          "content": "Who may not know no rock and roll",
+          "chords": "    E7"
+        },
+        {
+          "type": "line",
+          "content": "And there may not be a heaven, or a place of which to send you,",
+          "chords": "          Am"
+        },
+        {
+          "type": "line",
+          "content": "But you know in the end",
+          "chords": "        D"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "There's a madness in us all",
+          "chords": "          F             C"
+        },
+        {
+          "type": "line",
+          "content": "There's a madness in us all",
+          "chords": "          F             C"
+        },
+        {
+          "type": "line",
+          "content": "There's a madness in us all",
+          "chords": "          F             C"
+        },
+        {
+          "type": "line",
+          "content": "There's a madness in us all",
+          "chords": "          F             C"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "So who broke the rules?",
+          "chords": "   C"
+        },
+        {
+          "type": "line",
+          "content": "Who broke the rules?",
+          "chords": "E"
+        },
+        {
+          "type": "line",
+          "content": "Who broke the rules?",
+          "chords": "Am"
+        },
+        {
+          "type": "line",
+          "content": "They said every one of you will never try to lend a hand",
+          "chords": "          F                           C"
+        },
+        {
+          "type": "line",
+          "content": "When the policemen don't understand",
+          "chords": "         E                           Am"
+        },
+        {
+          "type": "line",
+          "content": "Boys, all you boys",
+          "chords": "C             F"
+        },
+        {
+          "type": "line",
+          "content": "Think you're so American",
+          "chords": "                 Am         G"
+        },
+        {
+          "type": "line",
+          "content": "Girls, all you girls",
+          "chords": "C              F"
+        },
+        {
+          "type": "line",
+          "content": "Yeah, you're so American",
+          "chords": "                 Am         G"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Bridge"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "There's two eyes for every one of us",
+          "chords": "        F                  C"
+        },
+        {
+          "type": "line",
+          "content": "But somebody got there first and took them all",
+          "chords": "             E                                 Am"
+        },
+        {
+          "type": "line",
+          "content": "There's two eyes for every one of us",
+          "chords": "        F                  C"
+        },
+        {
+          "type": "line",
+          "content": "But somebody got there first and took them all",
+          "chords": "             E                                 Am"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Instrumental"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "F  C  E  Am"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "F  C  E  Am"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Man, oh man",
+          "chords": "C       F"
+        },
+        {
+          "type": "line",
+          "content": "You think you're so American",
+          "chords": "                     Am         G"
+        },
+        {
+          "type": "line",
+          "content": "Man, oh man",
+          "chords": "C       F"
+        },
+        {
+          "type": "line",
+          "content": "Yeah, you're so American",
+          "chords": "                 Am         G"
+        },
+        {
+          "type": "line",
+          "content": "Man, oh man",
+          "chords": "C       F"
+        },
+        {
+          "type": "line",
+          "content": "You think you're so American",
+          "chords": "                     Am         G"
+        },
+        {
+          "type": "line",
+          "content": "Man, oh man",
+          "chords": "C       F"
+        },
+        {
+          "type": "line",
+          "content": "Yeah, you're so American",
+          "chords": "                 Am         G"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Outro"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "There's two eyes for every one of us",
+          "chords": "        F                  C"
+        },
+        {
+          "type": "line",
+          "content": "But somebody got there first and took them all",
+          "chords": "             E                                 Am"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "There's two eyes for every one of us",
+          "chords": "        F                  C"
+        },
+        {
+          "type": "line",
+          "content": "But somebody got there first and took them all",
+          "chords": "             E                                 Am"
+        }
+      ]
+    },
+    {
+      "id": "portugal-the-man-kokhanockers",
+      "title": "Kokhanockers",
+      "artist": "Portugal. The Man",
+      "defaultKey": "D",
+      "lines": [
+        {
+          "type": "section",
+          "label": "Intro"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[B] [A] [C] [A] [G] [C] [Am] [D#]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "line",
+          "content": "There is no place to hide",
+          "chords": "[Em]          [A]"
+        },
+        {
+          "type": "line",
+          "content": "Today, tomorrow, or the afterlife",
+          "chords": "[D]                        [G]"
+        },
+        {
+          "type": "line",
+          "content": "Longing for a life before between the red and blue",
+          "chords": "[Bm]            [F#]              [G]                [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "line",
+          "content": "You can stand before the people",
+          "chords": "          [A]                [G]"
+        },
+        {
+          "type": "line",
+          "content": "But the people don't see you",
+          "chords": "        [Bm]                    [D]"
+        },
+        {
+          "type": "line",
+          "content": "Just emptiness inside a paper cup",
+          "chords": "           [A]               [G]"
+        },
+        {
+          "type": "line",
+          "content": "Don't pop the pink balloon",
+          "chords": "       [Bm]                   [D]"
+        },
+        {
+          "type": "line",
+          "content": "Until that emptiness and nothingness feels like home",
+          "chords": "            [A]              [G]                    [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "line",
+          "content": "No place feels safe anymore",
+          "chords": "[Em]                  [A]"
+        },
+        {
+          "type": "line",
+          "content": "Under the rock, outside the door",
+          "chords": "  [D]                [G]"
+        },
+        {
+          "type": "line",
+          "content": "Waiting to be invited in",
+          "chords": "[Bm]               [F#7]"
+        },
+        {
+          "type": "line",
+          "content": "When the circle's whole, begin again",
+          "chords": "          [G]                 [D]"
+        },
+        {
+          "type": "line",
+          "content": "Looking through the window",
+          "chords": "[A]                    [G]"
+        },
+        {
+          "type": "line",
+          "content": "What violence is in store?",
+          "chords": "     [Bm]                    [D]"
+        },
+        {
+          "type": "line",
+          "content": "Your happiness is hanging overhead",
+          "chords": "          [A]               [G]"
+        },
+        {
+          "type": "line",
+          "content": "Don't pop the pink balloon",
+          "chords": "      [Bm]                   [D]"
+        },
+        {
+          "type": "line",
+          "content": "Well the cup's been dry for years",
+          "chords": "         [A]                   [G]"
+        },
+        {
+          "type": "line",
+          "content": "Don't tip it now",
+          "chords": "              [D]"
+        },
+        {
+          "type": "line",
+          "content": "But you can keep on hanging on to gold and on to land",
+          "chords": "                      [A]             [G]             [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Instrumental"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[Em] [A] [D] [G] [Bm] [F#] [G] [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Bridge"
+        },
+        {
+          "type": "line",
+          "content": "You can listen to the people",
+          "chords": "          [A]            [G]"
+        },
+        {
+          "type": "line",
+          "content": "But the people don't see you",
+          "chords": "        [B]                   [D]"
+        },
+        {
+          "type": "line",
+          "content": "Just emptiness inside the people",
+          "chords": "           [A]              [G]"
+        },
+        {
+          "type": "line",
+          "content": "Don't pop the pink balloon",
+          "chords": "      [B]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "line",
+          "content": "You can stand before the people",
+          "chords": "         [A]                 [G]"
+        },
+        {
+          "type": "line",
+          "content": "But the people don't see you",
+          "chords": "         [Bm]                 [D]"
+        },
+        {
+          "type": "line",
+          "content": "Just emptiness inside the people",
+          "chords": "          [A]                [G]"
+        },
+        {
+          "type": "line",
+          "content": "Don't pop the pink balloon",
+          "chords": "      [Bm]                  [D]"
+        },
+        {
+          "type": "line",
+          "content": "We're holding on to gold and on to land",
+          "chords": "      [A]             [G]               [B]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Instrumental"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[C] [G] [D]  [C] [G] [D]    [C]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Outro"
+        },
+        {
+          "type": "line",
+          "content": "Dry your eyes girl",
+          "chords": "         [G]"
+        },
+        {
+          "type": "line",
+          "content": "No more crying",
+          "chords": "         [D]"
+        },
+        {
+          "type": "line",
+          "content": "Believing that you're happy now",
+          "chords": "                              [C]"
+        },
+        {
+          "type": "line",
+          "content": "Dry your eyes girl",
+          "chords": "         [G]"
+        },
+        {
+          "type": "line",
+          "content": "No more crying",
+          "chords": "         [D]"
+        },
+        {
+          "type": "line",
+          "content": "Believing that you're happy now",
+          "chords": "                              [C]"
+        },
+        {
+          "type": "line",
+          "content": "Dry your eyes girl",
+          "chords": "         [G]"
+        },
+        {
+          "type": "line",
+          "content": "No more crying",
+          "chords": "         [D]"
+        },
+        {
+          "type": "line",
+          "content": "Believing that you're happy now",
+          "chords": "                              [C]"
+        },
+        {
+          "type": "line",
+          "content": "Dry your eyes girl",
+          "chords": "         [G]"
+        },
+        {
+          "type": "line",
+          "content": "No more crying",
+          "chords": "         [D]"
+        },
+        {
+          "type": "line",
+          "content": "Believing that you're happy now",
+          "chords": "                              [C]"
+        },
+        {
+          "type": "line",
+          "content": "Dry your eyes girl",
+          "chords": "         [G]"
+        },
+        {
+          "type": "line",
+          "content": "No more crying",
+          "chords": "         [D]"
+        },
+        {
+          "type": "line",
+          "content": "Believing that you're happy now",
+          "chords": "                              [C]"
+        },
+        {
+          "type": "line",
+          "content": "Dry your eyes girl",
+          "chords": "         [G]"
+        },
+        {
+          "type": "line",
+          "content": "No more crying",
+          "chords": "         [D]"
+        },
+        {
+          "type": "line",
+          "content": "Believing that you're happy"
+        }
+      ]
+    },
+    {
+      "id": "billy-joel-only-the-good-die-young",
+      "title": "Only The Good Die Young",
+      "artist": "Billy Joel",
+      "defaultKey": "C",
+      "capo": 5,
+      "lines": [
+        {
+          "type": "line",
+          "content": "Only The Good Die Young"
+        },
+        {
+          "type": "line",
+          "content": "The Stranger, 1977"
+        },
+        {
+          "type": "line",
+          "content": "Billy Joel"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Capo 5"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Chords Used:"
+        },
+        {
+          "type": "line",
+          "content": "   x32010      320033   *     32003x     20023x",
+          "chords": "C            G          G              D/F#"
+        },
+        {
+          "type": "line",
+          "content": "   xx0232      x02220     x32030      xx0003",
+          "chords": "D            A          Cadd9      G/D"
+        },
+        {
+          "type": "line",
+          "content": "  022000    x2003x   * x32033     xx0033",
+          "chords": "Em        G/B        Cadd9      G5/D"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "For the G/D either G/D or G5/D can be used"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Intro"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[Cadd9] [Cadd9]* [Cadd9] | [Cadd9] [D/F#] [G]*"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[Cadd9] [Cadd9]* [Cadd9] | [Cadd9] [D/F#]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Come out Virginia, don't let me wait",
+          "chords": "[C]                  [G/D]          [Em]"
+        },
+        {
+          "type": "line",
+          "content": "You Catholic girls start much too late",
+          "chords": "    [C]                     [D]       [G]"
+        },
+        {
+          "type": "line",
+          "content": "But sooner or later it comes down to fate",
+          "chords": "    [C]                   [G/D]          [Em]"
+        },
+        {
+          "type": "line",
+          "content": "I might as well be the one",
+          "chords": "  [C]                    [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Well, they showed you a statue, told you to pray",
+          "chords": "           [C]                    [G/D]         [Em]"
+        },
+        {
+          "type": "line",
+          "content": "They built you a temple and locked you away",
+          "chords": "     [C]                       [D]         [G]"
+        },
+        {
+          "type": "line",
+          "content": "But they never told you the price that you pay",
+          "chords": "    [C]                       [G/D]            [Em]"
+        },
+        {
+          "type": "line",
+          "content": "For things that you might have done",
+          "chords": "    [C]                          [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Only the good die young",
+          "chords": "                  [G]   [C]"
+        },
+        {
+          "type": "line",
+          "content": "That's what I said",
+          "chords": "                  [D]  [G]"
+        },
+        {
+          "type": "line",
+          "content": "Only the good die young",
+          "chords": "              [G]   [C]"
+        },
+        {
+          "type": "line",
+          "content": "Only the good die young",
+          "chords": "              [D]        [G]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "You might have heard I run with a dangerous crowd",
+          "chords": "               [C]                  [G/D]       [Em]"
+        },
+        {
+          "type": "line",
+          "content": "We ain't too pretty, we ain't too proud",
+          "chords": "   [C]                    [D]         [G]"
+        },
+        {
+          "type": "line",
+          "content": "We might be laughing a bit too loud",
+          "chords": "   [C]                   [G/D]     [Em]"
+        },
+        {
+          "type": "line",
+          "content": "But that never hurt no one",
+          "chords": "    [C]                  [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "So come on Virginia, show me a sign",
+          "chords": "        [C]              [G/D]     [Em]"
+        },
+        {
+          "type": "line",
+          "content": "Send up a signal, I'll throw you the line",
+          "chords": "[C]                      [D]             [G]"
+        },
+        {
+          "type": "line",
+          "content": "The stained-glass curtain you're hiding behind",
+          "chords": "    [C]                            [G/D]      [Em]"
+        },
+        {
+          "type": "line",
+          "content": "Never lets in the sun",
+          "chords": "[C]                 [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Darlin', only the good die young",
+          "chords": "                           [G]     [C]"
+        },
+        {
+          "type": "line",
+          "content": "Whoa, whoa, whoa, whoa, whoa",
+          "chords": "                         [D]   [G]"
+        },
+        {
+          "type": "line",
+          "content": "I tell ya only the good die young",
+          "chords": "                        [G]   [C]"
+        },
+        {
+          "type": "line",
+          "content": "Only the good die young",
+          "chords": "              [D]        [G]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Bridge"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "You got a nice white dress and a party on your confirmation",
+          "chords": "          [D]                      [C]                     [G]"
+        },
+        {
+          "type": "line",
+          "content": "You got a brand new soul, and a cross of gold",
+          "chords": "          [A]                       [C]"
+        },
+        {
+          "type": "line",
+          "content": "But Virginia they didn't give you quite enough information",
+          "chords": "       [D]                           [C]                  [G]"
+        },
+        {
+          "type": "line",
+          "content": "You didn't count on me when you were counting on your rosary",
+          "chords": "            [A]                                         [C]"
+        },
+        {
+          "type": "line",
+          "content": "Oh woah woah",
+          "chords": "[D]  [C]    [G/B]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "They say there's a heaven for those who will wait",
+          "chords": "     [C]                        [G/D]            [Em]"
+        },
+        {
+          "type": "line",
+          "content": "Some say it's better but I say it ain't",
+          "chords": "[C]                        [D]        [G]"
+        },
+        {
+          "type": "line",
+          "content": "I'd rather laugh with the sinners than cry with the saints",
+          "chords": "           [C]                           [G/D]          [Em]"
+        },
+        {
+          "type": "line",
+          "content": "The sinners are much more fun",
+          "chords": "    [C]                     [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "You know that only the good die young",
+          "chords": "                                [G]     [C]"
+        },
+        {
+          "type": "line",
+          "content": "Oh woah, baby",
+          "chords": "            [D]   [G]"
+        },
+        {
+          "type": "line",
+          "content": "I tell ya only the good die young",
+          "chords": "                        [G]   [C]"
+        },
+        {
+          "type": "line",
+          "content": "Only the good die young",
+          "chords": "              [D]       [G]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Instrumental"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[D]  [C]  [G]    [A]    [C]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Bridge"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "You say your mother told you all that I could give you was a reputation",
+          "chords": "             [D]                                [C]                  [G]"
+        },
+        {
+          "type": "line",
+          "content": "Aww, she never cared for me",
+          "chords": "               [A]"
+        },
+        {
+          "type": "line",
+          "content": "But did she ever say a prayer for me?",
+          "chords": "                       [C]"
+        },
+        {
+          "type": "line",
+          "content": "Oh woah woah",
+          "chords": "[D]  [C]    [G/B]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Come out, come out, come out Virginia, don't let me wait,",
+          "chords": "       [C]                        [G/D]          [Em]"
+        },
+        {
+          "type": "line",
+          "content": "  You Catholic girls start much too late",
+          "chords": "[C]              [D]           [G]"
+        },
+        {
+          "type": "line",
+          "content": " Sooner or later it comes down to fate",
+          "chords": "[C]                   [G/D]           [Em]"
+        },
+        {
+          "type": "line",
+          "content": "I might as well be the one",
+          "chords": "  [C]                    [D]"
+        },
+        {
+          "type": "line",
+          "content": "You know that only the good die young",
+          "chords": "                                 [G]     [C]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Outro"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[D]  [G]  [G]  [C]  [D]  [G]"
+        },
+        {
+          "type": "spacer"
+        }
+      ]
+    },
+    {
+      "id": "ac-dc-back-in-black",
+      "title": "Back In Black",
+      "artist": "AC/DC",
+      "defaultKey": "E",
+      "lines": [
+        {
+          "type": "line",
+          "content": "AC/DC - Back In Black                                     https://www.youtube.com/watch?v=pAgnJDJN4VA"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "E5              B5            A/E"
+        },
+        {
+          "type": "line",
+          "content": "    022xxx         x244xx          042xxx"
+        },
+        {
+          "type": "line",
+          "content": "D5              G5            Asus2"
+        },
+        {
+          "type": "line",
+          "content": "    xx023x         3x0033        x02200"
+        },
+        {
+          "type": "line",
+          "content": "A5"
+        },
+        {
+          "type": "line",
+          "content": "    x022xx        "
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Intro"
+        },
+        {
+          "type": "section",
+          "label": "E5]  [D5]  [A5]     [A5]    [E5]  [D5]  [A5]     [A5"
+        },
+        {
+          "type": "section",
+          "label": "E5]  [D5]  [A5]     [A5]    [E5]  [D5]  [A5]     [A5"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 1"
+        },
+        {
+          "type": "section",
+          "label": "E5]            [D5"
+        },
+        {
+          "type": "line",
+          "content": "Back in black,I hit the sack"
+        },
+        {
+          "type": "section",
+          "label": "A5"
+        },
+        {
+          "type": "line",
+          "content": "I've been too long I'm glad to be back"
+        },
+        {
+          "type": "section",
+          "label": "E5]             [D5"
+        },
+        {
+          "type": "line",
+          "content": "Yes I'm, let loose,From the noose"
+        },
+        {
+          "type": "section",
+          "label": "A5"
+        },
+        {
+          "type": "line",
+          "content": "That's kept me hanging about"
+        },
+        {
+          "type": "section",
+          "label": "E5]                  [D5"
+        },
+        {
+          "type": "line",
+          "content": "I keep looking at the sky,'Cause it's gettin' me high"
+        },
+        {
+          "type": "section",
+          "label": "A5"
+        },
+        {
+          "type": "line",
+          "content": "Forget the hearse 'cause I'll never die"
+        },
+        {
+          "type": "section",
+          "label": "E5]         [D5"
+        },
+        {
+          "type": "line",
+          "content": "I got nine lives,Cat's eyes"
+        },
+        {
+          "type": "section",
+          "label": "A5"
+        },
+        {
+          "type": "line",
+          "content": "Abusin' every one of them and running wild"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "section",
+          "label": "A5]              [E5]  [B5"
+        },
+        {
+          "type": "line",
+          "content": "'Cause I'm back"
+        },
+        {
+          "type": "section",
+          "label": "A5]    [B5]  [A5]   [E5]  [B5"
+        },
+        {
+          "type": "line",
+          "content": "Yes, I'm back"
+        },
+        {
+          "type": "section",
+          "label": "A5]     [B5]  [A5]  [D]  [A5"
+        },
+        {
+          "type": "line",
+          "content": "Well, I'm back"
+        },
+        {
+          "type": "section",
+          "label": "G]     [A5]   [G5]  [D]  [A5"
+        },
+        {
+          "type": "line",
+          "content": "Yes, I'm back"
+        },
+        {
+          "type": "section",
+          "label": "G]      [A5]  [E5] [B5]  [A5]  [B5]  [A5]    [E5]  [B5]  [A5"
+        },
+        {
+          "type": "line",
+          "content": "Well, I'm back,           back"
+        },
+        {
+          "type": "section",
+          "label": "B5]  [G"
+        },
+        {
+          "type": "line",
+          "content": "(Well) I'm back in black"
+        },
+        {
+          "type": "line",
+          "content": "Yes, I'm back in black",
+          "chords": "         [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 2"
+        },
+        {
+          "type": "section",
+          "label": "E5]               [D5"
+        },
+        {
+          "type": "line",
+          "content": "Back in the back,Of a Cadillac"
+        },
+        {
+          "type": "section",
+          "label": "A5"
+        },
+        {
+          "type": "line",
+          "content": "Number one with a bullet, I'm a power pack"
+        },
+        {
+          "type": "section",
+          "label": "E5]   [D5"
+        },
+        {
+          "type": "line",
+          "content": "Yes, I'm in a bang,With a gang"
+        },
+        {
+          "type": "section",
+          "label": "A5"
+        },
+        {
+          "type": "line",
+          "content": "They've got to catch me if they want me to hang"
+        },
+        {
+          "type": "section",
+          "label": "E5"
+        },
+        {
+          "type": "line",
+          "content": "Cause I'm back on the track"
+        },
+        {
+          "type": "section",
+          "label": "D5"
+        },
+        {
+          "type": "line",
+          "content": "And I'm leadin' the pack"
+        },
+        {
+          "type": "section",
+          "label": "A5"
+        },
+        {
+          "type": "line",
+          "content": "Nobody's gonna get me on another rap"
+        },
+        {
+          "type": "section",
+          "label": "E5]                 [D5"
+        },
+        {
+          "type": "line",
+          "content": "So look at me now,I'm just makin' my play"
+        },
+        {
+          "type": "section",
+          "label": "A5"
+        },
+        {
+          "type": "line",
+          "content": "Don't try to push your luck, just get out of my way"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "section",
+          "label": "A5]              [E5]  [B5"
+        },
+        {
+          "type": "line",
+          "content": "'Cause I'm back"
+        },
+        {
+          "type": "section",
+          "label": "A5]    [B5]  [A5]   [E5]  [B5"
+        },
+        {
+          "type": "line",
+          "content": "Yes, I'm back"
+        },
+        {
+          "type": "section",
+          "label": "A5]     [B5]  [A5]  [D]  [A5"
+        },
+        {
+          "type": "line",
+          "content": "Well, I'm back"
+        },
+        {
+          "type": "section",
+          "label": "G]     [A5]   [G5]  [D]  [A5"
+        },
+        {
+          "type": "line",
+          "content": "Yes, I'm back"
+        },
+        {
+          "type": "section",
+          "label": "G]      [A5]  [E5] [B5]  [A5]  [B5]  [A5]    [E5]  [B5]  [A5"
+        },
+        {
+          "type": "line",
+          "content": "Well, I'm back,- - - - - -Back"
+        },
+        {
+          "type": "section",
+          "label": "B5]  [G"
+        },
+        {
+          "type": "line",
+          "content": "(Well) I'm back in black"
+        },
+        {
+          "type": "line",
+          "content": "Yes, I'm back in black",
+          "chords": "         [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Instrumental"
+        },
+        {
+          "type": "section",
+          "label": "E5]  [D5]  [A/E]    [A/E]  [E5"
+        },
+        {
+          "type": "line",
+          "content": "E5D5A/E A/EE5A5E5A5"
+        },
+        {
+          "type": "line",
+          "content": "                        X6"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "section",
+          "label": "E5]      [A5]   [E5]  [B5"
+        },
+        {
+          "type": "line",
+          "content": "Well im back"
+        },
+        {
+          "type": "section",
+          "label": "A5]   [B5] [A5]  [E5]  [B5"
+        },
+        {
+          "type": "line",
+          "content": "Yes im  back"
+        },
+        {
+          "type": "section",
+          "label": "A5]   [B5]  [G5]  [D]   [A5"
+        },
+        {
+          "type": "line",
+          "content": "Well im  back"
+        },
+        {
+          "type": "section",
+          "label": "G]   [A5]  [G5]  [D]   [A5"
+        },
+        {
+          "type": "line",
+          "content": "Yes im  back"
+        },
+        {
+          "type": "section",
+          "label": "G]    [A5]  [E5]  [B5]  [A5]  [B5]  [A5]  [E5]  [B5]  [A5"
+        },
+        {
+          "type": "line",
+          "content": "Well im back - - - - - - Back"
+        },
+        {
+          "type": "section",
+          "label": "B5] [G"
+        },
+        {
+          "type": "line",
+          "content": "Well im back in black"
+        },
+        {
+          "type": "line",
+          "content": "Yes im back in black",
+          "chords": "       [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Instrumental"
+        },
+        {
+          "type": "section",
+          "label": "E5]     [E5]     [E5]     [E5"
+        },
+        {
+          "type": "section",
+          "label": "A5]     [A5]     [E5]     [E5"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "section",
+          "label": "E5]      [A5]   [E5]  [B5]  [A5]  [B5"
+        },
+        {
+          "type": "line",
+          "content": "Well im back"
+        },
+        {
+          "type": "section",
+          "label": "A5]   [E5]  [B5]  [A5]  [B5]  [G5]   [D]  [A5]  [G]  [A5"
+        },
+        {
+          "type": "line",
+          "content": "Back - - - - - - - - Back"
+        },
+        {
+          "type": "section",
+          "label": "A5]   [D]   [A5]  [G]   [A5]  [E5]   [B5]  [A5]  [B5"
+        },
+        {
+          "type": "line",
+          "content": "Back - - - - - - - - Back"
+        },
+        {
+          "type": "section",
+          "label": "A5]   [E5]  [B5]  [A5"
+        },
+        {
+          "type": "line",
+          "content": "Back - - - - -"
+        },
+        {
+          "type": "section",
+          "label": "B5]  [G"
+        },
+        {
+          "type": "line",
+          "content": "(Well) I'm back in black"
+        },
+        {
+          "type": "section",
+          "label": "D]              [A5"
+        },
+        {
+          "type": "line",
+          "content": "Yes, I'm back in black ,I wanna say it"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Outro"
+        },
+        {
+          "type": "section",
+          "label": "E5]  [D5]  [Asus2]   [Asus2]  [E5"
+        },
+        {
+          "type": "section",
+          "label": "E5]  [D5]  [Asus2]   [Asus2]  [E5]  [A5]  [E5]  [A5"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Mark W"
+        }
+      ]
+    },
+    {
+      "id": "portugal-the-man-tanana",
+      "title": "Tanana",
+      "artist": "Portugal. The Man",
+      "defaultKey": "C",
+      "lines": [
+        {
+          "type": "section",
+          "label": "Intro"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[D] [G] [D] [G]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 1"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Maybe it's the world",
+          "chords": "[D]"
+        },
+        {
+          "type": "line",
+          "content": "The world gone blind",
+          "chords": "              [G]"
+        },
+        {
+          "type": "line",
+          "content": "They'll trade ya truth for a lie",
+          "chords": "                [D]"
+        },
+        {
+          "type": "line",
+          "content": "An eye for an eye",
+          "chords": "             [G]"
+        },
+        {
+          "type": "line",
+          "content": "Little birdie told me, nobody's born",
+          "chords": "                       [Bm]"
+        },
+        {
+          "type": "line",
+          "content": "Nobody born bad",
+          "chords": "   [C]       [G]"
+        },
+        {
+          "type": "line",
+          "content": "And if you don't see the smoke you won't see what's coming",
+          "chords": "          [D]                                 [E]"
+        },
+        {
+          "type": "line",
+          "content": "Or flowers till the petals are falling",
+          "chords": "[E]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "line",
+          "content": "I feel the sadness coming down",
+          "chords": "[D]                 [Bm]            [B] [D]"
+        },
+        {
+          "type": "line",
+          "content": "The pigs running the zoo (Paranoid spinning out)",
+          "chords": "                    [Bm]"
+        },
+        {
+          "type": "line",
+          "content": "There's murder in the news",
+          "chords": "[D]                    [G]"
+        },
+        {
+          "type": "line",
+          "content": "Things work like me and you, me and you",
+          "chords": "[D]                      [Em]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 2"
+        },
+        {
+          "type": "line",
+          "content": "Everything's well",
+          "chords": "[D]"
+        },
+        {
+          "type": "line",
+          "content": "That's well in the end",
+          "chords": "                  [G]"
+        },
+        {
+          "type": "line",
+          "content": "So throw off your clothes",
+          "chords": "  [D]"
+        },
+        {
+          "type": "line",
+          "content": "Have sex with a friend",
+          "chords": "    [C]          [D]"
+        },
+        {
+          "type": "line",
+          "content": "Turn on the tap just",
+          "chords": "[Bm]"
+        },
+        {
+          "type": "line",
+          "content": "To watch it runnin' out",
+          "chords": "[C]          [G]"
+        },
+        {
+          "type": "line",
+          "content": "Not your mothеrs mission",
+          "chords": "                [D]"
+        },
+        {
+          "type": "line",
+          "content": "Keeping up with the youth",
+          "chords": "          [C]       [Em]"
+        },
+        {
+          "type": "line",
+          "content": "Standing on the right wherе nobody's wrong",
+          "chords": "[Em]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Pre-Chorus"
+        },
+        {
+          "type": "line",
+          "content": "Where it moves like a serpent",
+          "chords": "        [Bm]                   [F#]"
+        },
+        {
+          "type": "line",
+          "content": "Through fever",
+          "chords": "             [G]"
+        },
+        {
+          "type": "line",
+          "content": "Dreams of terminal lovers",
+          "chords": "         [D]              [Bm]"
+        },
+        {
+          "type": "line",
+          "content": "Lookin' out the window",
+          "chords": "                [F#m]"
+        },
+        {
+          "type": "line",
+          "content": "Our fires",
+          "chords": "         [G]"
+        },
+        {
+          "type": "line",
+          "content": "(Going out)",
+          "chords": "      [D]          [A]"
+        },
+        {
+          "type": "line",
+          "content": "A light til the shadows are crawling",
+          "chords": " [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "line",
+          "content": "I feel the sadness coming down",
+          "chords": "[D]                 [Bm]            [B] [D]"
+        },
+        {
+          "type": "line",
+          "content": "The pigs running the zoo (Paranoid spinning out)",
+          "chords": "                    [Bm]"
+        },
+        {
+          "type": "line",
+          "content": "There's murder in the news",
+          "chords": "[D]                    [G]"
+        },
+        {
+          "type": "line",
+          "content": "Things work like me and you, me and you",
+          "chords": "[D]                      [E]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[E7] [Bm] [F#] [G] [D] [Bm] [F#m] [G] [D] [A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Instrumental"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "line",
+          "content": "I feel the sadness coming down",
+          "chords": "[D]                 [Bm]            [B] [D]"
+        },
+        {
+          "type": "line",
+          "content": "The pigs running the zoo (Paranoid spinning out)",
+          "chords": "                    [Bm]"
+        },
+        {
+          "type": "line",
+          "content": "There's murder in the news",
+          "chords": "[D]                    [G]"
+        },
+        {
+          "type": "line",
+          "content": "Things work like me and you",
+          "chords": "[D]                     [G]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Outro"
+        },
+        {
+          "type": "line",
+          "content": "Frances' singing",
+          "chords": "[G]"
+        },
+        {
+          "type": "line",
+          "content": "Na-na-na-na-na-na-na-na-na-na",
+          "chords": "[D]                     [Bm]"
+        },
+        {
+          "type": "line",
+          "content": "Na-na-na-na-na-na-na-na-na-na",
+          "chords": "[D]                     [Bm]"
+        },
+        {
+          "type": "line",
+          "content": "Na-na-na-na-na-na-na-na-na-na",
+          "chords": "[D]                     [G]       [D]"
+        },
+        {
+          "type": "line",
+          "content": "Things work like me and you",
+          "chords": "                       [Em]"
+        },
+        {
+          "type": "line",
+          "content": "Me and you",
+          "chords": "      [Gm]"
+        }
+      ]
+    },
+    {
+      "id": "fuck-shitbird",
+      "title": "shitbird",
+      "artist": "fuck",
+      "defaultKey": "C",
+      "capo": 8,
+      "lines": [
+        {
+          "type": "line",
+          "content": "sfjlkesdfjalkf"
+        },
+        {
+          "type": "spacer"
+        }
+      ]
+    }
+  ],
+  "favoriteTranspositions": {
+    "house-of-heroes-patient": 2
+  },
+  "recentTranspositions": {
+    "hallelujah": 0,
+    "house-of-heroes-patient": 0,
+    "wonderwall": 0,
+    "the-beatles-hey-jude": -4,
+    "portugal-the-man-so-american": 0,
+    "portugal-the-man-kokhanockers": 0,
+    "ed-sheeran-perfect": -1
+  },
+  "hiddenDefaultSongs": [
+    "hallelujah",
+    "wonderwall"
+  ],
+  "notes": {
+    "portugal-the-man-dummy": "",
+    "ed-sheeran-perfect": "imperfect",
+    "leonard-cohen-hallelujah": "",
+    "portugal-the-man-kokhanockers": "kohk",
+    "test-test": "",
+    "wonderwall": "",
+    "the-beatles-hey-jude": "judie judie judieeee\n",
+    "house-of-heroes-patient": "",
+    "billy-joel-only-the-good-die-young": "l;,lm;l,l",
+    "fuck-shitbird": "",
+    "portugal-the-man-so-american": "usa usa",
+    "ac-dc-back-in-black": "",
+    "hallelujah": "",
+    "portugal-the-man-tanana": ""
+  }
+}

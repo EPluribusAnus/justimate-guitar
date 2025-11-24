@@ -13,16 +13,11 @@ const STEP_OPTIONS = Array.from({ length: MAX_STEP - MIN_STEP + 1 }, (_, index) 
 const clamp = (value: number) => Math.max(MIN_STEP, Math.min(MAX_STEP, value));
 
 const TransposerControls = ({ defaultKey, steps, onChange }: Props) => {
-  const currentKey = transposeChord(defaultKey, steps);
-
   return (
     <section className="transposer" aria-label="Transpose controls">
       <div className="transposer__summary">
         <h3>Key</h3>
-        <div className="transposer__current">{currentKey}</div>
-        <button type="button" className="transposer__reset" onClick={() => onChange(0)} disabled={steps === 0}>
-          Reset
-        </button>
+        <span className="transposer__current-label">{transposeChord(defaultKey, steps)}</span>
       </div>
       <div className="transposer__actions">
         <button type="button" onClick={() => onChange(clamp(steps - 1))} disabled={steps <= MIN_STEP}>
@@ -35,7 +30,7 @@ const TransposerControls = ({ defaultKey, steps, onChange }: Props) => {
         >
           {STEP_OPTIONS.map((option) => (
             <option key={option} value={option}>
-              {option > 0 ? `+${option}` : option} ({transposeChord(defaultKey, option)})
+              {option > 0 ? `+${option}` : option}
             </option>
           ))}
         </select>

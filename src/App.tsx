@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
+import type { CSSProperties } from 'react';
 import SongNav from './components/SongNav';
 import SongSheet from './components/SongSheet';
 import NotesPanel from './components/NotesPanel';
 import SongForm from './components/SongForm';
-import FavoriteButton from './components/FavoriteButton';
 import TransposerControls from './components/TransposerControls';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { defaultSongs } from './data/songs';
@@ -55,6 +55,7 @@ const App = () => {
   const [autoScrollSpeed, setAutoScrollSpeed] = useLocalStorage<number>('jg/autoscroll/speed/v1', 50);
   const autoScrollFrame = useRef<number | null>(null);
   const autoScrollLast = useRef<number | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const [ugSearchOpen, setUgSearchOpen] = useState(false);
   const [ugSearchQuery, setUgSearchQuery] = useState('');
   const [ugSearchResults, setUgSearchResults] = useState<
@@ -62,7 +63,7 @@ const App = () => {
   >([]);
   const [ugSearchError, setUgSearchError] = useState<string | null>(null);
   const [isSearchingUg, setIsSearchingUg] = useState(false);
-  const [ugImportValue, setUgImportValue] = useState('');
+  const [songFontScale, setSongFontScale] = useLocalStorage<number>('jg/fontScale/v1', 1);
   const [isSavingLibrary, setIsSavingLibrary] = useState(false);
   const saveTimer = useRef<number | null>(null);
 
@@ -88,6 +89,37 @@ const App = () => {
   useEffect(() => {
     setAutoScrollSpeed((current) => normalizeAutoScrollSpeed(current));
   }, [setAutoScrollSpeed]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return;
+    }
+    const element = headerRef.current;
+    if (!element) {
+      return;
+    }
+    const setHeight = () => {
+      const height = element.offsetHeight;
+      document.documentElement.style.setProperty('--header-stack-height', `${height}px`);
+    };
+    setHeight();
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(setHeight);
+      resizeObserver.observe(element);
+    } else {
+      window.addEventListener('resize', setHeight);
+    }
+
+    return () => {
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      } else {
+        window.removeEventListener('resize', setHeight);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!selectedSongId) {
@@ -129,7 +161,6 @@ const App = () => {
     void loadFromServer();
   }, []);
 
-  const isFavorite = selectedSongId ? favoriteTranspositions[selectedSongId] === transposeSteps : false;
   const isCustomSong = selectedSong ? customSongs.some((song) => song.id === selectedSong.id) : false;
   const isDefaultSong = selectedSong ? visibleDefaultSongs.some((song) => song.id === selectedSong.id) : false;
 
@@ -159,6 +190,12 @@ const App = () => {
     if (!selectedSong) {
       return;
     }
+    if (typeof window !== 'undefined') {
+      const confirmed = window.confirm('Are you sure you want to delete this song?');
+      if (!confirmed) {
+        return;
+      }
+    }
     setCustomSongs((current) => {
       const next = current.filter((song) => song.id !== selectedSong.id);
       const combined = [...visibleDefaultSongs, ...next];
@@ -184,21 +221,6 @@ const App = () => {
     }
     setTransposeSteps(value);
     setRecentTranspositions((current) => ({ ...current, [selectedSongId]: value }));
-  };
-
-  const handleToggleFavorite = () => {
-    if (!selectedSongId) {
-      return;
-    }
-    setFavoriteTranspositions((current) => {
-      const next = { ...current };
-      if (isFavorite) {
-        delete next[selectedSongId];
-      } else {
-        next[selectedSongId] = transposeSteps;
-      }
-      return next;
-    });
   };
 
   const currentKey = selectedSong ? transposeChord(selectedSong.defaultKey, transposeSteps) : '';
@@ -261,6 +283,21 @@ const App = () => {
       window.removeEventListener('keydown', handleInterrupt);
     };
   }, [autoScrollEnabled, autoScrollSpeed]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return;
+    }
+    const hasModal = Boolean(formState || ugSearchOpen);
+    if (hasModal) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [formState, ugSearchOpen]);
 
   const handleImportUltimateGuitarSource = async (source: string) => {
     if (isImportingFromUltimateGuitar || typeof window === 'undefined') {
@@ -427,11 +464,11 @@ const App = () => {
       }
     }
 
-    const payload = {
-      version: 1,
-      exportedAt: new Date().toISOString(),
-      customSongs,
-      favoriteTranspositions,
+  const payload = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    customSongs,
+    favoriteTranspositions,
       recentTranspositions,
       hiddenDefaultSongs,
       notes,
@@ -592,22 +629,98 @@ const App = () => {
   };
 
   return (
-    <div className="app">
-      <SongNav
-        songs={songs}
-        selectedSongId={selectedSongId}
-        onSelect={setSelectedSongId}
-        onAddSong={() => setFormState({ mode: 'create' })}
-        onExport={handleExport}
-        onImport={handleImportClick}
-        onOpenUltimateGuitar={() => {
+    <div className="app" style={{ '--song-font-scale': songFontScale.toString() } as CSSProperties}>
+      <header className="app__header" ref={headerRef}>
+        <SongNav
+          songs={songs}
+          selectedSongId={selectedSongId}
+          onSelect={setSelectedSongId}
+          onAddSong={() => setFormState({ mode: 'create' })}
+        onAddFromSearch={() => {
           setUgSearchOpen(true);
-          setUgImportValue('');
         }}
+        onAddFromLink={() => {
+          if (typeof window === 'undefined') return;
+          const source = window.prompt('Paste a UG URL or tab id:');
+          if (source) {
+              void handleImportUltimateGuitarSource(source);
+            }
+          }}
+          onExport={handleExport}
+        onImport={handleImportClick}
         isImportingUltimateGuitar={isImportingFromUltimateGuitar}
-        theme={theme}
-        onToggleTheme={handleToggleTheme}
+        onSaveRemote={saveLibraryToServer}
+        version="v4.0.10"
+        isCustomSong={isCustomSong}
+        isDefaultSong={isDefaultSong}
+        onEditSong={() => setFormState({ mode: 'edit', song: selectedSong ?? undefined })}
+        onRemoveSong={handleRemoveSong}
+        onHideDefault={handleHideDefaultSong}
+        onCreateCopy={handleCreateEditableCopy}
       />
+        {selectedSong ? (
+          <div className="app__toolbar">
+            <TransposerControls defaultKey={selectedSong.defaultKey} steps={transposeSteps} onChange={handleTransposeChange} />
+            <div className="app__autoscroll">
+              <button
+                type="button"
+                className={`app__autoscroll-toggle${autoScrollEnabled ? ' is-active' : ''}`}
+                onClick={() => setAutoScrollEnabled((current) => !current)}
+              >
+                {autoScrollEnabled ? 'Pause scroll' : 'Scroll'}
+              </button>
+              <label className="app__autoscroll-speed">
+                <div className="app__autoscroll-stepper" role="group" aria-label="Autoscroll speed">
+                  <button
+                    type="button"
+                    aria-label="Decrease autoscroll speed"
+                    onClick={() =>
+                      setAutoScrollSpeed((current) => {
+                        const index = AUTOSCROLL_SPEED_STEPS.indexOf(normalizeAutoScrollSpeed(current));
+                        const prev = (index - 1 + AUTOSCROLL_SPEED_STEPS.length) % AUTOSCROLL_SPEED_STEPS.length;
+                        return AUTOSCROLL_SPEED_STEPS[prev];
+                      })
+                    }
+                  >
+                    -
+                  </button>
+                  <span className="app__autoscroll-speed-value">{Math.round(autoScrollSpeed)}</span>
+                  <button
+                    type="button"
+                    aria-label="Increase autoscroll speed"
+                    onClick={() =>
+                      setAutoScrollSpeed((current) => {
+                        const index = AUTOSCROLL_SPEED_STEPS.indexOf(normalizeAutoScrollSpeed(current));
+                        const next = (index + 1) % AUTOSCROLL_SPEED_STEPS.length;
+                        return AUTOSCROLL_SPEED_STEPS[next];
+                      })
+                    }
+                  >
+                    +
+                  </button>
+                </div>
+              </label>
+            <div className="app__textsize" aria-label="Adjust text size">
+              <button
+                type="button"
+                onClick={() => setSongFontScale((current) => Math.max(0.6, parseFloat((current - 0.05).toFixed(2))))}
+                aria-label="Decrease text size"
+              >
+                A
+              </button>
+              <span>{Math.round(songFontScale * 100)}%</span>
+              <button
+                type="button"
+                onClick={() => setSongFontScale((current) => Math.min(1.3, parseFloat((current + 0.05).toFixed(2))))}
+                aria-label="Increase text size"
+              >
+                A
+              </button>
+            </div>
+            </div>
+          </div>
+        ) : null}
+      </header>
       <input
         ref={fileInputRef}
         type="file"
@@ -618,73 +731,6 @@ const App = () => {
       <main className="app__main">
         {selectedSong ? (
           <>
-            <div className="app__toolbar">
-              <TransposerControls defaultKey={selectedSong.defaultKey} steps={transposeSteps} onChange={handleTransposeChange} />
-              <div className="app__autoscroll">
-                <button
-                  type="button"
-                  className={`app__autoscroll-toggle${autoScrollEnabled ? ' is-active' : ''}`}
-                  onClick={() => setAutoScrollEnabled((current) => !current)}
-                >
-                  {autoScrollEnabled ? 'Pause autoscroll' : 'Start autoscroll'}
-                </button>
-                <label className="app__autoscroll-speed">
-                  <span>Speed</span>
-                  <div className="app__autoscroll-stepper" role="group" aria-label="Autoscroll speed">
-                    <button
-                      type="button"
-                      aria-label="Decrease autoscroll speed"
-                      onClick={() =>
-                        setAutoScrollSpeed((current) => {
-                          const index = AUTOSCROLL_SPEED_STEPS.indexOf(normalizeAutoScrollSpeed(current));
-                          const prev = (index - 1 + AUTOSCROLL_SPEED_STEPS.length) % AUTOSCROLL_SPEED_STEPS.length;
-                          return AUTOSCROLL_SPEED_STEPS[prev];
-                        })
-                      }
-                    >
-                      –
-                    </button>
-                    <span className="app__autoscroll-speed-value">{Math.round(autoScrollSpeed)} px/s</span>
-                    <button
-                      type="button"
-                      aria-label="Increase autoscroll speed"
-                      onClick={() =>
-                        setAutoScrollSpeed((current) => {
-                          const index = AUTOSCROLL_SPEED_STEPS.indexOf(normalizeAutoScrollSpeed(current));
-                          const next = (index + 1) % AUTOSCROLL_SPEED_STEPS.length;
-                          return AUTOSCROLL_SPEED_STEPS[next];
-                        })
-                      }
-                    >
-                      +
-                    </button>
-                  </div>
-                </label>
-              </div>
-              <div className="app__toolbar-actions">
-                <FavoriteButton isFavorite={isFavorite} onToggle={handleToggleFavorite} />
-                {isCustomSong ? (
-                  <>
-                    <button type="button" className="app__edit" onClick={() => setFormState({ mode: 'edit', song: selectedSong })}>
-                      Edit song
-                    </button>
-                    <button type="button" className="app__remove" onClick={handleRemoveSong}>
-                      Remove song
-                    </button>
-                  </>
-                ) : null}
-                {isDefaultSong ? (
-                  <>
-                    <button type="button" className="app__edit" onClick={handleCreateEditableCopy}>
-                      Edit copy
-                    </button>
-                    <button type="button" className="app__remove" onClick={handleHideDefaultSong}>
-                      Hide sample
-                    </button>
-                  </>
-                ) : null}
-              </div>
-            </div>
             <SongSheet song={selectedSong} transposeSteps={transposeSteps} />
             <NotesPanel songId={selectedSong.id} currentKey={currentKey} />
           </>
@@ -702,27 +748,6 @@ const App = () => {
               </button>
             </header>
             <div className="ug-search__controls">
-              <form
-                className="ug-search__row"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  if (ugImportValue.trim()) {
-                    setUgSearchOpen(false);
-                    void handleImportUltimateGuitarSource(ugImportValue.trim());
-                  }
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="Paste UG URL or tab ID"
-                  value={ugImportValue}
-                  onChange={(event) => setUgImportValue(event.target.value)}
-                  autoFocus
-                />
-                <button type="submit" disabled={isImportingFromUltimateGuitar}>
-                  {isImportingFromUltimateGuitar ? 'Importing…' : 'Import'}
-                </button>
-              </form>
               <form className="ug-search__row" onSubmit={handleSearchUltimateGuitar}>
                 <input
                   type="text"
@@ -786,6 +811,14 @@ const App = () => {
           onSave={formState.mode === 'edit' ? handleUpdateSong : handleSaveSong}
         />
       )}
+      <button
+        type="button"
+        className="theme-toggle-floating"
+        aria-label={theme === 'dark' ? 'Activate light mode' : 'Activate dark mode'}
+        onClick={handleToggleTheme}
+      >
+        {theme === 'dark' ? '☀️' : '🌙'}
+      </button>
     </div>
   );
 };
