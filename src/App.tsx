@@ -29,16 +29,11 @@ const normalizeAutoScrollSpeed = (value: number): number => {
 
 const App = () => {
   const [theme, setTheme] = useLocalStorage<'light' | 'dark'>('jg/theme/v1', 'light');
-  const [customSongs, setCustomSongs] = useLocalStorage<Song[]>('jg/customSongs/v1', []);
-  const [favoriteTranspositions, setFavoriteTranspositions] = useLocalStorage<Record<string, number>>(
-    'jg/favorites/v1',
-    {},
-  );
-  const [recentTranspositions, setRecentTranspositions] = useLocalStorage<Record<string, number>>(
-    'jg/recentTranspose/v1',
-    {},
-  );
-  const [hiddenDefaultSongs, setHiddenDefaultSongs] = useLocalStorage<string[]>('jg/hiddenDefaults/v1', []);
+  const [customSongs, setCustomSongs] = useState<Song[]>([]);
+  const [favoriteTranspositions, setFavoriteTranspositions] = useState<Record<string, number>>({});
+  const [recentTranspositions, setRecentTranspositions] = useState<Record<string, number>>({});
+  const [hiddenDefaultSongs, setHiddenDefaultSongs] = useState<string[]>([]);
+  const [notes, setNotes] = useState<Record<string, string>>({});
   const visibleDefaultSongs = useMemo(
     () => defaultSongs.filter((song) => !hiddenDefaultSongs.includes(song.id)),
     [hiddenDefaultSongs],
@@ -134,16 +129,7 @@ const App = () => {
   useEffect(() => {
     queueSaveLibrary();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customSongs, favoriteTranspositions, recentTranspositions, hiddenDefaultSongs]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    const handleStorage = () => queueSaveLibrary();
-    window.addEventListener('jg-local-storage', handleStorage);
-    return () => window.removeEventListener('jg-local-storage', handleStorage);
-  }, []);
+  }, [customSongs, favoriteTranspositions, recentTranspositions, hiddenDefaultSongs, notes]);
 
   useEffect(() => {
     const loadFromServer = async () => {
@@ -378,7 +364,7 @@ const App = () => {
         favoriteTranspositions,
         recentTranspositions,
         hiddenDefaultSongs,
-        notes: getLocalNotes(),
+        notes,
       };
       await fetch('/api/library', {
         method: 'POST',
@@ -435,40 +421,20 @@ const App = () => {
     setFormState({ mode: 'copy', song: selectedSong });
   };
 
+  const handleNoteChange = (songId: string, value: string) => {
+    setNotes((current) => ({ ...current, [songId]: value }));
+  };
+
   const handleToggleTheme = () => {
     setTheme((current) => (current === 'dark' ? 'light' : 'dark'));
   };
 
   const handleExport = () => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    const notesPrefix = 'jg/notes/';
-    const notes: Record<string, string> = {};
-
-    for (let index = 0; index < window.localStorage.length; index += 1) {
-      const key = window.localStorage.key(index);
-      if (!key || !key.startsWith(notesPrefix)) {
-        continue;
-      }
-
-      const songId = key.slice(notesPrefix.length);
-      try {
-        const value = window.localStorage.getItem(key);
-        if (value) {
-          notes[songId] = JSON.parse(value) as string;
-        }
-      } catch (error) {
-        console.warn('Unable to export notes for', songId, error);
-      }
-    }
-
-  const payload = {
-    version: 1,
-    exportedAt: new Date().toISOString(),
-    customSongs,
-    favoriteTranspositions,
+    const payload = {
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      customSongs,
+      favoriteTranspositions,
       recentTranspositions,
       hiddenDefaultSongs,
       notes,
@@ -488,30 +454,6 @@ const App = () => {
 
   const handleImportClick = () => {
     fileInputRef.current?.click();
-  };
-
-  const getLocalNotes = () => {
-    const notesPrefix = 'jg/notes/';
-    const notes: Record<string, string> = {};
-    if (typeof window === 'undefined') {
-      return notes;
-    }
-    for (let index = 0; index < window.localStorage.length; index += 1) {
-      const key = window.localStorage.key(index);
-      if (!key || !key.startsWith(notesPrefix)) {
-        continue;
-      }
-      const songId = key.slice(notesPrefix.length);
-      const value = window.localStorage.getItem(key);
-      if (typeof value === 'string') {
-        try {
-          notes[songId] = JSON.parse(value) as string;
-        } catch {
-          notes[songId] = value;
-        }
-      }
-    }
-    return notes;
   };
 
   const applyImportedLibrary = (
@@ -537,43 +479,30 @@ const App = () => {
       ? data.hiddenDefaultSongs.filter((id): id is string => typeof id === 'string')
       : [];
 
+    const importedNotes: Record<string, string> = {};
+    if (data.notes && typeof data.notes === 'object') {
+      Object.entries(data.notes).forEach(([songId, stored]) => {
+        if (typeof songId !== 'string') {
+          return;
+        }
+        if (typeof stored === 'string') {
+          importedNotes[songId] = stored;
+          return;
+        }
+        if (stored && typeof stored === 'object') {
+          const first = Object.values(stored).find((value) => typeof value === 'string' && value.trim());
+          if (first && typeof first === 'string') {
+            importedNotes[songId] = first;
+          }
+        }
+      });
+    }
+
     setCustomSongs(sanitizedSongs);
     setFavoriteTranspositions(data.favoriteTranspositions ?? {});
     setRecentTranspositions(data.recentTranspositions ?? {});
     setHiddenDefaultSongs(importedHiddenDefaults);
-
-    if (typeof window !== 'undefined') {
-      const prefix = 'jg/notes/';
-      const keysToRemove: string[] = [];
-      for (let index = 0; index < window.localStorage.length; index += 1) {
-        const key = window.localStorage.key(index);
-        if (key && key.startsWith(prefix)) {
-          keysToRemove.push(key);
-        }
-      }
-      keysToRemove.forEach((key) => window.localStorage.removeItem(key));
-
-      if (data.notes && typeof data.notes === 'object') {
-        Object.entries(data.notes).forEach(([songId, stored]) => {
-          let note = '';
-          if (typeof stored === 'string') {
-            note = stored;
-          } else if (stored && typeof stored === 'object') {
-            const first = Object.values(stored).find((value) => typeof value === 'string' && value.trim());
-            if (first && typeof first === 'string') {
-              note = first;
-            }
-          }
-          window.localStorage.setItem(`${prefix}${songId}`, JSON.stringify(note));
-        });
-      }
-
-      window.localStorage.setItem('jg/customSongs/v1', JSON.stringify(sanitizedSongs));
-      window.localStorage.setItem('jg/favorites/v1', JSON.stringify(data.favoriteTranspositions ?? {}));
-      window.localStorage.setItem('jg/recentTranspose/v1', JSON.stringify(data.recentTranspositions ?? {}));
-      window.localStorage.setItem('jg/hiddenDefaults/v1', JSON.stringify(importedHiddenDefaults));
-      window.dispatchEvent(new Event('jg-local-storage'));
-    }
+    setNotes(importedNotes);
 
     const visibleAfterImport = defaultSongs.filter((song) => !importedHiddenDefaults.includes(song.id));
     const firstSongId = (sanitizedSongs[0]?.id ?? visibleAfterImport[0]?.id) ?? null;
@@ -636,28 +565,28 @@ const App = () => {
           selectedSongId={selectedSongId}
           onSelect={setSelectedSongId}
           onAddSong={() => setFormState({ mode: 'create' })}
-        onAddFromSearch={() => {
-          setUgSearchOpen(true);
-        }}
-        onAddFromLink={() => {
-          if (typeof window === 'undefined') return;
-          const source = window.prompt('Paste a UG URL or tab id:');
-          if (source) {
+          onAddFromSearch={() => {
+            setUgSearchOpen(true);
+          }}
+          onAddFromLink={() => {
+            if (typeof window === 'undefined') return;
+            const source = window.prompt('Paste a UG URL or tab id:');
+            if (source) {
               void handleImportUltimateGuitarSource(source);
             }
           }}
           onExport={handleExport}
-        onImport={handleImportClick}
-        isImportingUltimateGuitar={isImportingFromUltimateGuitar}
-        onSaveRemote={saveLibraryToServer}
-        version="v4.0.10"
-        isCustomSong={isCustomSong}
-        isDefaultSong={isDefaultSong}
-        onEditSong={() => setFormState({ mode: 'edit', song: selectedSong ?? undefined })}
-        onRemoveSong={handleRemoveSong}
-        onHideDefault={handleHideDefaultSong}
-        onCreateCopy={handleCreateEditableCopy}
-      />
+          onImport={handleImportClick}
+          isImportingUltimateGuitar={isImportingFromUltimateGuitar}
+          onSaveRemote={saveLibraryToServer}
+          version="v4.0.10"
+          isCustomSong={isCustomSong}
+          isDefaultSong={isDefaultSong}
+          onEditSong={() => setFormState({ mode: 'edit', song: selectedSong ?? undefined })}
+          onRemoveSong={handleRemoveSong}
+          onHideDefault={handleHideDefaultSong}
+          onCreateCopy={handleCreateEditableCopy}
+        />
         {selectedSong ? (
           <div className="app__toolbar">
             <TransposerControls defaultKey={selectedSong.defaultKey} steps={transposeSteps} onChange={handleTransposeChange} />
@@ -732,7 +661,12 @@ const App = () => {
         {selectedSong ? (
           <>
             <SongSheet song={selectedSong} transposeSteps={transposeSteps} />
-            <NotesPanel songId={selectedSong.id} currentKey={currentKey} />
+            <NotesPanel
+              songId={selectedSong.id}
+              currentKey={currentKey}
+              note={notes[selectedSong.id] ?? ''}
+              onChange={(value) => handleNoteChange(selectedSong.id, value)}
+            />
           </>
         ) : (
           <div className="app__empty">Select a song to get started.</div>

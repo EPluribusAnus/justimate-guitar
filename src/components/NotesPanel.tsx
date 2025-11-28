@@ -1,19 +1,15 @@
 import type { ChangeEvent } from 'react';
-import { useLocalStorage } from '../hooks/useLocalStorage';
 
 interface Props {
   songId: string;
   currentKey: string;
+  note: string;
+  onChange: (value: string) => void;
 }
 
-const NotesPanel = ({ songId, currentKey }: Props) => {
-  const [note, setNote] = useLocalStorage<string>(`jg/notes/${songId}`, '');
-
+const NotesPanel = ({ songId, currentKey, note, onChange }: Props) => {
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setNote(event.target.value);
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new Event('jg-local-storage'));
-    }
+    onChange(event.target.value);
   };
 
   return (
@@ -27,6 +23,7 @@ const NotesPanel = ({ songId, currentKey }: Props) => {
         placeholder="Add reminders, fingerings, or lyrics tweaks..."
         onChange={handleChange}
         rows={6}
+        aria-label={`Notes for ${songId}`}
       />
     </section>
   );
