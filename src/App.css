@@ -1608,6 +1608,7 @@ button:disabled {
   overflow: hidden;
   position: relative;
   align-self: center;
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
 }
 
 .chord-lib__form-header {
@@ -1646,9 +1647,9 @@ button:disabled {
   position: relative;
   z-index: 1;
   background: var(--surface);
-  padding-bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px));
-  scroll-padding-bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px));
-  max-height: calc(100dvh - 5rem - env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  scroll-padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  max-height: calc(100dvh - 9rem - env(safe-area-inset-bottom, 0px));
   -webkit-overflow-scrolling: touch;
 }
 
@@ -2346,9 +2347,9 @@ body.modal-open {
     border-radius: 0;
     box-shadow: 0 -12px 35px rgba(0, 0, 0, 0.4);
     position: sticky;
-    bottom: 0;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
     background: var(--surface);
-    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: 0;
   }
 }
 
