@@ -1,5 +1,5 @@
 {
-  "savedAt": "2025-12-03T05:00:07.073Z",
+  "savedAt": "2025-12-03T05:14:58.108Z",
   "customSongs": [
     {
       "id": "portugal-the-man-kokhanockers",
@@ -2407,5 +2407,44 @@
     "ac-dc-back-in-black": "",
     "hallelujah": "",
     "portugal-the-man-tanana": ""
+  },
+  "customChordShapes": {
+    "A": [
+      {
+        "id": "33456814-ee10-49ad-a418-092b6427d60e",
+        "frets": [
+          5,
+          7,
+          7,
+          6,
+          5,
+          5
+        ],
+        "fingers": [
+          1,
+          3,
+          4,
+          2,
+          1,
+          1
+        ],
+        "barres": [
+          {
+            "fret": 5,
+            "fromString": 0,
+            "toString": 5,
+            "finger": 1
+          }
+        ],
+        "isOpen": false,
+        "label": "barre"
+      }
+    ]
+  },
+  "preferredChordShapes": {
+    "A": {
+      "type": "built-in",
+      "index": 0
+    }
   }
 }

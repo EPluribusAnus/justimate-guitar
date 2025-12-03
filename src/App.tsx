@@ -77,8 +77,8 @@ const App = () => {
   const saveTimer = useRef<number | null>(null);
   const [controlsExpanded, setControlsExpanded] = useState(true);
   const resetSongFont = () => setSongFontScale(SONG_FONT_DEFAULT);
-  const [customChordShapes, setCustomChordShapes] = useLocalStorage<Record<string, CustomChordShape[]>>('jg/customChordShapes/v1', {});
-  const [preferredChordShapes, setPreferredChordShapes] = useLocalStorage<Record<string, PreferredShapeSelection>>('jg/preferredChordShapes/v1', {});
+  const [customChordShapes, setCustomChordShapes] = useState<Record<string, CustomChordShape[]>>({});
+  const [preferredChordShapes, setPreferredChordShapes] = useState<Record<string, PreferredShapeSelection>>({});
   const [showChordLibrary, setShowChordLibrary] = useState(false);
   const builtInChordShapes = useMemo(() => listBuiltInChordShapes(), []);
   const resolvedChordShapes = useMemo(
@@ -95,6 +95,33 @@ const App = () => {
       }
       return next;
     });
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    try {
+      const legacyCustom = window.localStorage.getItem('jg/customChordShapes/v1');
+      if (legacyCustom && !Object.keys(customChordShapes).length) {
+        const parsed = JSON.parse(legacyCustom) as unknown;
+        if (parsed && typeof parsed === 'object') {
+          setCustomChordShapes(parsed as Record<string, CustomChordShape[]>);
+        }
+      }
+      const legacyPreferred = window.localStorage.getItem('jg/preferredChordShapes/v1');
+      if (legacyPreferred && !Object.keys(preferredChordShapes).length) {
+        const parsed = JSON.parse(legacyPreferred) as unknown;
+        if (parsed && typeof parsed === 'object') {
+          setPreferredChordShapes(parsed as Record<string, PreferredShapeSelection>);
+        }
+      }
+      window.localStorage.removeItem('jg/customChordShapes/v1');
+      window.localStorage.removeItem('jg/preferredChordShapes/v1');
+    } catch (error) {
+      console.warn('Failed to migrate legacy chord shapes', error);
+    }
+  }, [customChordShapes, preferredChordShapes]);
 
   const selectedSong = useMemo(() => songs.find((song) => song.id === selectedSongId) ?? null, [songs, selectedSongId]);
 
@@ -163,7 +190,7 @@ const App = () => {
   useEffect(() => {
     queueSaveLibrary();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customSongs, favoriteTranspositions, recentTranspositions, hiddenDefaultSongs, notes]);
+  }, [customSongs, favoriteTranspositions, recentTranspositions, hiddenDefaultSongs, notes, customChordShapes, preferredChordShapes]);
 
   useEffect(() => {
     const loadFromServer = async () => {
@@ -402,6 +429,8 @@ const App = () => {
         recentTranspositions,
         hiddenDefaultSongs,
         notes,
+        customChordShapes,
+        preferredChordShapes,
       };
       await fetch('/api/library', {
         method: 'POST',
@@ -486,6 +515,8 @@ const App = () => {
       recentTranspositions,
       hiddenDefaultSongs,
       notes,
+      customChordShapes,
+      preferredChordShapes,
     };
 
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
@@ -511,6 +542,8 @@ const App = () => {
       recentTranspositions: Record<string, number>;
       hiddenDefaultSongs: string[];
       notes: Record<string, unknown>;
+      customChordShapes: Record<string, CustomChordShape[]>;
+      preferredChordShapes: Record<string, PreferredShapeSelection>;
     }>,
     showAlert = false,
   ) => {
@@ -551,6 +584,12 @@ const App = () => {
     setRecentTranspositions(data.recentTranspositions ?? {});
     setHiddenDefaultSongs(importedHiddenDefaults);
     setNotes(importedNotes);
+    if (data.customChordShapes && typeof data.customChordShapes === 'object') {
+      setCustomChordShapes(data.customChordShapes as Record<string, CustomChordShape[]>);
+    }
+    if (data.preferredChordShapes && typeof data.preferredChordShapes === 'object') {
+      setPreferredChordShapes(data.preferredChordShapes as Record<string, PreferredShapeSelection>);
+    }
 
     const visibleAfterImport = defaultSongs.filter((song) => !importedHiddenDefaults.includes(song.id));
     const firstSongId = (sanitizedSongs[0]?.id ?? visibleAfterImport[0]?.id) ?? null;
@@ -584,6 +623,8 @@ const App = () => {
           recentTranspositions: Record<string, number>;
           hiddenDefaultSongs: string[];
           notes: Record<string, unknown>;
+          customChordShapes: Record<string, CustomChordShape[]>;
+          preferredChordShapes: Record<string, PreferredShapeSelection>;
         }>;
 
         applyImportedLibrary(data, true);
