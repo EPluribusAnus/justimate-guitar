@@ -23,9 +23,9 @@ import './App.css';
 const AUTOSCROLL_SPEED_STEPS: number[] = [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80];
 const AUTOSCROLL_DOT_COUNT = 6;
 const TEXTSIZE_DOT_COUNT = 6;
-const SONG_FONT_MIN = 0.6;
+const SONG_FONT_MIN = 0.5;
 const SONG_FONT_MAX = 1.3;
-const SONG_FONT_DEFAULT = 0.75;
+const SONG_FONT_DEFAULT = 0.6;
 
 const normalizeAutoScrollSpeed = (value: number): number => {
   let closest = AUTOSCROLL_SPEED_STEPS[0];

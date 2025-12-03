@@ -6,12 +6,12 @@ interface Props {
   shape: ChordShape;
 }
 
-const WIDTH = 120;
-const HEIGHT = 160;
-const LEFT_MARGIN = 18;
-const RIGHT_MARGIN = 18;
-const TOP_MARGIN = 56;
-const BOTTOM_MARGIN = 28;
+const WIDTH = 100;
+const HEIGHT = 145;
+const LEFT_MARGIN = 14;
+const RIGHT_MARGIN = 14;
+const TOP_MARGIN = 54;
+const BOTTOM_MARGIN = 6;
 const NUM_STRINGS = 6;
 const NUM_FRETS = 5;
 
