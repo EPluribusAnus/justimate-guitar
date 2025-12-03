@@ -18,6 +18,7 @@ const SongForm = ({ onSave, onCancel, initialSong, preserveId = false }: Props) 
   const [artist, setArtist] = useState(initialSong?.artist ?? '');
   const [defaultKey, setDefaultKey] = useState(initialSong?.defaultKey ?? 'C');
   const [capo, setCapo] = useState(initialSong?.capo !== undefined ? String(initialSong.capo) : '');
+  const [ugUrl, setUgUrl] = useState(initialSong?.ugUrl ?? '');
   const [content, setContent] = useState(initialContent);
   const [error, setError] = useState<string | null>(null);
 
@@ -26,6 +27,7 @@ const SongForm = ({ onSave, onCancel, initialSong, preserveId = false }: Props) 
     setArtist(initialSong?.artist ?? '');
     setDefaultKey(initialSong?.defaultKey ?? 'C');
     setCapo(initialSong?.capo !== undefined ? String(initialSong.capo) : '');
+    setUgUrl(initialSong?.ugUrl ?? '');
     setContent(initialSong ? stringifyLines(initialSong.lines) : '');
     setError(null);
   }, [initialSong]);
@@ -58,6 +60,7 @@ const SongForm = ({ onSave, onCancel, initialSong, preserveId = false }: Props) 
       artist: artist.trim(),
       defaultKey: defaultKey.trim() || 'C',
       capo: parsedCapo,
+      ugUrl: ugUrl.trim() || undefined,
       lines,
     };
 
@@ -71,44 +74,56 @@ const SongForm = ({ onSave, onCancel, initialSong, preserveId = false }: Props) 
           <h2>{isEdit ? 'Edit Song' : 'Add a Song'}</h2>
           <button type="button" onClick={onCancel} aria-label="Close">×</button>
         </header>
-        <div className="song-form__field">
-          <label htmlFor="song-title">Title</label>
-          <input id="song-title" value={title} onChange={(event) => setTitle(event.target.value)} required />
-        </div>
-        <div className="song-form__field">
-          <label htmlFor="song-artist">Artist</label>
-          <input id="song-artist" value={artist} onChange={(event) => setArtist(event.target.value)} required />
-        </div>
-        <div className="song-form__row">
+        <div className="song-form__body">
           <div className="song-form__field">
-            <label htmlFor="song-key">Default key</label>
-            <input id="song-key" value={defaultKey} onChange={(event) => setDefaultKey(event.target.value)} />
+            <label htmlFor="song-title">Title</label>
+            <input id="song-title" value={title} onChange={(event) => setTitle(event.target.value)} required />
           </div>
           <div className="song-form__field">
-            <label htmlFor="song-capo">Capo</label>
+            <label htmlFor="song-artist">Artist</label>
+            <input id="song-artist" value={artist} onChange={(event) => setArtist(event.target.value)} required />
+          </div>
+          <div className="song-form__row">
+            <div className="song-form__field">
+              <label htmlFor="song-key">Default key</label>
+              <input id="song-key" value={defaultKey} onChange={(event) => setDefaultKey(event.target.value)} />
+            </div>
+            <div className="song-form__field">
+              <label htmlFor="song-capo">Capo</label>
+              <input
+                id="song-capo"
+                value={capo}
+                onChange={(event) => setCapo(event.target.value)}
+                placeholder="0"
+                inputMode="numeric"
+              />
+            </div>
+          </div>
+          <div className="song-form__field">
+            <label htmlFor="song-ug-url">Ultimate Guitar URL (optional)</label>
             <input
-              id="song-capo"
-              value={capo}
-              onChange={(event) => setCapo(event.target.value)}
-              placeholder="0"
-              inputMode="numeric"
+              id="song-ug-url"
+              value={ugUrl}
+              onChange={(event) => setUgUrl(event.target.value)}
+              placeholder="https://tabs.ultimate-guitar.com/tab/..."
+              inputMode="url"
             />
           </div>
+          <div className="song-form__field">
+            <label htmlFor="song-content">Lyrics &amp; chords</label>
+            <textarea
+              id="song-content"
+              value={content}
+              onChange={(event) => setContent(event.target.value)}
+              placeholder={sampleContent}
+              rows={12}
+            />
+            <p className="song-form__hint">
+              Place chord lines above the matching lyric, like Ultimate Guitar. Wrap section names in [Verse] or use # Verse. Blank lines add spacing.
+            </p>
+          </div>
+          {error && <p className="song-form__error">{error}</p>}
         </div>
-        <div className="song-form__field">
-          <label htmlFor="song-content">Lyrics &amp; chords</label>
-          <textarea
-            id="song-content"
-            value={content}
-            onChange={(event) => setContent(event.target.value)}
-            placeholder={sampleContent}
-            rows={12}
-          />
-          <p className="song-form__hint">
-            Place chord lines above the matching lyric, like Ultimate Guitar. Wrap section names in [Verse] or use # Verse. Blank lines add spacing.
-          </p>
-        </div>
-        {error && <p className="song-form__error">{error}</p>}
         <footer>
           <button type="button" onClick={onCancel} className="song-form__secondary">
             Cancel

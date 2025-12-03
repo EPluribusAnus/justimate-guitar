@@ -1,11 +1,13 @@
 import type { LyricSegment } from '../utils/lyrics';
+import type { ChordShape } from '../utils/chords';
 import ChordToken from './ChordToken';
 
 interface Props {
   segments: LyricSegment[];
+  chordShapes: Record<string, ChordShape[]>;
 }
 
-const ChordLine = ({ segments }: Props) => {
+const ChordLine = ({ segments, chordShapes }: Props) => {
   return (
     <div className="chord-line">
       {segments.map((segment, index) => {
@@ -18,7 +20,7 @@ const ChordLine = ({ segments }: Props) => {
             style={{ minWidth: `${approximateWidth}ch` }}
           >
             <span className="chord-line__chord">
-              {segment.chord ? <ChordToken chord={segment.chord} /> : null}
+              {segment.chord ? <ChordToken chord={segment.chord} shapes={chordShapes[segment.chord] ?? []} /> : null}
             </span>
             <span className="chord-line__lyrics">{lyric || '\u00a0'}</span>
           </span>

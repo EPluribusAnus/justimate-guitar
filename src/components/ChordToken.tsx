@@ -1,18 +1,21 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import clsx from 'clsx';
-import ChordDiagram from './ChordDiagram';
-import { getChordShape } from '../utils/chords';
+import type { ChordShape } from '../utils/chords';
+import ChordDiagramCarousel from './ChordDiagramCarousel';
 
 interface Props {
   chord: string;
+  shapes: ChordShape[];
 }
 
-const ChordToken = ({ chord }: Props) => {
+const ChordToken = ({ chord, shapes }: Props) => {
   const [pinned, setPinned] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const shape = useMemo(() => getChordShape(chord), [chord]);
+  const [popoverStyle, setPopoverStyle] = useState<CSSProperties>({});
   const showDiagram = pinned || hovered;
+  const hasShapes = shapes.length > 0;
   const containerRef = useRef<HTMLSpanElement>(null);
+  const diagramRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!pinned) {
@@ -35,11 +38,40 @@ const ChordToken = ({ chord }: Props) => {
     };
   }, [pinned]);
 
+  useLayoutEffect(() => {
+    if (!showDiagram) {
+      return;
+    }
+    const updatePosition = () => {
+      const container = containerRef.current;
+      const diagram = diagramRef.current;
+      if (!container || !diagram) {
+        return;
+      }
+      const rect = container.getBoundingClientRect();
+      const diagramWidth = diagram.offsetWidth;
+      const viewportWidth = window.innerWidth;
+      const gap = 12;
+      const desiredLeft = rect.left + rect.width / 2 - diagramWidth / 2;
+      const clampedLeft = Math.max(gap, Math.min(desiredLeft, viewportWidth - diagramWidth - gap));
+      const top = rect.bottom + 8;
+      setPopoverStyle({ left: clampedLeft, top });
+    };
+
+    updatePosition();
+    window.addEventListener('resize', updatePosition);
+    window.addEventListener('scroll', updatePosition, true);
+    return () => {
+      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('scroll', updatePosition, true);
+    };
+  }, [showDiagram]);
+
   return (
     <span className="chord-token" ref={containerRef}>
       <button
         type="button"
-        className={clsx('chord-token__label', { 'chord-token__label--missing': !shape })}
+        className={clsx('chord-token__label', { 'chord-token__label--missing': !hasShapes })}
         onClick={() => setPinned((prev) => !prev)}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -49,9 +81,9 @@ const ChordToken = ({ chord }: Props) => {
         {chord}
       </button>
       {showDiagram && (
-        <div className="chord-token__diagram" role="group" aria-label={`${chord} diagram`}>
-          {shape ? (
-            <ChordDiagram chord={chord} shape={shape} />
+        <div className="chord-token__diagram" role="group" aria-label={`${chord} diagram`} ref={diagramRef} style={popoverStyle}>
+          {hasShapes ? (
+            <ChordDiagramCarousel chord={chord} shapes={shapes} />
           ) : (
             <div className="chord-token__missing">
               <p>No diagram available for {chord} yet.</p>

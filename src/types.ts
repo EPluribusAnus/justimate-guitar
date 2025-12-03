@@ -9,6 +9,7 @@ export interface Song {
   artist: string;
   defaultKey: string;
   capo?: number;
+  ugUrl?: string;
   tags?: string[];
   lines: SongLine[];
 }

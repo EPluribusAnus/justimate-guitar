@@ -1,2 +1,2 @@
-// Update this value whenever you ship changes. Format: YYYY-MM-DD HH:MM (UTC).
-export const appVersion = '2025-01-02 18:00 UTC';
+// Update this value whenever you ship changes. Use a release-friendly string (e.g. v6.0.0 or a timestamp).
+export const appVersion = 'v7.0.0';

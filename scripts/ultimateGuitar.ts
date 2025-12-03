@@ -291,6 +291,7 @@ export const fetchUltimateGuitarSong = async (source: string): Promise<ImportRes
     artist: tab.artist_name,
     defaultKey: resolveDefaultKey(tab),
     capo: tab.capo && Number.isFinite(tab.capo) && tab.capo > 0 ? tab.capo : undefined,
+    ugUrl: tab.urlWeb ?? source,
     lines,
   };
 
@@ -318,12 +319,7 @@ export const searchUltimateGuitar = async (query: string, page = 1, limit = 12):
   if (!tabs.length) {
     tabs = await performSearchFallbackScrape(query, limit);
   }
-  const relevant = tabs.filter(
-    (tab) =>
-      tab.type?.toLowerCase().includes('chord') ||
-      tab.type?.toLowerCase().includes('official') ||
-      tab.type?.toLowerCase().includes('pro'),
-  );
+  const relevant = tabs.filter((tab) => tab.type?.toLowerCase().includes('chord'));
 
   return relevant.map((tab) => ({
     tabId: tab.id,

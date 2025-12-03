@@ -5,14 +5,26 @@ import SongSheet from './components/SongSheet';
 import NotesPanel from './components/NotesPanel';
 import SongForm from './components/SongForm';
 import TransposerControls from './components/TransposerControls';
+import ChordLibraryModal from './components/ChordLibraryModal';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { defaultSongs } from './data/songs';
 import type { Song } from './types';
-import { transposeChord } from './utils/chords';
+import {
+  transposeChord,
+  listBuiltInChordShapes,
+  mergeChordShapes,
+  type CustomChordShape,
+  type PreferredShapeSelection,
+} from './utils/chords';
 import { buildSongId } from './utils/songContent';
+import { appVersion } from './version';
 import './App.css';
 
 const AUTOSCROLL_SPEED_STEPS: number[] = [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80];
+const AUTOSCROLL_DOT_COUNT = 6;
+const TEXTSIZE_DOT_COUNT = 6;
+const SONG_FONT_MIN = 0.6;
+const SONG_FONT_MAX = 1.3;
 
 const normalizeAutoScrollSpeed = (value: number): number => {
   let closest = AUTOSCROLL_SPEED_STEPS[0];
@@ -50,6 +62,7 @@ const App = () => {
   const [autoScrollSpeed, setAutoScrollSpeed] = useLocalStorage<number>('jg/autoscroll/speed/v1', 50);
   const autoScrollFrame = useRef<number | null>(null);
   const autoScrollLast = useRef<number | null>(null);
+  const autoScrollControlRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const [ugSearchOpen, setUgSearchOpen] = useState(false);
   const [ugSearchQuery, setUgSearchQuery] = useState('');
@@ -61,6 +74,26 @@ const App = () => {
   const [songFontScale, setSongFontScale] = useLocalStorage<number>('jg/fontScale/v1', 1);
   const [isSavingLibrary, setIsSavingLibrary] = useState(false);
   const saveTimer = useRef<number | null>(null);
+  const [controlsExpanded, setControlsExpanded] = useState(true);
+  const resetSongFont = () => setSongFontScale(1);
+  const [customChordShapes, setCustomChordShapes] = useLocalStorage<Record<string, CustomChordShape[]>>('jg/customChordShapes/v1', {});
+  const [preferredChordShapes, setPreferredChordShapes] = useLocalStorage<Record<string, PreferredShapeSelection>>('jg/preferredChordShapes/v1', {});
+  const [showChordLibrary, setShowChordLibrary] = useState(false);
+  const builtInChordShapes = useMemo(() => listBuiltInChordShapes(), []);
+  const resolvedChordShapes = useMemo(
+    () => mergeChordShapes(builtInChordShapes, customChordShapes, preferredChordShapes),
+    [builtInChordShapes, customChordShapes, preferredChordShapes],
+  );
+  const handleSetPreferredShape = (chord: string, selection: PreferredShapeSelection | null) =>
+    setPreferredChordShapes((current) => {
+      const next = { ...current };
+      if (selection) {
+        next[chord] = selection;
+      } else {
+        delete next[chord];
+      }
+      return next;
+    });
 
   const selectedSong = useMemo(() => songs.find((song) => song.id === selectedSongId) ?? null, [songs, selectedSongId]);
 
@@ -253,7 +286,13 @@ const App = () => {
 
     autoScrollFrame.current = requestAnimationFrame(step);
 
-    const handleInterrupt = () => setAutoScrollEnabled(false);
+    const handleInterrupt = (event: Event) => {
+      const target = event.target as Node | null;
+      if (target && autoScrollControlRef.current?.contains(target)) {
+        return;
+      }
+      setAutoScrollEnabled(false);
+    };
     window.addEventListener('wheel', handleInterrupt, { passive: true });
     window.addEventListener('touchstart', handleInterrupt, { passive: true });
     window.addEventListener('keydown', handleInterrupt);
@@ -274,7 +313,7 @@ const App = () => {
     if (typeof document === 'undefined') {
       return;
     }
-    const hasModal = Boolean(formState || ugSearchOpen);
+    const hasModal = Boolean(formState || ugSearchOpen || showChordLibrary);
     if (hasModal) {
       document.body.classList.add('modal-open');
     } else {
@@ -283,7 +322,7 @@ const App = () => {
     return () => {
       document.body.classList.remove('modal-open');
     };
-  }, [formState, ugSearchOpen]);
+  }, [formState, ugSearchOpen, showChordLibrary]);
 
   const handleImportUltimateGuitarSource = async (source: string) => {
     if (isImportingFromUltimateGuitar || typeof window === 'undefined') {
@@ -303,16 +342,27 @@ const App = () => {
         throw new Error((payload as { error?: string }).error ?? `Request failed with status ${response.status}`);
       }
 
-      const result = (payload as { result?: { song?: Song } }).result;
+      type UltimateGuitarImportResult = { song?: Song; source?: string; tabId?: number };
+      const result = (payload as { result?: UltimateGuitarImportResult }).result;
       if (!result?.song) {
         throw new Error('Import did not return a song.');
       }
 
       const importedSong = result.song;
+      const inferredUgUrl =
+        importedSong.ugUrl ??
+        (source.startsWith('http')
+          ? source
+          : result.source?.startsWith('http')
+            ? result.source
+            : result.tabId
+              ? `https://tabs.ultimate-guitar.com/tab/${result.tabId}`
+              : undefined);
       const uniqueId = ensureUniqueId(importedSong.id);
       const preparedSong: Song = {
         ...importedSong,
         id: uniqueId,
+        ugUrl: inferredUgUrl,
       };
 
       setFormState({ mode: 'create', song: preparedSong });
@@ -423,6 +473,17 @@ const App = () => {
 
   const handleNoteChange = (songId: string, value: string) => {
     setNotes((current) => ({ ...current, [songId]: value }));
+  };
+
+  const handleToggleAutoscroll = () => {
+    setAutoScrollEnabled((current) => {
+      if (current && autoScrollFrame.current !== null) {
+        cancelAnimationFrame(autoScrollFrame.current);
+        autoScrollFrame.current = null;
+        autoScrollLast.current = null;
+      }
+      return !current;
+    });
   };
 
   const handleToggleTheme = () => {
@@ -579,7 +640,8 @@ const App = () => {
           onImport={handleImportClick}
           isImportingUltimateGuitar={isImportingFromUltimateGuitar}
           onSaveRemote={saveLibraryToServer}
-          version="v4.0.10"
+          onOpenChordLibrary={() => setShowChordLibrary(true)}
+          version={appVersion}
           isCustomSong={isCustomSong}
           isDefaultSong={isDefaultSong}
           onEditSong={() => setFormState({ mode: 'edit', song: selectedSong ?? undefined })}
@@ -588,65 +650,122 @@ const App = () => {
           onCreateCopy={handleCreateEditableCopy}
         />
         {selectedSong ? (
-          <div className="app__toolbar">
-            <TransposerControls defaultKey={selectedSong.defaultKey} steps={transposeSteps} onChange={handleTransposeChange} />
-            <div className="app__autoscroll">
-              <button
-                type="button"
-                className={`app__autoscroll-toggle${autoScrollEnabled ? ' is-active' : ''}`}
-                onClick={() => setAutoScrollEnabled((current) => !current)}
-              >
-                {autoScrollEnabled ? 'Pause scroll' : 'Scroll'}
-              </button>
-              <label className="app__autoscroll-speed">
-                <div className="app__autoscroll-stepper" role="group" aria-label="Autoscroll speed">
-                  <button
-                    type="button"
-                    aria-label="Decrease autoscroll speed"
-                    onClick={() =>
-                      setAutoScrollSpeed((current) => {
-                        const index = AUTOSCROLL_SPEED_STEPS.indexOf(normalizeAutoScrollSpeed(current));
-                        const prev = (index - 1 + AUTOSCROLL_SPEED_STEPS.length) % AUTOSCROLL_SPEED_STEPS.length;
-                        return AUTOSCROLL_SPEED_STEPS[prev];
-                      })
-                    }
-                  >
-                    -
-                  </button>
-                  <span className="app__autoscroll-speed-value">{Math.round(autoScrollSpeed)}</span>
-                  <button
-                    type="button"
-                    aria-label="Increase autoscroll speed"
-                    onClick={() =>
-                      setAutoScrollSpeed((current) => {
-                        const index = AUTOSCROLL_SPEED_STEPS.indexOf(normalizeAutoScrollSpeed(current));
-                        const next = (index + 1) % AUTOSCROLL_SPEED_STEPS.length;
-                        return AUTOSCROLL_SPEED_STEPS[next];
-                      })
-                    }
-                  >
-                    +
-                  </button>
+          <div className={`app__controls${controlsExpanded ? ' is-open' : ' is-collapsed'}`}>
+            <div
+              className="app__controls-header"
+              role="button"
+              tabIndex={0}
+              aria-expanded={controlsExpanded}
+              onClick={() => setControlsExpanded((current) => !current)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  setControlsExpanded((current) => !current);
+                }
+              }}
+            >
+              <p className="app__controls-title">Controls</p>
+              <span className="app__controls-caret" aria-hidden="true">
+                {controlsExpanded ? '▴' : '▾'}
+              </span>
+            </div>
+            {controlsExpanded ? (
+              <div className="app__toolbar" id="app-controls-panel">
+                <div className="toolbar-grid">
+                  <div className="toolbar-group toolbar-group--trans">
+                    <p className="toolbar-group__label">Transpose</p>
+                    <TransposerControls defaultKey={selectedSong.defaultKey} steps={transposeSteps} onChange={handleTransposeChange} />
+                  </div>
+                  <div className="toolbar-group toolbar-group--auto">
+                    <p className="toolbar-group__label">Autoscroll</p>
+                    <div className="app__autoscroll-control" ref={autoScrollControlRef}>
+                      <div className="app__autoscroll-stepper" role="group" aria-label="Autoscroll controls">
+                        <button
+                          type="button"
+                          aria-label="Slower autoscroll"
+                          onClick={() =>
+                            setAutoScrollSpeed((current) => {
+                              const index = AUTOSCROLL_SPEED_STEPS.indexOf(normalizeAutoScrollSpeed(current));
+                              const prev = (index - 1 + AUTOSCROLL_SPEED_STEPS.length) % AUTOSCROLL_SPEED_STEPS.length;
+                              return AUTOSCROLL_SPEED_STEPS[prev];
+                            })
+                          }
+                        >
+                          –
+                        </button>
+                        <button
+                          type="button"
+                          className={`app__autoscroll-toggle${autoScrollEnabled ? ' is-active' : ''}`}
+                          onClick={handleToggleAutoscroll}
+                          aria-pressed={autoScrollEnabled}
+                        >
+                          {autoScrollEnabled ? 'on' : 'off'}
+                        </button>
+                        <button
+                          type="button"
+                          aria-label="Faster autoscroll"
+                          onClick={() =>
+                            setAutoScrollSpeed((current) => {
+                              const index = AUTOSCROLL_SPEED_STEPS.indexOf(normalizeAutoScrollSpeed(current));
+                              const next = (index + 1) % AUTOSCROLL_SPEED_STEPS.length;
+                              return AUTOSCROLL_SPEED_STEPS[next];
+                            })
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                      <div className="app__autoscroll-meter" aria-label="Autoscroll speed">
+                        {(() => {
+                          const normalized =
+                            AUTOSCROLL_SPEED_STEPS.indexOf(normalizeAutoScrollSpeed(autoScrollSpeed)) /
+                            (AUTOSCROLL_SPEED_STEPS.length - 1);
+                          const threshold = Math.round(normalized * (AUTOSCROLL_DOT_COUNT - 1));
+                          return Array.from({ length: AUTOSCROLL_DOT_COUNT }).map((_, index) => (
+                            <span key={index} className={`app__autoscroll-dot${index <= threshold ? ' is-filled' : ''}`} />
+                          ));
+                        })()}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="toolbar-group toolbar-group--text">
+                    <p className="toolbar-group__label">Text Size</p>
+                    <div className="app__textsize-control">
+                      <div className="app__textsize" aria-label="Adjust text size">
+                        <button
+                          type="button"
+                          className="app__textsize-btn app__textsize-btn--small"
+                          onClick={() => setSongFontScale((current) => Math.max(SONG_FONT_MIN, parseFloat((current - 0.05).toFixed(2))))}
+                          aria-label="Decrease text size"
+                        >
+                          A
+                        </button>
+                        <button type="button" className="app__textsize-value" onClick={resetSongFont} aria-label="Reset text size">
+                          {Math.round(songFontScale * 100)}%
+                        </button>
+                        <button
+                          type="button"
+                          className="app__textsize-btn app__textsize-btn--large"
+                          onClick={() => setSongFontScale((current) => Math.min(SONG_FONT_MAX, parseFloat((current + 0.05).toFixed(2))))}
+                          aria-label="Increase text size"
+                        >
+                          A
+                        </button>
+                      </div>
+                      <div className="app__textsize-meter" aria-label="Text size level">
+                        {(() => {
+                          const normalized = (songFontScale - SONG_FONT_MIN) / (SONG_FONT_MAX - SONG_FONT_MIN);
+                          const threshold = Math.round(normalized * (TEXTSIZE_DOT_COUNT - 1));
+                          return Array.from({ length: TEXTSIZE_DOT_COUNT }).map((_, index) => (
+                            <span key={index} className={`app__autoscroll-dot${index <= threshold ? ' is-filled' : ''}`} />
+                          ));
+                        })()}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </label>
-            <div className="app__textsize" aria-label="Adjust text size">
-              <button
-                type="button"
-                onClick={() => setSongFontScale((current) => Math.max(0.6, parseFloat((current - 0.05).toFixed(2))))}
-                aria-label="Decrease text size"
-              >
-                A
-              </button>
-              <span>{Math.round(songFontScale * 100)}%</span>
-              <button
-                type="button"
-                onClick={() => setSongFontScale((current) => Math.min(1.3, parseFloat((current + 0.05).toFixed(2))))}
-                aria-label="Increase text size"
-              >
-                A
-              </button>
-            </div>
-            </div>
+              </div>
+            ) : null}
           </div>
         ) : null}
       </header>
@@ -660,7 +779,7 @@ const App = () => {
       <main className="app__main">
         {selectedSong ? (
           <>
-            <SongSheet song={selectedSong} transposeSteps={transposeSteps} />
+            <SongSheet song={selectedSong} transposeSteps={transposeSteps} chordShapes={resolvedChordShapes} />
             <NotesPanel
               songId={selectedSong.id}
               currentKey={currentKey}
@@ -735,6 +854,16 @@ const App = () => {
             </div>
           </div>
         </div>
+      )}
+      {showChordLibrary && (
+        <ChordLibraryModal
+          builtInShapes={builtInChordShapes}
+          customShapes={customChordShapes}
+          preferredShapes={preferredChordShapes}
+          onSave={setCustomChordShapes}
+          onSetPreferred={handleSetPreferredShape}
+          onClose={() => setShowChordLibrary(false)}
+        />
       )}
       {formState && (
         <SongForm

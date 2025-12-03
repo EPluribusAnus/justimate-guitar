@@ -440,6 +440,7 @@ var fetchUltimateGuitarSong = async (source) => {
     artist: tab.artist_name,
     defaultKey: resolveDefaultKey(tab),
     capo: tab.capo && Number.isFinite(tab.capo) && tab.capo > 0 ? tab.capo : void 0,
+    ugUrl: tab.urlWeb ?? source,
     lines
   };
   return {
@@ -454,9 +455,7 @@ var searchUltimateGuitar = async (query, page = 1, limit = 12) => {
   if (!tabs.length) {
     tabs = await performSearchFallbackScrape(query, limit);
   }
-  const relevant = tabs.filter(
-    (tab) => tab.type?.toLowerCase().includes("chord") || tab.type?.toLowerCase().includes("official") || tab.type?.toLowerCase().includes("pro")
-  );
+  const relevant = tabs.filter((tab) => tab.type?.toLowerCase().includes("chord"));
   return relevant.map((tab) => ({
     tabId: tab.id,
     title: tab.song_name,

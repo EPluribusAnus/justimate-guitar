@@ -1,57 +1,6 @@
 {
-  "savedAt": "2025-11-28T02:39:43.588Z",
+  "savedAt": "2025-12-03T03:02:31.299Z",
   "customSongs": [
-    {
-      "id": "the-beatles-hey-jude",
-      "title": "Hey Jude",
-      "artist": "The Beatles",
-      "defaultKey": "D",
-      "lines": [
-        {
-          "type": "section",
-          "label": "Verse 1"
-        },
-        {
-          "type": "line",
-          "content": "[C]Hey ___, don’t make it [G]bad"
-        },
-        {
-          "type": "line",
-          "content": "[Am]Take a sad song and [F]make it better"
-        },
-        {
-          "type": "line",
-          "content": "[C]Remember to let her into your [G]heart"
-        },
-        {
-          "type": "line",
-          "content": "Then you can [C]start to make it [F]better"
-        },
-        {
-          "type": "spacer"
-        },
-        {
-          "type": "section",
-          "label": "Chorus"
-        },
-        {
-          "type": "line",
-          "content": "[F]And anytime you [C]feel the pain, hey ___, re[G]frain"
-        },
-        {
-          "type": "line",
-          "content": "Don’t carry the [C]world upon your [F]shoulders"
-        },
-        {
-          "type": "line",
-          "content": "[F]For well you know that it’s a [C]fool who plays it [G]cool"
-        },
-        {
-          "type": "line",
-          "content": "By making his [C]world a little [F"
-        }
-      ]
-    },
     {
       "id": "portugal-the-man-so-american",
       "title": "So American",
@@ -1203,501 +1152,6 @@
       ]
     },
     {
-      "id": "ac-dc-back-in-black",
-      "title": "Back In Black",
-      "artist": "AC/DC",
-      "defaultKey": "E",
-      "lines": [
-        {
-          "type": "line",
-          "content": "AC/DC - Back In Black                                     https://www.youtube.com/watch?v=pAgnJDJN4VA"
-        },
-        {
-          "type": "spacer"
-        },
-        {
-          "type": "line",
-          "content": "E5              B5            A/E"
-        },
-        {
-          "type": "line",
-          "content": "    022xxx         x244xx          042xxx"
-        },
-        {
-          "type": "line",
-          "content": "D5              G5            Asus2"
-        },
-        {
-          "type": "line",
-          "content": "    xx023x         3x0033        x02200"
-        },
-        {
-          "type": "line",
-          "content": "A5"
-        },
-        {
-          "type": "line",
-          "content": "    x022xx        "
-        },
-        {
-          "type": "spacer"
-        },
-        {
-          "type": "section",
-          "label": "Intro"
-        },
-        {
-          "type": "section",
-          "label": "E5]  [D5]  [A5]     [A5]    [E5]  [D5]  [A5]     [A5"
-        },
-        {
-          "type": "section",
-          "label": "E5]  [D5]  [A5]     [A5]    [E5]  [D5]  [A5]     [A5"
-        },
-        {
-          "type": "spacer"
-        },
-        {
-          "type": "section",
-          "label": "Verse 1"
-        },
-        {
-          "type": "section",
-          "label": "E5]            [D5"
-        },
-        {
-          "type": "line",
-          "content": "Back in black,I hit the sack"
-        },
-        {
-          "type": "section",
-          "label": "A5"
-        },
-        {
-          "type": "line",
-          "content": "I've been too long I'm glad to be back"
-        },
-        {
-          "type": "section",
-          "label": "E5]             [D5"
-        },
-        {
-          "type": "line",
-          "content": "Yes I'm, let loose,From the noose"
-        },
-        {
-          "type": "section",
-          "label": "A5"
-        },
-        {
-          "type": "line",
-          "content": "That's kept me hanging about"
-        },
-        {
-          "type": "section",
-          "label": "E5]                  [D5"
-        },
-        {
-          "type": "line",
-          "content": "I keep looking at the sky,'Cause it's gettin' me high"
-        },
-        {
-          "type": "section",
-          "label": "A5"
-        },
-        {
-          "type": "line",
-          "content": "Forget the hearse 'cause I'll never die"
-        },
-        {
-          "type": "section",
-          "label": "E5]         [D5"
-        },
-        {
-          "type": "line",
-          "content": "I got nine lives,Cat's eyes"
-        },
-        {
-          "type": "section",
-          "label": "A5"
-        },
-        {
-          "type": "line",
-          "content": "Abusin' every one of them and running wild"
-        },
-        {
-          "type": "spacer"
-        },
-        {
-          "type": "section",
-          "label": "Chorus"
-        },
-        {
-          "type": "section",
-          "label": "A5]              [E5]  [B5"
-        },
-        {
-          "type": "line",
-          "content": "'Cause I'm back"
-        },
-        {
-          "type": "section",
-          "label": "A5]    [B5]  [A5]   [E5]  [B5"
-        },
-        {
-          "type": "line",
-          "content": "Yes, I'm back"
-        },
-        {
-          "type": "section",
-          "label": "A5]     [B5]  [A5]  [D]  [A5"
-        },
-        {
-          "type": "line",
-          "content": "Well, I'm back"
-        },
-        {
-          "type": "section",
-          "label": "G]     [A5]   [G5]  [D]  [A5"
-        },
-        {
-          "type": "line",
-          "content": "Yes, I'm back"
-        },
-        {
-          "type": "section",
-          "label": "G]      [A5]  [E5] [B5]  [A5]  [B5]  [A5]    [E5]  [B5]  [A5"
-        },
-        {
-          "type": "line",
-          "content": "Well, I'm back,           back"
-        },
-        {
-          "type": "section",
-          "label": "B5]  [G"
-        },
-        {
-          "type": "line",
-          "content": "(Well) I'm back in black"
-        },
-        {
-          "type": "line",
-          "content": "Yes, I'm back in black",
-          "chords": "         [D]"
-        },
-        {
-          "type": "spacer"
-        },
-        {
-          "type": "section",
-          "label": "Verse 2"
-        },
-        {
-          "type": "section",
-          "label": "E5]               [D5"
-        },
-        {
-          "type": "line",
-          "content": "Back in the back,Of a Cadillac"
-        },
-        {
-          "type": "section",
-          "label": "A5"
-        },
-        {
-          "type": "line",
-          "content": "Number one with a bullet, I'm a power pack"
-        },
-        {
-          "type": "section",
-          "label": "E5]   [D5"
-        },
-        {
-          "type": "line",
-          "content": "Yes, I'm in a bang,With a gang"
-        },
-        {
-          "type": "section",
-          "label": "A5"
-        },
-        {
-          "type": "line",
-          "content": "They've got to catch me if they want me to hang"
-        },
-        {
-          "type": "section",
-          "label": "E5"
-        },
-        {
-          "type": "line",
-          "content": "Cause I'm back on the track"
-        },
-        {
-          "type": "section",
-          "label": "D5"
-        },
-        {
-          "type": "line",
-          "content": "And I'm leadin' the pack"
-        },
-        {
-          "type": "section",
-          "label": "A5"
-        },
-        {
-          "type": "line",
-          "content": "Nobody's gonna get me on another rap"
-        },
-        {
-          "type": "section",
-          "label": "E5]                 [D5"
-        },
-        {
-          "type": "line",
-          "content": "So look at me now,I'm just makin' my play"
-        },
-        {
-          "type": "section",
-          "label": "A5"
-        },
-        {
-          "type": "line",
-          "content": "Don't try to push your luck, just get out of my way"
-        },
-        {
-          "type": "spacer"
-        },
-        {
-          "type": "section",
-          "label": "Chorus"
-        },
-        {
-          "type": "section",
-          "label": "A5]              [E5]  [B5"
-        },
-        {
-          "type": "line",
-          "content": "'Cause I'm back"
-        },
-        {
-          "type": "section",
-          "label": "A5]    [B5]  [A5]   [E5]  [B5"
-        },
-        {
-          "type": "line",
-          "content": "Yes, I'm back"
-        },
-        {
-          "type": "section",
-          "label": "A5]     [B5]  [A5]  [D]  [A5"
-        },
-        {
-          "type": "line",
-          "content": "Well, I'm back"
-        },
-        {
-          "type": "section",
-          "label": "G]     [A5]   [G5]  [D]  [A5"
-        },
-        {
-          "type": "line",
-          "content": "Yes, I'm back"
-        },
-        {
-          "type": "section",
-          "label": "G]      [A5]  [E5] [B5]  [A5]  [B5]  [A5]    [E5]  [B5]  [A5"
-        },
-        {
-          "type": "line",
-          "content": "Well, I'm back,- - - - - -Back"
-        },
-        {
-          "type": "section",
-          "label": "B5]  [G"
-        },
-        {
-          "type": "line",
-          "content": "(Well) I'm back in black"
-        },
-        {
-          "type": "line",
-          "content": "Yes, I'm back in black",
-          "chords": "         [D]"
-        },
-        {
-          "type": "spacer"
-        },
-        {
-          "type": "section",
-          "label": "Instrumental"
-        },
-        {
-          "type": "section",
-          "label": "E5]  [D5]  [A/E]    [A/E]  [E5"
-        },
-        {
-          "type": "line",
-          "content": "E5D5A/E A/EE5A5E5A5"
-        },
-        {
-          "type": "line",
-          "content": "                        X6"
-        },
-        {
-          "type": "spacer"
-        },
-        {
-          "type": "section",
-          "label": "Chorus"
-        },
-        {
-          "type": "section",
-          "label": "E5]      [A5]   [E5]  [B5"
-        },
-        {
-          "type": "line",
-          "content": "Well im back"
-        },
-        {
-          "type": "section",
-          "label": "A5]   [B5] [A5]  [E5]  [B5"
-        },
-        {
-          "type": "line",
-          "content": "Yes im  back"
-        },
-        {
-          "type": "section",
-          "label": "A5]   [B5]  [G5]  [D]   [A5"
-        },
-        {
-          "type": "line",
-          "content": "Well im  back"
-        },
-        {
-          "type": "section",
-          "label": "G]   [A5]  [G5]  [D]   [A5"
-        },
-        {
-          "type": "line",
-          "content": "Yes im  back"
-        },
-        {
-          "type": "section",
-          "label": "G]    [A5]  [E5]  [B5]  [A5]  [B5]  [A5]  [E5]  [B5]  [A5"
-        },
-        {
-          "type": "line",
-          "content": "Well im back - - - - - - Back"
-        },
-        {
-          "type": "section",
-          "label": "B5] [G"
-        },
-        {
-          "type": "line",
-          "content": "Well im back in black"
-        },
-        {
-          "type": "line",
-          "content": "Yes im back in black",
-          "chords": "       [D]"
-        },
-        {
-          "type": "spacer"
-        },
-        {
-          "type": "section",
-          "label": "Instrumental"
-        },
-        {
-          "type": "section",
-          "label": "E5]     [E5]     [E5]     [E5"
-        },
-        {
-          "type": "section",
-          "label": "A5]     [A5]     [E5]     [E5"
-        },
-        {
-          "type": "spacer"
-        },
-        {
-          "type": "section",
-          "label": "Chorus"
-        },
-        {
-          "type": "section",
-          "label": "E5]      [A5]   [E5]  [B5]  [A5]  [B5"
-        },
-        {
-          "type": "line",
-          "content": "Well im back"
-        },
-        {
-          "type": "section",
-          "label": "A5]   [E5]  [B5]  [A5]  [B5]  [G5]   [D]  [A5]  [G]  [A5"
-        },
-        {
-          "type": "line",
-          "content": "Back - - - - - - - - Back"
-        },
-        {
-          "type": "section",
-          "label": "A5]   [D]   [A5]  [G]   [A5]  [E5]   [B5]  [A5]  [B5"
-        },
-        {
-          "type": "line",
-          "content": "Back - - - - - - - - Back"
-        },
-        {
-          "type": "section",
-          "label": "A5]   [E5]  [B5]  [A5"
-        },
-        {
-          "type": "line",
-          "content": "Back - - - - -"
-        },
-        {
-          "type": "section",
-          "label": "B5]  [G"
-        },
-        {
-          "type": "line",
-          "content": "(Well) I'm back in black"
-        },
-        {
-          "type": "section",
-          "label": "D]              [A5"
-        },
-        {
-          "type": "line",
-          "content": "Yes, I'm back in black ,I wanna say it"
-        },
-        {
-          "type": "spacer"
-        },
-        {
-          "type": "section",
-          "label": "Outro"
-        },
-        {
-          "type": "section",
-          "label": "E5]  [D5]  [Asus2]   [Asus2]  [E5"
-        },
-        {
-          "type": "section",
-          "label": "E5]  [D5]  [Asus2]   [Asus2]  [E5]  [A5]  [E5]  [A5"
-        },
-        {
-          "type": "spacer"
-        },
-        {
-          "type": "line",
-          "content": "Mark W"
-        }
-      ]
-    },
-    {
       "id": "portugal-the-man-tanana",
       "title": "Tanana",
       "artist": "Portugal. The Man",
@@ -1995,18 +1449,1323 @@
       ]
     },
     {
-      "id": "fuck-shitbird",
-      "title": "shitbird",
-      "artist": "fuck",
-      "defaultKey": "C",
-      "capo": 8,
+      "id": "george-harrison-my-sweet-lord",
+      "title": "My Sweet Lord",
+      "artist": "George Harrison",
+      "defaultKey": "F#m",
+      "capo": 2,
       "lines": [
         {
-          "type": "line",
-          "content": "sfjlkesdfjalkf"
+          "type": "section",
+          "label": "Intro"
         },
         {
           "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[Em] [A] "
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[Em] [A] "
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[Em] [A] "
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[Em] [A] "
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[D] [Bm] "
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[D] [Bm] "
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[D] [F#dim] [B7] [Em]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": " My sweet lord",
+          "chords": "[A]               [Em]         "
+        },
+        {
+          "type": "line",
+          "content": " Hm, my lord",
+          "chords": "[A]               [Em]"
+        },
+        {
+          "type": "line",
+          "content": " Hm, my lord",
+          "chords": "[A]               [Em]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": " I really want to see you",
+          "chords": "[A]                 [D]  "
+        },
+        {
+          "type": "line",
+          "content": " Really want to be with you",
+          "chords": "[Bm]              [D]"
+        },
+        {
+          "type": "line",
+          "content": " Really want to see you lord",
+          "chords": "[Bm]              [D]"
+        },
+        {
+          "type": "line",
+          "content": "But it takes so long, my lord",
+          "chords": "       [F#dim]    [B7]       [Em]       "
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": " My sweet lord",
+          "chords": "[A]               [Em]"
+        },
+        {
+          "type": "line",
+          "content": " Hm, my lord",
+          "chords": "[A]               [Em]"
+        },
+        {
+          "type": "line",
+          "content": " Hm, my lord",
+          "chords": "[A]               [Em]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": " I really want to know you",
+          "chords": "[A]                 [D]"
+        },
+        {
+          "type": "line",
+          "content": " Really want to go with you",
+          "chords": "[Bm]              [D]"
+        },
+        {
+          "type": "line",
+          "content": " Really want to show you lord",
+          "chords": "[Bm]              [D] "
+        },
+        {
+          "type": "line",
+          "content": "That it won't take long, my lord (hallelujah)",
+          "chords": "        [F#dim]      [B7]       [Em]         [A] "
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "My sweet lord (hallelujah)",
+          "chords": "         [Em]         [A]"
+        },
+        {
+          "type": "line",
+          "content": "Hm, my lord (hallelujah)",
+          "chords": "       [Em]         [A]"
+        },
+        {
+          "type": "line",
+          "content": "My sweet lord (hallelujah)",
+          "chords": "         [Em]         [A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "I really want to see you",
+          "chords": "                 [D]  "
+        },
+        {
+          "type": "line",
+          "content": "Really want to see you",
+          "chords": "               [D7]  "
+        },
+        {
+          "type": "line",
+          "content": "Really want to see you, lord",
+          "chords": "               [B7]"
+        },
+        {
+          "type": "line",
+          "content": "Really want to see you, lord",
+          "chords": "               [E]"
+        },
+        {
+          "type": "line",
+          "content": "But it takes so long, my lord (hallelujah)",
+          "chords": "       [G#dim]    [C#7]      [F#m]        [B]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "My sweet lord (hallelujah)",
+          "chords": "         [F#m]        [B]"
+        },
+        {
+          "type": "line",
+          "content": "Hm, my lord (hallelujah)",
+          "chords": "       [F#m]        [B]"
+        },
+        {
+          "type": "line",
+          "content": "My, my, my lord (hallelujah)",
+          "chords": "           [F#m]        [B] "
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "I really want to know you (hallelujah)",
+          "chords": "                 [E]              [C#m] "
+        },
+        {
+          "type": "line",
+          "content": "Really want to go with you (hallelujah)",
+          "chords": "               [E]                 [C#m]"
+        },
+        {
+          "type": "line",
+          "content": "Really want to show you lord (aaah)",
+          "chords": "               [E]               "
+        },
+        {
+          "type": "line",
+          "content": "That it won't take long, my lord (hallelujah)",
+          "chords": "        [G#dim]      [C#7]      [F#m]        [B]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Hmm (hallelujah)",
+          "chords": "   [F#m]    [B]"
+        },
+        {
+          "type": "line",
+          "content": "My sweet lord (hallelujah)",
+          "chords": "         [F#m]        [B]"
+        },
+        {
+          "type": "line",
+          "content": "My, my, lord (hallelujah)",
+          "chords": "        [F#m]        [B]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Instrumental"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[E] [C#m]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[E] [C#m]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[E] [G#dim] [C#7] [F#m] [B]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Hm, my lord (hare krishna)",
+          "chords": "       [F#m]        [B] "
+        },
+        {
+          "type": "line",
+          "content": "My, my, my lord (hare krishna)",
+          "chords": "           [F#m]        [B]"
+        },
+        {
+          "type": "line",
+          "content": "Oh hm, my sweet lord (krishna, krishna)",
+          "chords": "          [F#m]                  [B] "
+        },
+        {
+          "type": "line",
+          "content": "Oh-uuh-uh (hare hare)",
+          "chords": "       [F#m]      [B]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Now, I really want to see you (hare rama)",
+          "chords": "                      [E]             [C#m] "
+        },
+        {
+          "type": "line",
+          "content": "Really want to be with you (hare rama)",
+          "chords": "               [E]                 [C#m]"
+        },
+        {
+          "type": "line",
+          "content": "Really want to see you lord (aaah)",
+          "chords": "               [E] "
+        },
+        {
+          "type": "line",
+          "content": "But it takes so long, my lord (hallelujah)",
+          "chords": "       [G#dim]    [C#7]      [F#m]        [B]    "
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Hm, my lord (hallelujah)",
+          "chords": "       [F#m]        [B]"
+        },
+        {
+          "type": "line",
+          "content": "My, my, my lord (hare krishna)",
+          "chords": "           [F#m]        [B]"
+        },
+        {
+          "type": "line",
+          "content": "My sweet lord (hare krishna)",
+          "chords": "         [F#m]        [B]"
+        },
+        {
+          "type": "line",
+          "content": "My sweet lord (krishna krishna)",
+          "chords": "         [F#m]           [B]"
+        },
+        {
+          "type": "line",
+          "content": "My lord (hare hare)",
+          "chords": "     [F#m]      [B]"
+        },
+        {
+          "type": "line",
+          "content": "Hm, Hm (Gurur Brahma)",
+          "chords": "    [F#m]       [B] "
+        },
+        {
+          "type": "line",
+          "content": "Hm, Hm (Gurur Vishnu)",
+          "chords": "    [F#m]       [B] "
+        },
+        {
+          "type": "line",
+          "content": "Hm, Hm (Gurur Devo)",
+          "chords": "    [F#m]       [B]"
+        },
+        {
+          "type": "line",
+          "content": "Hm, Hm (Maheshwara)",
+          "chords": "    [F#m]       [B] "
+        },
+        {
+          "type": "line",
+          "content": "My sweet lord (Gurur Sakshaat)",
+          "chords": "         [F#m]         [B]"
+        },
+        {
+          "type": "line",
+          "content": "My sweet lord (Parabrahma)",
+          "chords": "         [F#m]       [B]"
+        },
+        {
+          "type": "line",
+          "content": "My, my, my lord (Tasmayi Shree)",
+          "chords": "           [F#m]           [B]"
+        },
+        {
+          "type": "line",
+          "content": "My, my, my, my lord (Guruve Namah)",
+          "chords": "               [F#m]          [B]"
+        },
+        {
+          "type": "line",
+          "content": "My sweet lord (Hare Rama)",
+          "chords": "         [F#m]        [B]      "
+        },
+        {
+          "type": "line",
+          "content": "              (hare krishna)",
+          "chords": "         [F#m]        [B]"
+        },
+        {
+          "type": "line",
+          "content": "My sweet lord (hare krishna)",
+          "chords": "         [F#m]        [B]"
+        },
+        {
+          "type": "line",
+          "content": "My sweet lord (krishna krishna)",
+          "chords": "         [F#m]           [B]"
+        },
+        {
+          "type": "line",
+          "content": "My lord (hare hare)",
+          "chords": "   [F#m]        [B]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "RIP George Harrison 1943-2001"
+        }
+      ]
+    },
+    {
+      "id": "billy-joel-uptown-girl-2",
+      "title": "Uptown Girl",
+      "artist": "Billy Joel",
+      "defaultKey": "E",
+      "capo": 2,
+      "ugUrl": "https://tabs.ultimate-guitar.com/tab/billy-joel/uptown-girl-chords-62042",
+      "lines": [
+        {
+          "type": "section",
+          "label": "Intro"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": " Oh, oh, oh, oh, oh, oh, oh",
+          "chords": "[D]            [Em]"
+        },
+        {
+          "type": "line",
+          "content": " Oh, oh, oh, oh, oh, oh, oh",
+          "chords": "[D/F#]         [G]       [A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 1"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Uptown girl",
+          "chords": "[D]           "
+        },
+        {
+          "type": "line",
+          "content": " She's been living in her uptown world",
+          "chords": "[Em]                        [D/F#]"
+        },
+        {
+          "type": "line",
+          "content": " I bet she never had a back street guy",
+          "chords": "[G]          [A]           [D]"
+        },
+        {
+          "type": "line",
+          "content": " I bet her mama never told her why",
+          "chords": "[Em]                    [D/F#]"
+        },
+        {
+          "type": "line",
+          "content": " I'm gonna try for an",
+          "chords": "[G]          [A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 2"
+        },
+        {
+          "type": "line",
+          "content": "Uptown girl",
+          "chords": "[D]"
+        },
+        {
+          "type": "line",
+          "content": " She's been living in her white bread world",
+          "chords": "[Em]                        [D/F#]"
+        },
+        {
+          "type": "line",
+          "content": " As long as anyone with hot blood can",
+          "chords": "[G]           [A]           [D]"
+        },
+        {
+          "type": "line",
+          "content": " And now she's looking for a downtown man",
+          "chords": "[Em]                           [D/F#]"
+        },
+        {
+          "type": "line",
+          "content": " That's what I am",
+          "chords": "[G]              [A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Bridge"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "And when she knows what",
+          "chords": "[Bb]           [Gm]"
+        },
+        {
+          "type": "line",
+          "content": "She wants from her time",
+          "chords": "    [Cm]             [F]"
+        },
+        {
+          "type": "line",
+          "content": "And when she wakes up",
+          "chords": "[Bb]           [Gm]"
+        },
+        {
+          "type": "line",
+          "content": "And makes up her mind",
+          "chords": "    [Am7-5]        [D7]"
+        },
+        {
+          "type": "line",
+          "content": "She'll see I'm not so tough",
+          "chords": "[G]              [Em]"
+        },
+        {
+          "type": "line",
+          "content": "Just because",
+          "chords": "[Am]"
+        },
+        {
+          "type": "line",
+          "content": "I'm in love with an",
+          "chords": "[A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Uptown girl",
+          "chords": "[D]"
+        },
+        {
+          "type": "line",
+          "content": " You know I've seen her in her uptown world",
+          "chords": "[Em]                             [D/F#]"
+        },
+        {
+          "type": "line",
+          "content": " She's getting tired of her high class toys",
+          "chords": "[G]              [A]            [D]"
+        },
+        {
+          "type": "line",
+          "content": " And all the presents from her uptown boys",
+          "chords": "[Em]                             [D/F#]"
+        },
+        {
+          "type": "line",
+          "content": " She's got a choice",
+          "chords": "[G]            [A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Interlude"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": " Oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh",
+          "chords": "[F]            [G]               [E]               [Am]      [G]"
+        },
+        {
+          "type": "line",
+          "content": " Oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh",
+          "chords": "[F]            [G]               [E]               [A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 3"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Uptown girl",
+          "chords": "[D]"
+        },
+        {
+          "type": "line",
+          "content": " You know I can't afford to buy her pearls",
+          "chords": "[Em]                          [D/F#]"
+        },
+        {
+          "type": "line",
+          "content": " But maybe someday when my ship comes in",
+          "chords": "[G]          [A]               [D]"
+        },
+        {
+          "type": "line",
+          "content": " She'll understand what kind of guy I've been",
+          "chords": "[Em]                              [D/F#]"
+        },
+        {
+          "type": "line",
+          "content": " And then I'll win",
+          "chords": "[G]              [A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Bridge"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "And when she's walking",
+          "chords": "[Bb]             [Gm]"
+        },
+        {
+          "type": "line",
+          "content": "She's looking so fine",
+          "chords": "      [Cm]         [F]"
+        },
+        {
+          "type": "line",
+          "content": "And when she's talking",
+          "chords": "[Bb]             [Gm]"
+        },
+        {
+          "type": "line",
+          "content": "She'll say that she's mine",
+          "chords": "       [Am7-5]          [D7]"
+        },
+        {
+          "type": "line",
+          "content": "She'll say I'm not so tough",
+          "chords": "[G]              [Em]"
+        },
+        {
+          "type": "line",
+          "content": "Just because",
+          "chords": "[Am]"
+        },
+        {
+          "type": "line",
+          "content": "I'm in love with an",
+          "chords": "[A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 4"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Uptown girl",
+          "chords": "[D]"
+        },
+        {
+          "type": "line",
+          "content": " She's been living in her white bread world",
+          "chords": "[Em]                         [D/F#]"
+        },
+        {
+          "type": "line",
+          "content": " As long as anyone with hot blood can",
+          "chords": "[G]           [A]           [D]"
+        },
+        {
+          "type": "line",
+          "content": " And now she's looking for a downtown man",
+          "chords": "[Em]                           [D/F#]"
+        },
+        {
+          "type": "line",
+          "content": " That's what I am",
+          "chords": "[G]              [A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Interlude"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": " Oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh",
+          "chords": "[F]            [G]               [E]               [Am]      [G]"
+        },
+        {
+          "type": "line",
+          "content": " Oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh, oh",
+          "chords": "[F]            [G]               [E]               [A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Outro"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Uptown girl",
+          "chords": "[D]"
+        },
+        {
+          "type": "line",
+          "content": " She's my uptown girl",
+          "chords": "[Em]               [D/F#]"
+        },
+        {
+          "type": "line",
+          "content": "You know I'm in love",
+          "chords": "    [G]           [A]"
+        },
+        {
+          "type": "line",
+          "content": "With an uptown girl",
+          "chords": "        [D]"
+        },
+        {
+          "type": "line",
+          "content": "My uptown girl",
+          "chords": "[Em]          [D/F#]"
+        },
+        {
+          "type": "line",
+          "content": "You know I'm in love",
+          "chords": "    [G]           [A]"
+        },
+        {
+          "type": "line",
+          "content": "With an uptown girl",
+          "chords": "        [D]"
+        },
+        {
+          "type": "line",
+          "content": "My uptown girl",
+          "chords": "[Em]          [D/F#]"
+        },
+        {
+          "type": "line",
+          "content": "You know I'm in love",
+          "chords": "    [G]           [A]"
+        },
+        {
+          "type": "line",
+          "content": "With an uptown girl",
+          "chords": "        [D]"
+        },
+        {
+          "type": "line",
+          "content": "My uptown girl",
+          "chords": "[Em]          [D/F#]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "(repeat and fade)"
+        }
+      ]
+    },
+    {
+      "id": "portugal-the-man-so-american-2",
+      "title": "So American",
+      "artist": "Portugal. The Man",
+      "defaultKey": "C",
+      "ugUrl": "https://tabs.ultimate-guitar.com/tab/portugal-the-man/so-american-chords-1075300",
+      "lines": [
+        {
+          "type": "section",
+          "label": "Intro"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[C]  [E]  x2"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "If pain was a color to paint on you",
+          "chords": "   [C]"
+        },
+        {
+          "type": "line",
+          "content": "Your heart would be the color blue",
+          "chords": "     [E7]"
+        },
+        {
+          "type": "line",
+          "content": "Be a gradient from there till your body met your hair",
+          "chords": "     [Am]"
+        },
+        {
+          "type": "line",
+          "content": "Which would remain a silver hue",
+          "chords": "[D]"
+        },
+        {
+          "type": "line",
+          "content": "You are the one they call Jesus Christ",
+          "chords": "[C]"
+        },
+        {
+          "type": "line",
+          "content": "Who didn't know no rock and roll",
+          "chords": "    [E7]"
+        },
+        {
+          "type": "line",
+          "content": "Just a mission and a gun to paint rainbows in Vietnam",
+          "chords": "       [Am]"
+        },
+        {
+          "type": "line",
+          "content": "And a heart that always told you",
+          "chords": "      [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "There's a madness in us all",
+          "chords": "          [F]             [C]"
+        },
+        {
+          "type": "line",
+          "content": "There's a madness in us all",
+          "chords": "          [F]             [C]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "So who broke the rules?",
+          "chords": "   [C]"
+        },
+        {
+          "type": "line",
+          "content": "Who broke the rules?",
+          "chords": "[E]"
+        },
+        {
+          "type": "line",
+          "content": "Who broke the rules?",
+          "chords": "[Am]"
+        },
+        {
+          "type": "line",
+          "content": "They said every one of you will never try to lend a hand",
+          "chords": "          [F]                           [C]"
+        },
+        {
+          "type": "line",
+          "content": "When the policemen don't understand",
+          "chords": "         [E]                          [Am]"
+        },
+        {
+          "type": "line",
+          "content": "Boys, all you boys",
+          "chords": "[C]             [F]"
+        },
+        {
+          "type": "line",
+          "content": "Think you're so American",
+          "chords": "                 [Am]         [G]"
+        },
+        {
+          "type": "line",
+          "content": "Girls, all you girls",
+          "chords": "[C]              [F]"
+        },
+        {
+          "type": "line",
+          "content": "Yeah, you're so American",
+          "chords": "                 [Am]         [G]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "He may not be born of this land",
+          "chords": "[C]"
+        },
+        {
+          "type": "line",
+          "content": "But he was born of this world",
+          "chords": "    [E7]"
+        },
+        {
+          "type": "line",
+          "content": "He was born of all the mothers and the colors of our brothers",
+          "chords": "       [Am]"
+        },
+        {
+          "type": "line",
+          "content": "And the love that was taught to",
+          "chords": "        [D]"
+        },
+        {
+          "type": "line",
+          "content": "you by the one they call Jesus Christ",
+          "chords": "[C]"
+        },
+        {
+          "type": "line",
+          "content": "Who may not know no rock and roll",
+          "chords": "    [E7]"
+        },
+        {
+          "type": "line",
+          "content": "And there may not be a heaven, or a place of which to send you,",
+          "chords": "          [Am]"
+        },
+        {
+          "type": "line",
+          "content": "But you know in the end",
+          "chords": "        [D]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "There's a madness in us all",
+          "chords": "          [F]             [C]"
+        },
+        {
+          "type": "line",
+          "content": "There's a madness in us all",
+          "chords": "          [F]             [C]"
+        },
+        {
+          "type": "line",
+          "content": "There's a madness in us all",
+          "chords": "          [F]             [C]"
+        },
+        {
+          "type": "line",
+          "content": "There's a madness in us all",
+          "chords": "          [F]             [C]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "So who broke the rules?",
+          "chords": "   [C]"
+        },
+        {
+          "type": "line",
+          "content": "Who broke the rules?",
+          "chords": "[E]"
+        },
+        {
+          "type": "line",
+          "content": "Who broke the rules?",
+          "chords": "[Am]"
+        },
+        {
+          "type": "line",
+          "content": "They said every one of you will never try to lend a hand",
+          "chords": "          [F]                           [C]"
+        },
+        {
+          "type": "line",
+          "content": "When the policemen don't understand",
+          "chords": "         [E]                           [Am]"
+        },
+        {
+          "type": "line",
+          "content": "Boys, all you boys",
+          "chords": "[C]             [F]"
+        },
+        {
+          "type": "line",
+          "content": "Think you're so American",
+          "chords": "                 [Am]         [G]"
+        },
+        {
+          "type": "line",
+          "content": "Girls, all you girls",
+          "chords": "[C]              [F]"
+        },
+        {
+          "type": "line",
+          "content": "Yeah, you're so American",
+          "chords": "                 [Am]         [G]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Bridge"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "There's two eyes for every one of us",
+          "chords": "        [F]                  [C]"
+        },
+        {
+          "type": "line",
+          "content": "But somebody got there first and took them all",
+          "chords": "             [E]                                 [Am]"
+        },
+        {
+          "type": "line",
+          "content": "There's two eyes for every one of us",
+          "chords": "        [F]                  [C]"
+        },
+        {
+          "type": "line",
+          "content": "But somebody got there first and took them all",
+          "chords": "             [E]                                 [Am]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Instrumental"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[F]  [C]  [E]  [Am]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[F]  [C]  [E]  [Am]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Man, oh man",
+          "chords": "[C]       [F]"
+        },
+        {
+          "type": "line",
+          "content": "You think you're so American",
+          "chords": "                     [Am]         [G]"
+        },
+        {
+          "type": "line",
+          "content": "Man, oh man",
+          "chords": "[C]       [F]"
+        },
+        {
+          "type": "line",
+          "content": "Yeah, you're so American",
+          "chords": "                 [Am]         [G]"
+        },
+        {
+          "type": "line",
+          "content": "Man, oh man",
+          "chords": "[C]       [F]"
+        },
+        {
+          "type": "line",
+          "content": "You think you're so American",
+          "chords": "                     [Am]         [G]"
+        },
+        {
+          "type": "line",
+          "content": "Man, oh man",
+          "chords": "[C]       [F]"
+        },
+        {
+          "type": "line",
+          "content": "Yeah, you're so American",
+          "chords": "                 [Am]         [G]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Outro"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "There's two eyes for every one of us",
+          "chords": "        [F]                  [C]"
+        },
+        {
+          "type": "line",
+          "content": "But somebody got there first and took them all",
+          "chords": "             [E]                                 [Am]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "There's two eyes for every one of us",
+          "chords": "        [F]                  [C]"
+        },
+        {
+          "type": "line",
+          "content": "But somebody got there first and took them all",
+          "chords": "             [E]                                 [Am]"
         }
       ]
     }
@@ -2018,10 +2777,15 @@
     "hallelujah": 0,
     "house-of-heroes-patient": 0,
     "wonderwall": 0,
-    "the-beatles-hey-jude": -4,
-    "portugal-the-man-so-american": 11,
+    "the-beatles-hey-jude": 9,
+    "portugal-the-man-so-american": -3,
     "portugal-the-man-kokhanockers": 0,
-    "ed-sheeran-perfect": -1
+    "ed-sheeran-perfect": -1,
+    "fuck-shitbird": 0,
+    "billy-joel-only-the-good-die-young": 0,
+    "george-harrison-my-sweet-lord": 0,
+    "portugal-the-man-so-american-2": 7,
+    "portugal-the-man-tanana": 7
   },
   "hiddenDefaultSongs": [
     "hallelujah",

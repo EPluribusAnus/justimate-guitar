@@ -13,6 +13,7 @@ interface Props {
   onImport: () => void;
   isImportingUltimateGuitar: boolean;
   onSaveRemote: () => void;
+  onOpenChordLibrary: () => void;
   version: string;
   isCustomSong: boolean;
   isDefaultSong: boolean;
@@ -52,6 +53,7 @@ const SongNav = ({
   onImport,
   isImportingUltimateGuitar,
   onSaveRemote,
+  onOpenChordLibrary,
   version,
   isCustomSong,
   isDefaultSong,
@@ -272,6 +274,9 @@ const SongNav = ({
                 </button>
                 <button type="button" onClick={() => { onSaveRemote(); setIsActionsOpen(false); }}>
                   Save to server
+                </button>
+                <button type="button" onClick={() => { onOpenChordLibrary(); setIsActionsOpen(false); }}>
+                  Chord library
                 </button>
               </div>
             )}

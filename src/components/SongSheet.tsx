@@ -2,13 +2,14 @@ import { useMemo } from 'react';
 import type { Song } from '../types';
 import { parseLyricLine, transposeSegments } from '../utils/lyrics';
 import type { LyricSegment } from '../utils/lyrics';
-import { transposeChord } from '../utils/chords';
+import { transposeChord, type ChordShape } from '../utils/chords';
 import ChordLine from './ChordLine';
 import ChordPalette from './ChordPalette';
 
 interface Props {
   song: Song;
   transposeSteps: number;
+  chordShapes: Record<string, ChordShape[]>;
 }
 
 interface ParsedLine {
@@ -17,7 +18,7 @@ interface ParsedLine {
   segments?: LyricSegment[];
 }
 
-const SongSheet = ({ song, transposeSteps }: Props) => {
+const SongSheet = ({ song, transposeSteps, chordShapes }: Props) => {
   const { lines, uniqueChords } = useMemo(() => {
     const collected = new Set<string>();
     const processed: ParsedLine[] = song.lines.map((line) => {
@@ -54,7 +55,7 @@ const SongSheet = ({ song, transposeSteps }: Props) => {
     <div className="song-sheet">
       <header className="song-sheet__header">
         <div>
-          <h1>{song.title}</h1>
+          <h2>{song.title}</h2>
           <p className="song-sheet__artist">{song.artist}</p>
         </div>
         <dl className="song-sheet__meta">
@@ -72,10 +73,20 @@ const SongSheet = ({ song, transposeSteps }: Props) => {
               <dd>{song.capo}</dd>
             </div>
           )}
+          {song.ugUrl ? (
+            <div>
+              <dt>Source</dt>
+              <dd>
+                <a href={song.ugUrl} target="_blank" rel="noreferrer">
+                  Ultimate Guitar
+                </a>
+              </dd>
+            </div>
+          ) : null}
         </dl>
       </header>
 
-      <ChordPalette chords={uniqueChords} />
+      <ChordPalette chords={uniqueChords} chordShapes={chordShapes} />
 
       <div className="song-sheet__body">
         {lines.map((line, index) => {
@@ -91,7 +102,7 @@ const SongSheet = ({ song, transposeSteps }: Props) => {
             return <div key={`spacer-${index}`} className="song-sheet__spacer" />;
           }
 
-          return <ChordLine key={`line-${index}`} segments={line.segments ?? []} />;
+          return <ChordLine key={`line-${index}`} segments={line.segments ?? []} chordShapes={chordShapes} />;
         })}
       </div>
     </div>

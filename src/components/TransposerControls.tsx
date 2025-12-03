@@ -8,33 +8,28 @@ interface Props {
 
 const MIN_STEP = -11;
 const MAX_STEP = 11;
-const STEP_OPTIONS = Array.from({ length: MAX_STEP - MIN_STEP + 1 }, (_, index) => MIN_STEP + index);
-
 const clamp = (value: number) => Math.max(MIN_STEP, Math.min(MAX_STEP, value));
 
 const TransposerControls = ({ defaultKey, steps, onChange }: Props) => {
+  const currentKey = transposeChord(defaultKey, steps);
+  const stepLabel = steps === 0 ? '0' : steps > 0 ? `+${steps}` : String(steps);
+
   return (
     <section className="transposer" aria-label="Transpose controls">
-      <div className="transposer__summary">
-        <h3>Key</h3>
-        <span className="transposer__current-label">{transposeChord(defaultKey, steps)}</span>
-      </div>
-      <div className="transposer__actions">
-        <button type="button" onClick={() => onChange(clamp(steps - 1))} disabled={steps <= MIN_STEP}>
-          -
+      <div className="transposer__control">
+        <button type="button" onClick={() => onChange(clamp(steps - 1))} disabled={steps <= MIN_STEP} aria-label="Lower key">
+          –
         </button>
-        <select
-          value={steps}
-          onChange={(event) => onChange(clamp(Number(event.target.value)))}
-          aria-label="Choose transposition"
+        <button
+          type="button"
+          className="transposer__display"
+          onClick={() => onChange(0)}
+          aria-label="Reset to default key"
         >
-          {STEP_OPTIONS.map((option) => (
-            <option key={option} value={option}>
-              {option > 0 ? `+${option}` : option}
-            </option>
-          ))}
-        </select>
-        <button type="button" onClick={() => onChange(clamp(steps + 1))} disabled={steps >= MAX_STEP}>
+          <span className="transposer__display-step">{stepLabel}</span>
+          <span className="transposer__display-key">{currentKey}</span>
+        </button>
+        <button type="button" onClick={() => onChange(clamp(steps + 1))} disabled={steps >= MAX_STEP} aria-label="Raise key">
           +
         </button>
       </div>

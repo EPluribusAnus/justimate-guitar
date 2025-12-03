@@ -58,6 +58,11 @@ export interface ChordShape {
   label?: string;
 }
 
+export type CustomChordShape = ChordShape & { id: string };
+export type PreferredShapeSelection =
+  | { type: 'built-in'; index: number }
+  | { type: 'custom'; id: string };
+
 interface ShapeTemplate {
   baseRoot: string;
   frets: (number | 'x')[];
@@ -67,6 +72,7 @@ interface ShapeTemplate {
 }
 
 type ShapeKey = `${string}:${ChordQuality}`;
+type ShapeCollection = Record<string, ChordShape[]>;
 
 const OPEN_SHAPES: Partial<Record<ShapeKey, ChordShape[]>> = {
   'C:maj': [
@@ -442,6 +448,55 @@ export const getChordShape = (symbol: string): ChordShape | null => {
   return null;
 };
 
+const qualityToSuffix = (quality: ChordQuality) => {
+  switch (quality) {
+    case 'maj':
+      return '';
+    case 'm':
+      return 'm';
+    case 'maj7':
+      return 'maj7';
+    case 'm7':
+      return 'm7';
+    case '7':
+      return '7';
+    case 'sus4':
+      return 'sus4';
+    case '7sus4':
+      return '7sus4';
+    case 'dim':
+      return 'dim';
+    case 'aug':
+      return 'aug';
+    default:
+      return quality;
+  }
+};
+
+export const listBuiltInChordShapes = (): ShapeCollection => {
+  const shapes: ShapeCollection = {};
+
+  Object.entries(OPEN_SHAPES).forEach(([key, value]) => {
+    const [root, quality] = key.split(':');
+    const suffix = qualityToSuffix(quality as ChordQuality);
+    const symbol = `${root}${suffix}`;
+    shapes[symbol] = value ? value.map((shape) => ({ ...shape })) : [];
+  });
+
+  Object.entries(BARRE_TEMPLATES).forEach(([quality, templates]) => {
+    if (!templates) return;
+    const suffix = qualityToSuffix(quality as ChordQuality);
+    templates.forEach((template) => {
+      const symbol = `${template.baseRoot}${suffix}`;
+      const shape = buildShapeFromTemplate(template, template.baseRoot);
+      if (!shape) return;
+      shapes[symbol] = shapes[symbol] ? [...shapes[symbol], shape] : [shape];
+    });
+  });
+
+  return shapes;
+};
+
 const getOpenShape = (parsed: ParsedChord): ChordShape | null => {
   const key = `${parsed.root}:${parsed.quality}` as ShapeKey;
   const shapes = OPEN_SHAPES[key];
@@ -597,4 +652,90 @@ const getChordQuality = (suffix: string): ChordQuality => {
   }
 
   return 'unknown';
+};
+
+export const DEFAULT_OVERRIDE_PREFIX = 'default-override:';
+
+export const buildDefaultOverrideId = (chord: string, index: number) =>
+  `${DEFAULT_OVERRIDE_PREFIX}${encodeURIComponent(chord)}:${index}`;
+
+export const parseDefaultOverrideId = (
+  id: string,
+): { chord: string; index: number } | null => {
+  if (!id.startsWith(DEFAULT_OVERRIDE_PREFIX)) {
+    return null;
+  }
+  const payload = id.slice(DEFAULT_OVERRIDE_PREFIX.length);
+  const [encodedChord, indexStr] = payload.split(':');
+  const chord = encodedChord ? decodeURIComponent(encodedChord) : '';
+  const index = Number(indexStr);
+  if (!Number.isFinite(index)) {
+    return null;
+  }
+  return { chord, index };
+};
+
+const cloneChordShape = (shape: ChordShape, fallbackLabel?: string): ChordShape => ({
+  frets: [...shape.frets],
+  fingers: shape.fingers ? [...shape.fingers] : undefined,
+  barres: shape.barres ? shape.barres.map((barre) => ({ ...barre })) : undefined,
+  isOpen: shape.isOpen,
+  label: shape.label ?? fallbackLabel,
+});
+
+type ShapeEntry = {
+  shape: ChordShape;
+  builtInIndex?: number;
+  customId?: string;
+};
+
+export const mergeChordShapes = (
+  builtIn: Record<string, ChordShape[]>,
+  custom: Record<string, CustomChordShape[]>,
+  preferred: Record<string, PreferredShapeSelection | undefined> = {},
+): Record<string, ChordShape[]> => {
+  const result: Record<string, ChordShape[]> = {};
+  const symbols = new Set([...Object.keys(builtIn), ...Object.keys(custom)]);
+
+  symbols.forEach((symbol) => {
+    const base = builtIn[symbol] ?? [];
+    const entries: Array<ShapeEntry | null> = base.map((shape, index) => ({
+      shape: cloneChordShape(shape, 'Default'),
+      builtInIndex: index,
+    }));
+
+    (custom[symbol] ?? []).forEach((customShape) => {
+      const overrideMeta = parseDefaultOverrideId(customShape.id);
+      if (overrideMeta && overrideMeta.chord === symbol && overrideMeta.index >= 0) {
+        entries[overrideMeta.index] = {
+          shape: cloneChordShape(customShape, customShape.label ?? 'Default'),
+          builtInIndex: overrideMeta.index,
+          customId: customShape.id,
+        };
+        return;
+      }
+      entries.push({
+        shape: cloneChordShape(customShape, customShape.label ?? 'Custom'),
+        customId: customShape.id,
+      });
+    });
+
+    const filtered = entries.filter((entry): entry is ShapeEntry => Boolean(entry));
+    const selection = preferred[symbol];
+    if (selection) {
+      const targetIndex = filtered.findIndex((entry) =>
+        selection.type === 'custom'
+          ? entry.customId === selection.id
+          : entry.builtInIndex === selection.index,
+      );
+      if (targetIndex > 0) {
+        const [chosen] = filtered.splice(targetIndex, 1);
+        filtered.unshift(chosen);
+      }
+    }
+
+    result[symbol] = filtered.map((entry) => entry.shape);
+  });
+
+  return result;
 };
