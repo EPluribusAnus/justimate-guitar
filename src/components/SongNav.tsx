@@ -223,7 +223,9 @@ const SongNav = ({
               type="button"
               aria-label="Add song options"
               onClick={() => {
-                onSelect(selectedSongId ?? songs[0]?.id ?? '');
+                if (selectedSongId) {
+                  onSelect(selectedSongId);
+                }
                 setIsAddOpen((prev) => !prev);
                 setIsActionsOpen(false);
                 setOpenSongMenuId(null);
@@ -254,7 +256,9 @@ const SongNav = ({
               className="song-nav__more"
               aria-label="Settings and actions"
               onClick={() => {
-                onSelect(selectedSongId ?? songs[0]?.id ?? '');
+                if (selectedSongId) {
+                  onSelect(selectedSongId);
+                }
                 setIsActionsOpen((prev) => !prev);
                 setIsAddOpen(false);
                 setOpenSongMenuId(null);
@@ -283,8 +287,11 @@ const SongNav = ({
           </div>
         </div>
         <div className="song-nav__title">
-          <h2>justimate-guitar</h2>
-          <p className="song-nav__version">{version}</p>
+          <div className="song-nav__title-text">
+            <h2>justimate-guitar</h2>
+            <p className="song-nav__version">{version}</p>
+          </div>
+          <img src="/favicon.svg" alt="" className="song-nav__favicon" />
         </div>
       </div>
       {isOpen ? (

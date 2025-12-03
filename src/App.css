@@ -556,8 +556,44 @@
 
 .app__empty {
   margin: auto;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: var(--muted);
+  width: min(720px, 100%);
+}
+
+.app__empty-card {
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: 24px;
+  background: linear-gradient(75deg, hsla(239, 100%, 54%, 0.642), hsla(272, 81%, 52%, 0.547), rgba(202, 142, 255, 0.629));
+  border: 0px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.12);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.app__empty-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.app__empty-icon {
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+}
+
+.app__empty-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.app__empty-card p {
+  margin: 0;
+  color: var(--text-muted);
 }
 
 .song-nav {
@@ -579,24 +615,40 @@
 
 .song-nav__title {
   display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
+  flex-direction: row;
+  gap: 0.4rem;
   margin-left: auto;
   min-width: 0;
   text-align: right;
-  align-items: flex-end;
-  flex: 1 1 auto;
-  max-width: min(50vw, 360px);
+  align-items: center;
+  flex: 0 0 auto;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-right: 0.2rem;
+}
+
+.song-nav__title-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  align-items: flex-end;
+  min-width: 0;
 }
 
 .song-nav__header h2 {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   white-space: nowrap;
   line-height: 1;
+}
+
+.song-nav__favicon {
+  height: 32px;
+  width: auto;
+  flex-shrink: 0;
+  display: block;
+  margin-left: 0.2rem;
 }
 
 .song-nav__version {

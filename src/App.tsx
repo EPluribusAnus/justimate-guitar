@@ -196,7 +196,7 @@ const App = () => {
         const payload = await response.json().catch(() => ({}));
         const result = (payload as { result?: object | null }).result;
         if (result && typeof result === 'object') {
-          applyImportedLibrary(result as object, false);
+          applyImportedLibrary(result as object, false, false);
         }
       } catch (error) {
         console.warn('Unable to load shared library', error);
@@ -547,6 +547,7 @@ const App = () => {
       preferredChordShapes: Record<string, PreferredShapeSelection>;
     }>,
     showAlert = false,
+    setSelection = true,
   ) => {
     const sanitizedSongs: Song[] = Array.isArray(data.customSongs)
       ? data.customSongs
@@ -592,9 +593,11 @@ const App = () => {
       setPreferredChordShapes(data.preferredChordShapes as Record<string, PreferredShapeSelection>);
     }
 
-    const visibleAfterImport = defaultSongs.filter((song) => !importedHiddenDefaults.includes(song.id));
-    const firstSongId = (sanitizedSongs[0]?.id ?? visibleAfterImport[0]?.id) ?? null;
-    setSelectedSongId(firstSongId);
+    if (setSelection) {
+      const visibleAfterImport = defaultSongs.filter((song) => !importedHiddenDefaults.includes(song.id));
+      const firstSongId = (sanitizedSongs[0]?.id ?? visibleAfterImport[0]?.id) ?? null;
+      setSelectedSongId(firstSongId);
+    }
 
     if (showAlert && typeof window !== 'undefined') {
       window.alert(
@@ -823,8 +826,13 @@ const App = () => {
           </>
         ) : (
           <div className="app__empty">
-            <h2>Welcome to Justimate</h2>
-            <p>Pick a song from the list to start, or add your own using the plus button.</p>
+            <div className="app__empty-card">
+              <div className="app__empty-header">
+                <img src="/favicon.svg" alt="" className="app__empty-icon" />
+                <h2>Welcome to justimate-guitar</h2>
+              </div>
+              <p>Pick a song from the list to start, or add your own using the plus button.</p>
+            </div>
           </div>
         )}
       </main>
