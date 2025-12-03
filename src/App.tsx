@@ -25,6 +25,7 @@ const AUTOSCROLL_DOT_COUNT = 6;
 const TEXTSIZE_DOT_COUNT = 6;
 const SONG_FONT_MIN = 0.6;
 const SONG_FONT_MAX = 1.3;
+const SONG_FONT_DEFAULT = 0.75;
 
 const normalizeAutoScrollSpeed = (value: number): number => {
   let closest = AUTOSCROLL_SPEED_STEPS[0];
@@ -71,11 +72,11 @@ const App = () => {
   >([]);
   const [ugSearchError, setUgSearchError] = useState<string | null>(null);
   const [isSearchingUg, setIsSearchingUg] = useState(false);
-  const [songFontScale, setSongFontScale] = useLocalStorage<number>('jg/fontScale/v1', 1);
+  const [songFontScale, setSongFontScale] = useLocalStorage<number>('jg/fontScale/v1', SONG_FONT_DEFAULT);
   const [isSavingLibrary, setIsSavingLibrary] = useState(false);
   const saveTimer = useRef<number | null>(null);
   const [controlsExpanded, setControlsExpanded] = useState(true);
-  const resetSongFont = () => setSongFontScale(1);
+  const resetSongFont = () => setSongFontScale(SONG_FONT_DEFAULT);
   const [customChordShapes, setCustomChordShapes] = useLocalStorage<Record<string, CustomChordShape[]>>('jg/customChordShapes/v1', {});
   const [preferredChordShapes, setPreferredChordShapes] = useLocalStorage<Record<string, PreferredShapeSelection>>('jg/preferredChordShapes/v1', {});
   const [showChordLibrary, setShowChordLibrary] = useState(false);

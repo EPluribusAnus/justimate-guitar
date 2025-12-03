@@ -40,7 +40,7 @@
   --edit-chord-modal-preview-background: hsla(0, 0%, 100%, 0.3);
   --header-height: 72px;
   --header-stack-height: 150px;
-  --song-font-scale: 1;
+  --song-font-scale: 0.75;
   --meter-gap: 4px;
   --preview-header-text: var(--accent);
   --control-shell: #f4f7fb;
@@ -94,7 +94,7 @@
   --edit-chord-modal-preview-background: hsla(218, 47%, 13%, 0.6);  
   --header-height: 72px;
   --header-stack-height: 150px;
-  --song-font-scale: 1;
+  --song-font-scale: 0.75;
   --control-shell: #111c2f;
   --control-surface: #0f172a;
   --control-inner: #0b1629;
@@ -1006,6 +1006,9 @@ button:disabled {
   gap: 2rem;
   font-size: 1rem;
   line-height: 1.55;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: visible;
 }
 
 .song-sheet__header {
@@ -1667,6 +1670,9 @@ button:disabled {
   gap: 0.75rem;
   font-size: calc(1rem * var(--song-font-scale, 1));
   line-height: 1.55;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: visible;
 }
 
 .song-sheet__section {
@@ -1741,29 +1747,45 @@ button:disabled {
 }
 
 .chord-line {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0;
+  position: relative;
+  display: block;
   font-family: "JetBrains Mono", "Fira Code", monospace;
-}
-
-.chord-line__segment {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.chord-line__chord {
-  min-height: 2.2rem;
-  display: flex;
-  align-items: flex-end;
-  align-self: flex-start;
+  width: 100%;
+  line-height: 1.55;
+  padding-top: 2.4rem;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .chord-line__lyrics {
-  min-height: 1.4rem;
   white-space: pre-wrap;
-  word-break: break-word;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  hyphens: none;
+  font-size: inherit;
+  max-width: 100%;
+}
+
+.chord-line__chords {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.2rem;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.chord-line__chord {
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: flex-end;
+  font-size: inherit;
+}
+
+.chord-line__chord > * {
+  pointer-events: auto;
 }
 
 .chord-token {
@@ -1777,6 +1799,7 @@ button:disabled {
   background: rgba(37, 99, 235, 0.08);
   color: var(--accent);
   cursor: pointer;
+  font-size: inherit;
 }
 
 .chord-token__label--missing {

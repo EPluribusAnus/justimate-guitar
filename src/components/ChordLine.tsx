@@ -8,24 +8,39 @@ interface Props {
 }
 
 const ChordLine = ({ segments, chordShapes }: Props) => {
+  let lyricBuffer = '';
+  const chordMarkers: { chord: string; offset: number }[] = [];
+
+  segments.forEach((segment) => {
+    const lyric = segment.lyric ?? '';
+    const offset = lyricBuffer.length;
+
+    if (segment.chord) {
+      chordMarkers.push({ chord: segment.chord, offset });
+    }
+
+    if (lyric) {
+      lyricBuffer += lyric;
+    } else if (segment.chord) {
+      const spacerWidth = Math.max(segment.chord.length + 3, 4);
+      lyricBuffer += ' '.repeat(spacerWidth);
+    }
+  });
+
+  const lyricText = lyricBuffer;
+
   return (
     <div className="chord-line">
-      {segments.map((segment, index) => {
-        const lyric = segment.lyric ?? '';
-        const approximateWidth = Math.max(lyric.length, segment.chord ? segment.chord.length : 1);
-        return (
-          <span
-            key={`${segment.chord ?? 'lyric'}-${index}`}
-            className="chord-line__segment"
-            style={{ minWidth: `${approximateWidth}ch` }}
-          >
-            <span className="chord-line__chord">
-              {segment.chord ? <ChordToken chord={segment.chord} shapes={chordShapes[segment.chord] ?? []} /> : null}
+      <div className="chord-line__lyrics">{lyricText || '\u00a0'}</div>
+      {chordMarkers.length ? (
+        <div className="chord-line__chords" aria-hidden="true">
+          {chordMarkers.map((marker, index) => (
+            <span key={`${marker.chord}-${index}`} className="chord-line__chord" style={{ left: `${marker.offset}ch` }}>
+              <ChordToken chord={marker.chord} shapes={chordShapes[marker.chord] ?? []} />
             </span>
-            <span className="chord-line__lyrics">{lyric || '\u00a0'}</span>
-          </span>
-        );
-      })}
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 };
