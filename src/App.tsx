@@ -54,7 +54,7 @@ const App = () => {
 
   const songs = useMemo(() => [...visibleDefaultSongs, ...customSongs], [visibleDefaultSongs, customSongs]);
 
-  const [selectedSongId, setSelectedSongId] = useState<string | null>(songs[0]?.id ?? null);
+  const [selectedSongId, setSelectedSongId] = useState<string | null>(null);
   const [transposeSteps, setTransposeSteps] = useState(0);
   const [formState, setFormState] = useState<{ mode: 'create' | 'edit' | 'copy'; song?: Song } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -133,14 +133,11 @@ const App = () => {
   }, [theme]);
 
   useEffect(() => {
-    if (!selectedSongId && songs.length) {
-      setSelectedSongId(songs[0].id);
-    }
     setAutoScrollEnabled(false);
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0 });
     }
-  }, [selectedSongId, songs]);
+  }, [selectedSongId]);
 
   useEffect(() => {
     setAutoScrollSpeed((current) => normalizeAutoScrollSpeed(current));
@@ -535,6 +532,10 @@ const App = () => {
     fileInputRef.current?.click();
   };
 
+  const handleSelectSong = (songId: string | null) => {
+    setSelectedSongId(songId);
+  };
+
   const applyImportedLibrary = (
     data: Partial<{
       customSongs: Song[];
@@ -652,7 +653,7 @@ const App = () => {
         <SongNav
           songs={songs}
           selectedSongId={selectedSongId}
-          onSelect={setSelectedSongId}
+          onSelect={handleSelectSong}
           onAddSong={() => setFormState({ mode: 'create' })}
           onAddFromSearch={() => {
             setUgSearchOpen(true);
@@ -821,7 +822,10 @@ const App = () => {
             />
           </>
         ) : (
-          <div className="app__empty">Select a song to get started.</div>
+          <div className="app__empty">
+            <h2>Welcome to Justimate</h2>
+            <p>Pick a song from the list to start, or add your own using the plus button.</p>
+          </div>
         )}
       </main>
       {ugSearchOpen && (
