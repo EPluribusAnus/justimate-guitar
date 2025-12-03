@@ -1,5 +1,5 @@
 {
-  "savedAt": "2025-12-03T05:14:58.108Z",
+  "savedAt": "2025-12-03T05:23:52.833Z",
   "customSongs": [
     {
       "id": "portugal-the-man-kokhanockers",
@@ -2438,6 +2438,66 @@
         ],
         "isOpen": false,
         "label": "barre"
+      }
+    ],
+    "B": [
+      {
+        "id": "da50102d-7e9d-42ec-a6de-901e3e20c089",
+        "frets": [
+          "x",
+          2,
+          4,
+          4,
+          4,
+          2
+        ],
+        "fingers": [
+          null,
+          1,
+          1,
+          2,
+          3,
+          1
+        ],
+        "barres": [
+          {
+            "fret": 2,
+            "fromString": 1,
+            "toString": 5,
+            "finger": 1
+          }
+        ],
+        "isOpen": false
+      }
+    ],
+    "Bm": [
+      {
+        "id": "4d1266ff-c0fc-439b-a8b0-8c2ea0513043",
+        "frets": [
+          "x",
+          2,
+          4,
+          4,
+          3,
+          2
+        ],
+        "fingers": [
+          null,
+          1,
+          4,
+          3,
+          2,
+          1
+        ],
+        "barres": [
+          {
+            "fret": 2,
+            "fromString": 1,
+            "toString": 5,
+            "finger": 1
+          }
+        ],
+        "isOpen": false
       }
     ]
   },
