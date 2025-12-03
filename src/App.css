@@ -1071,12 +1071,13 @@ button:disabled {
   justify-content: center;
   padding: 1.5rem;
   padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  min-height: 100dvh;
   z-index: 34;
 }
 
 .chord-lib {
   width: min(1100px, 100%);
-  max-height: calc(90vh - env(safe-area-inset-bottom, 0px));
+  max-height: min(90vh, calc(100dvh - env(safe-area-inset-bottom, 0px) - 1rem));
   background: var(--surface);
   border-radius: 18px;
   border: 1px solid var(--border);
@@ -1594,7 +1595,7 @@ button:disabled {
 
 .chord-lib__form--floating {
   width: min(980px, calc(100vw - 1rem));
-  max-height: calc(90vh - env(safe-area-inset-bottom, 0px));
+  max-height: min(90vh, calc(100dvh - env(safe-area-inset-bottom, 0px) - 1rem));
   border-radius: 30px;
   border: 1px solid var(--border);
   background: var(--surface);
@@ -1643,6 +1644,7 @@ button:disabled {
   z-index: 1;
   background: var(--surface);
   padding-bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  max-height: calc(100dvh - 6rem - env(safe-area-inset-bottom, 0px));
 }
 
 .chord-lib__row--compact {
