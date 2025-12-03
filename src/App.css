@@ -1646,9 +1646,9 @@ button:disabled {
   position: relative;
   z-index: 1;
   background: var(--surface);
-  padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
-  scroll-padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
-  max-height: calc(100dvh - 6rem - env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px));
+  scroll-padding-bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px));
+  max-height: calc(100dvh - 5rem - env(safe-area-inset-bottom, 0px));
   -webkit-overflow-scrolling: touch;
 }
 
@@ -2348,6 +2348,7 @@ body.modal-open {
     position: sticky;
     bottom: 0;
     background: var(--surface);
+    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
   }
 }
 
