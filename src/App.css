@@ -1086,7 +1086,7 @@ button:disabled {
   flex-direction: column;
   gap: 1rem;
   padding: 1.25rem;
-  padding-bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
   overflow: hidden;
 }
 
@@ -1406,6 +1406,9 @@ button:disabled {
   display: grid;
   gap: 1rem;
   padding-right: 0.25rem;
+  padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
+  scroll-padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
+  -webkit-overflow-scrolling: touch;
 }
 
 .chord-lib__toolbar {
@@ -1643,8 +1646,10 @@ button:disabled {
   position: relative;
   z-index: 1;
   background: var(--surface);
-  padding-bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
+  scroll-padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
   max-height: calc(100dvh - 6rem - env(safe-area-inset-bottom, 0px));
+  -webkit-overflow-scrolling: touch;
 }
 
 .chord-lib__row--compact {
