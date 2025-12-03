@@ -10,6 +10,7 @@ interface Props {
   song: Song;
   transposeSteps: number;
   chordShapes: Record<string, ChordShape[]>;
+  onInteract?: () => void;
 }
 
 interface ParsedLine {
@@ -18,7 +19,7 @@ interface ParsedLine {
   segments?: LyricSegment[];
 }
 
-const SongSheet = ({ song, transposeSteps, chordShapes }: Props) => {
+const SongSheet = ({ song, transposeSteps, chordShapes, onInteract }: Props) => {
   const { lines, uniqueChords } = useMemo(() => {
     const collected = new Set<string>();
     const processed: ParsedLine[] = song.lines.map((line) => {
@@ -52,7 +53,7 @@ const SongSheet = ({ song, transposeSteps, chordShapes }: Props) => {
   const currentKey = transposeChord(song.defaultKey, transposeSteps);
 
   return (
-    <div className="song-sheet">
+    <div className="song-sheet" onClick={onInteract} onTouchStart={onInteract}>
       <header className="song-sheet__header">
         <div>
           <h2>{song.title}</h2>

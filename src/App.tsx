@@ -287,26 +287,12 @@ const App = () => {
 
     autoScrollFrame.current = requestAnimationFrame(step);
 
-    const handleInterrupt = (event: Event) => {
-      const target = event.target as Node | null;
-      if (target && autoScrollControlRef.current?.contains(target)) {
-        return;
-      }
-      setAutoScrollEnabled(false);
-    };
-    window.addEventListener('wheel', handleInterrupt, { passive: true });
-    window.addEventListener('touchstart', handleInterrupt, { passive: true });
-    window.addEventListener('keydown', handleInterrupt);
-
     return () => {
       if (autoScrollFrame.current !== null) {
         cancelAnimationFrame(autoScrollFrame.current);
         autoScrollFrame.current = null;
       }
       autoScrollLast.current = null;
-      window.removeEventListener('wheel', handleInterrupt);
-      window.removeEventListener('touchstart', handleInterrupt);
-      window.removeEventListener('keydown', handleInterrupt);
     };
   }, [autoScrollEnabled, autoScrollSpeed]);
 
@@ -780,7 +766,12 @@ const App = () => {
       <main className="app__main">
         {selectedSong ? (
           <>
-            <SongSheet song={selectedSong} transposeSteps={transposeSteps} chordShapes={resolvedChordShapes} />
+            <SongSheet
+              song={selectedSong}
+              transposeSteps={transposeSteps}
+              chordShapes={resolvedChordShapes}
+              onInteract={() => setAutoScrollEnabled(false)}
+            />
             <NotesPanel
               songId={selectedSong.id}
               currentKey={currentKey}
