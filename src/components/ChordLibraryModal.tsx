@@ -60,6 +60,11 @@ const ChordLibraryModal = ({ builtInShapes, customShapes, preferredShapes, onSav
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const [activeFamilies, setActiveFamilies] = useState<ChordFamily[]>([]);
+  const [shiftBaseline, setShiftBaseline] = useState<{ frets: (number | 'x' | '')[]; barre: ShapeForm['barre'] }>({
+    frets: [...emptyForm.frets],
+    barre: { ...emptyForm.barre },
+  });
+  const [shiftOffset, setShiftOffset] = useState(0);
   const chords = useMemo(() => {
     const set = new Set<string>([...Object.keys(builtInShapes), ...Object.keys(customShapes)]);
     return Array.from(set).sort((a, b) => a.localeCompare(b));
@@ -146,8 +151,28 @@ const ChordLibraryModal = ({ builtInShapes, customShapes, preferredShapes, onSav
     onSetPreferred(chord, { type: 'built-in', index });
   };
 
+  const startEditSession = (nextForm: ShapeForm) => {
+    setForm(nextForm);
+    setShiftBaseline({
+      frets: [...nextForm.frets],
+      barre: { ...nextForm.barre },
+    });
+    setShiftOffset(0);
+    setIsEditorOpen(true);
+  };
+
+  const resetEditor = () => {
+    setForm(emptyForm);
+    setShiftBaseline({
+      frets: [...emptyForm.frets],
+      barre: { ...emptyForm.barre },
+    });
+    setShiftOffset(0);
+    setIsEditorOpen(false);
+  };
+
   const openEditor = (chord: string, shape: ChordShape, editingId?: string | null) => {
-    setForm({
+    const nextForm: ShapeForm = {
       chord,
       frets: [...shape.frets],
       fingers: shape.fingers ? [...shape.fingers] : ['', '', '', '', '', ''],
@@ -161,17 +186,62 @@ const ChordLibraryModal = ({ builtInShapes, customShapes, preferredShapes, onSav
         : { fret: '', from: '', to: '', finger: '' },
       label: shape.label ?? '',
       editingId: editingId ?? null,
-    });
-    setIsEditorOpen(true);
+    };
+    startEditSession(nextForm);
   };
 
   const handleEdit = (chord: string, shape: CustomChordShape) => {
     openEditor(chord, shape, shape.id);
   };
 
+  const handleDuplicate = (chord: string, shape: ChordShape) => {
+    openEditor(chord, shape, null);
+  };
+
   const handleEditDefault = (chord: string, index: number, shape: ChordShape, overrideId?: string) => {
     const editingId = overrideId ?? buildDefaultOverrideId(chord, index);
     openEditor(chord, shape, editingId);
+  };
+
+  const shiftFrets = (delta: number) => {
+    const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
+    setForm((prev) => {
+      const nextFrets = prev.frets.map((value) => {
+        if (value === 'x' || value === '') return value;
+        const num = typeof value === 'number' ? value : Number(value);
+        if (!Number.isFinite(num)) return value;
+        return clamp(num + delta, 0, 22);
+      });
+
+      const fingerSet = prev.barre.finger !== '';
+      const barreNum = Number(prev.barre.fret);
+      const hasNumericBarre = prev.barre.fret !== '' && Number.isFinite(barreNum);
+      let nextBarreFret = prev.barre.fret;
+      if (fingerSet) {
+        const base = hasNumericBarre ? barreNum : 0;
+        const shifted = base + delta;
+        nextBarreFret = shifted < 1 ? '' : clamp(shifted, 1, 22).toString();
+      }
+
+      return {
+        ...prev,
+        frets: nextFrets,
+        barre: {
+          ...prev.barre,
+          fret: nextBarreFret,
+        },
+      };
+    });
+    setShiftOffset((current) => current + delta);
+  };
+
+  const resetShift = () => {
+    setForm((prev) => ({
+      ...prev,
+      frets: [...shiftBaseline.frets],
+      barre: { ...shiftBaseline.barre },
+    }));
+    setShiftOffset(0);
   };
 
   const handleDelete = (chord: string, id: string) => {
@@ -244,8 +314,7 @@ const ChordLibraryModal = ({ builtInShapes, customShapes, preferredShapes, onSav
       : [...existing, nextShape];
     next[chord] = updated;
     onSave(next);
-    setForm(emptyForm);
-    setIsEditorOpen(false);
+    resetEditor();
   };
 
   const shapesForChord = (chord: string) => {
@@ -290,7 +359,18 @@ const ChordLibraryModal = ({ builtInShapes, customShapes, preferredShapes, onSav
               </button>
             ))}
           </div>
-          <button type="button" className="chord-lib__add" onClick={() => { setForm(emptyForm); setIsEditorOpen(true); }}>
+          <button
+            type="button"
+            className="chord-lib__add"
+            onClick={() =>
+              startEditSession({
+                ...emptyForm,
+                frets: [...emptyForm.frets],
+                fingers: [...emptyForm.fingers],
+                barre: { ...emptyForm.barre },
+              })
+            }
+          >
             + Add shape
           </button>
         </div>
@@ -338,6 +418,9 @@ const ChordLibraryModal = ({ builtInShapes, customShapes, preferredShapes, onSav
                                     Default shape
                                   </button>
                                 )}
+                                <button type="button" onClick={() => { handleDuplicate(chord, shape); setOpenMenuId(null); }}>
+                                  Duplicate
+                                </button>
                                 <button type="button" onClick={() => { handleEdit(chord, shape); setOpenMenuId(null); }}>
                                   Edit
                                 </button>
@@ -385,6 +468,9 @@ const ChordLibraryModal = ({ builtInShapes, customShapes, preferredShapes, onSav
                                     Default shape
                                   </button>
                                 )}
+                                <button type="button" onClick={() => { handleDuplicate(chord, displayShape); setOpenMenuId(null); }}>
+                                  Duplicate
+                                </button>
                                 <button type="button" onClick={() => { handleEditDefault(chord, index, displayShape, overrideId); setOpenMenuId(null); }}>
                                   Edit
                                 </button>
@@ -412,7 +498,7 @@ const ChordLibraryModal = ({ builtInShapes, customShapes, preferredShapes, onSav
             <form className="chord-lib__form chord-lib__form--floating" onSubmit={handleSubmit}>
               <header className="chord-lib__form-header">
                 <h3>{form.editingId ? 'Edit shape' : 'Add shape'}</h3>
-                <button type="button" aria-label="Close editor" onClick={() => { setForm(emptyForm); setIsEditorOpen(false); }}>
+                <button type="button" aria-label="Close editor" onClick={resetEditor}>
                   ×
                 </button>
               </header>
@@ -429,6 +515,36 @@ const ChordLibraryModal = ({ builtInShapes, customShapes, preferredShapes, onSav
                         Label (optional)
                         <input value={form.label} onChange={(e) => setForm((prev) => ({ ...prev, label: e.target.value }))} />
                       </label>
+                    </div>
+                    <div className="chord-lib__shift-control">
+                      <p className="chord-lib__shift-label">Shift frets</p>
+                      {(() => {
+                        const disableShiftDown = form.barre.finger !== '' && (form.barre.fret === '' || form.barre.fret === '-');
+                        return (
+                      <div className="chord-lib__shift" aria-label="Shift all frets">
+                        <button
+                          type="button"
+                          className="chord-lib__shift-btn chord-lib__shift-btn--small"
+                          onClick={() => shiftFrets(-1)}
+                          aria-label="Move shape toward nut"
+                          disabled={disableShiftDown}
+                        >
+                          A
+                        </button>
+                        <button type="button" className="chord-lib__shift-value" onClick={resetShift} aria-label="Reset frets to session start">
+                          RESET ({shiftOffset > 0 ? `+${shiftOffset}` : shiftOffset})
+                        </button>
+                        <button
+                          type="button"
+                          className="chord-lib__shift-btn chord-lib__shift-btn--large"
+                          onClick={() => shiftFrets(1)}
+                          aria-label="Move shape toward bridge"
+                        >
+                          A
+                        </button>
+                      </div>
+                        );
+                      })()}
                     </div>
                   </section>
                   <section className="chord-lib__form-section chord-lib__form-section--barre chord-lib__form-section--panel">
@@ -550,7 +666,7 @@ const ChordLibraryModal = ({ builtInShapes, customShapes, preferredShapes, onSav
                 <button type="submit" className="chord-lib__save">
                   {form.editingId ? 'Update shape' : 'Add shape'}
                 </button>
-                <button type="button" className="chord-lib__secondary" onClick={() => { setForm(emptyForm); setIsEditorOpen(false); }}>
+                <button type="button" className="chord-lib__secondary" onClick={resetEditor}>
                   Cancel
                 </button>
               </div>

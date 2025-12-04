@@ -3,11 +3,14 @@ export type SongLine =
   | { type: 'line'; content: string; chords?: string }
   | { type: 'spacer' };
 
+export type SongType = 'chords' | 'tab' | 'bass' | 'ukulele' | 'drums' | 'video' | 'pro' | 'power' | 'other';
+
 export interface Song {
   id: string;
   title: string;
   artist: string;
   defaultKey: string;
+  type?: SongType;
   capo?: number;
   ugUrl?: string;
   tags?: string[];

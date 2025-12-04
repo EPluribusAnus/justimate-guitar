@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
-import type { Song } from '../types';
+import type { Song, SongType } from '../types';
 import { buildSongId, parseContent, stringifyLines } from '../utils/songContent';
 
 interface Props {
@@ -17,6 +17,7 @@ const SongForm = ({ onSave, onCancel, initialSong, preserveId = false }: Props) 
   const [title, setTitle] = useState(initialSong?.title ?? '');
   const [artist, setArtist] = useState(initialSong?.artist ?? '');
   const [defaultKey, setDefaultKey] = useState(initialSong?.defaultKey ?? 'C');
+  const [type, setType] = useState<SongType>(initialSong?.type ?? 'chords');
   const [capo, setCapo] = useState(initialSong?.capo !== undefined ? String(initialSong.capo) : '');
   const [ugUrl, setUgUrl] = useState(initialSong?.ugUrl ?? '');
   const [content, setContent] = useState(initialContent);
@@ -26,6 +27,7 @@ const SongForm = ({ onSave, onCancel, initialSong, preserveId = false }: Props) 
     setTitle(initialSong?.title ?? '');
     setArtist(initialSong?.artist ?? '');
     setDefaultKey(initialSong?.defaultKey ?? 'C');
+    setType(initialSong?.type ?? 'chords');
     setCapo(initialSong?.capo !== undefined ? String(initialSong.capo) : '');
     setUgUrl(initialSong?.ugUrl ?? '');
     setContent(initialSong ? stringifyLines(initialSong.lines) : '');
@@ -59,6 +61,7 @@ const SongForm = ({ onSave, onCancel, initialSong, preserveId = false }: Props) 
       title: title.trim(),
       artist: artist.trim(),
       defaultKey: defaultKey.trim() || 'C',
+      type,
       capo: parsedCapo,
       ugUrl: ugUrl.trim() || undefined,
       lines,
@@ -97,6 +100,20 @@ const SongForm = ({ onSave, onCancel, initialSong, preserveId = false }: Props) 
                 placeholder="0"
                 inputMode="numeric"
               />
+            </div>
+            <div className="song-form__field">
+              <label htmlFor="song-type">Type</label>
+              <select id="song-type" value={type} onChange={(event) => setType(event.target.value as SongType)}>
+                <option value="chords">Chords</option>
+                <option value="tab">Tab</option>
+                <option value="bass">Bass</option>
+                <option value="ukulele">Ukulele</option>
+                <option value="drums">Drums</option>
+                <option value="power">Power</option>
+                <option value="pro">Pro</option>
+                <option value="video">Video</option>
+                <option value="other">Other</option>
+              </select>
             </div>
           </div>
           <div className="song-form__field">

@@ -8,7 +8,7 @@ import TransposerControls from './components/TransposerControls';
 import ChordLibraryModal from './components/ChordLibraryModal';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { defaultSongs } from './data/songs';
-import type { Song } from './types';
+import type { Song, SongType } from './types';
 import {
   transposeChord,
   listBuiltInChordShapes,
@@ -26,6 +26,23 @@ const TEXTSIZE_DOT_COUNT = 6;
 const SONG_FONT_MIN = 0.5;
 const SONG_FONT_MAX = 1.3;
 const SONG_FONT_DEFAULT = 0.6;
+const normalizeSongType = (value?: string | null): SongType => {
+  const type = (value ?? '').toLowerCase().trim();
+  if (type.includes('uke')) return 'ukulele';
+  if (type.includes('ukulele')) return 'ukulele';
+  if (type.includes('bass')) return 'bass';
+  if (type.includes('drum')) return 'drums';
+  if (type.includes('power')) return 'power';
+  if (type.includes('pro')) return 'pro';
+  if (type.includes('video')) return 'video';
+  if (type.includes('tab')) return 'tab';
+  if (type.includes('chord')) return 'chords';
+  return 'other';
+};
+const withNormalizedType = (song: Song): Song => ({
+  ...song,
+  type: normalizeSongType(song.type ?? 'chords'),
+});
 
 const normalizeAutoScrollSpeed = (value: number): number => {
   let closest = AUTOSCROLL_SPEED_STEPS[0];
@@ -47,6 +64,7 @@ const App = () => {
   const [recentTranspositions, setRecentTranspositions] = useState<Record<string, number>>({});
   const [hiddenDefaultSongs, setHiddenDefaultSongs] = useState<string[]>([]);
   const [notes, setNotes] = useState<Record<string, string>>({});
+  const [isDesktop, setIsDesktop] = useState(() => (typeof window !== 'undefined' ? window.matchMedia('(min-width: 900px)').matches : false));
   const visibleDefaultSongs = useMemo(
     () => defaultSongs.filter((song) => !hiddenDefaultSongs.includes(song.id)),
     [hiddenDefaultSongs],
@@ -64,6 +82,7 @@ const App = () => {
   const autoScrollFrame = useRef<number | null>(null);
   const autoScrollLast = useRef<number | null>(null);
   const autoScrollControlRef = useRef<HTMLDivElement>(null);
+  const songScrollContainerRef = useRef<HTMLDivElement | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const [ugSearchOpen, setUgSearchOpen] = useState(false);
   const [ugSearchQuery, setUgSearchQuery] = useState('');
@@ -124,6 +143,34 @@ const App = () => {
   }, [customChordShapes, preferredChordShapes]);
 
   const selectedSong = useMemo(() => songs.find((song) => song.id === selectedSongId) ?? null, [songs, selectedSongId]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return;
+    }
+    const query = window.matchMedia('(min-width: 900px)');
+    const handler = (event: MediaQueryListEvent) => {
+      setIsDesktop(event.matches);
+    };
+    setIsDesktop(query.matches);
+    query.addEventListener('change', handler);
+    return () => {
+      query.removeEventListener('change', handler);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (autoScrollEnabled && autoScrollFrame.current !== null && !selectedSongId) {
+      cancelAnimationFrame(autoScrollFrame.current);
+      autoScrollFrame.current = null;
+    }
+  }, [autoScrollEnabled, selectedSongId]);
+
+  useEffect(() => {
+    if (autoScrollEnabled) {
+      setAutoScrollEnabled(false);
+    }
+  }, [isDesktop]);
 
   useEffect(() => {
     if (typeof document === 'undefined') {
@@ -224,7 +271,7 @@ const App = () => {
 
   const handleSaveSong = (song: Song) => {
     const id = ensureUniqueId(song.id);
-    const songWithId = { ...song, id };
+    const songWithId = { ...withNormalizedType(song), id };
     setCustomSongs((current) => [...current, songWithId]);
     setSelectedSongId(songWithId.id);
     setFormState(null);
@@ -254,8 +301,9 @@ const App = () => {
   };
 
   const handleUpdateSong = (updated: Song) => {
-    setCustomSongs((current) => current.map((song) => (song.id === updated.id ? updated : song)));
-    setSelectedSongId(updated.id);
+    const normalized = withNormalizedType(updated);
+    setCustomSongs((current) => current.map((song) => (song.id === normalized.id ? normalized : song)));
+    setSelectedSongId(normalized.id);
     setFormState(null);
   };
 
@@ -285,7 +333,8 @@ const App = () => {
       return;
     }
 
-    const scrollElement = document.scrollingElement ?? document.documentElement;
+    const scrollElement =
+      isDesktop && songScrollContainerRef.current ? songScrollContainerRef.current : document.scrollingElement ?? document.documentElement;
 
     const step = (timestamp: number) => {
       if (!autoScrollEnabled) {
@@ -297,7 +346,11 @@ const App = () => {
       autoScrollLast.current = timestamp;
 
       const increment = autoScrollSpeed * deltaSeconds;
-      const maxScroll = scrollElement.scrollHeight - window.innerHeight;
+      const viewportHeight =
+        scrollElement === document.documentElement || scrollElement === document.body || scrollElement === document.scrollingElement
+          ? window.innerHeight
+          : scrollElement.clientHeight;
+      const maxScroll = scrollElement.scrollHeight - viewportHeight;
       const next = Math.min(scrollElement.scrollTop + increment, maxScroll);
       scrollElement.scrollTop = next;
 
@@ -318,7 +371,7 @@ const App = () => {
       }
       autoScrollLast.current = null;
     };
-  }, [autoScrollEnabled, autoScrollSpeed]);
+  }, [autoScrollEnabled, autoScrollSpeed, isDesktop]);
 
   useEffect(() => {
     if (typeof document === 'undefined') {
@@ -370,10 +423,12 @@ const App = () => {
               ? `https://tabs.ultimate-guitar.com/tab/${result.tabId}`
               : undefined);
       const uniqueId = ensureUniqueId(importedSong.id);
+      const importedType = normalizeSongType((importedSong as Song).type ?? (result as { type?: string }).type);
       const preparedSong: Song = {
         ...importedSong,
         id: uniqueId,
         ugUrl: inferredUgUrl,
+        type: importedType,
       };
 
       setFormState({ mode: 'create', song: preparedSong });
@@ -552,10 +607,12 @@ const App = () => {
     const sanitizedSongs: Song[] = Array.isArray(data.customSongs)
       ? data.customSongs
           .filter((song): song is Song => Boolean(song && song.title && song.artist && song.lines))
-          .map((song) => ({
-            ...song,
-            id: typeof song.id === 'string' && song.id.trim() ? song.id : buildSongId(song.title, song.artist),
-          }))
+          .map((song) =>
+            withNormalizedType({
+              ...song,
+              id: typeof song.id === 'string' && song.id.trim() ? song.id : buildSongId(song.title, song.artist),
+            }),
+          )
       : [];
 
     const importedHiddenDefaults = Array.isArray(data.hiddenDefaultSongs)
@@ -652,7 +709,7 @@ const App = () => {
 
   return (
     <div className="app" style={{ '--song-font-scale': songFontScale.toString() } as CSSProperties}>
-      <header className="app__header" ref={headerRef}>
+      <header className={`app__header${controlsExpanded ? ' has-controls' : ''}`} ref={headerRef}>
         <SongNav
           songs={songs}
           selectedSongId={selectedSongId}
@@ -680,27 +737,11 @@ const App = () => {
           onRemoveSong={handleRemoveSong}
           onHideDefault={handleHideDefaultSong}
           onCreateCopy={handleCreateEditableCopy}
+          controlsExpanded={controlsExpanded}
+          onToggleControls={() => setControlsExpanded((current) => !current)}
         />
         {selectedSong ? (
           <div className={`app__controls${controlsExpanded ? ' is-open' : ' is-collapsed'}`}>
-            <div
-              className="app__controls-header"
-              role="button"
-              tabIndex={0}
-              aria-expanded={controlsExpanded}
-              onClick={() => setControlsExpanded((current) => !current)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault();
-                  setControlsExpanded((current) => !current);
-                }
-              }}
-            >
-              <p className="app__controls-title">Controls</p>
-              <span className="app__controls-caret" aria-hidden="true">
-                {controlsExpanded ? '▴' : '▾'}
-              </span>
-            </div>
             {controlsExpanded ? (
               <div className="app__toolbar" id="app-controls-panel">
                 <div className="toolbar-grid">
@@ -816,12 +857,18 @@ const App = () => {
               transposeSteps={transposeSteps}
               chordShapes={resolvedChordShapes}
               onInteract={() => setAutoScrollEnabled(false)}
-            />
-            <NotesPanel
-              songId={selectedSong.id}
-              currentKey={currentKey}
-              note={notes[selectedSong.id] ?? ''}
-              onChange={(value) => handleNoteChange(selectedSong.id, value)}
+              onEdit={(song) => setFormState({ mode: 'edit', song })}
+              onSetLeftScrollContainer={(element) => {
+                songScrollContainerRef.current = element;
+              }}
+              notesPanel={(
+                <NotesPanel
+                  songId={selectedSong.id}
+                  currentKey={currentKey}
+                  note={notes[selectedSong.id] ?? ''}
+                  onChange={(value) => handleNoteChange(selectedSong.id, value)}
+                />
+              )}
             />
           </>
         ) : (

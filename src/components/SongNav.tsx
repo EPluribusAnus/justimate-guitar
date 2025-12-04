@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
-import type { Song } from '../types';
+import type { Song, SongType } from '../types';
 
 interface Props {
   songs: Song[];
@@ -61,8 +61,22 @@ const SongNav = ({
   onRemoveSong,
   onHideDefault,
   onCreateCopy,
+  controlsExpanded,
+  onToggleControls,
 }: Props) => {
-  const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.matchMedia('(max-width: 900px)').matches : false));
+  const typeLabels: Record<SongType, string> = {
+    chords: 'Chords',
+    tab: 'Tab',
+    bass: 'Bass',
+    ukulele: 'Ukulele',
+    drums: 'Drums',
+    video: 'Video',
+    pro: 'Pro',
+    power: 'Power',
+    other: 'Other',
+  };
+
+  const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.matchMedia('(max-width: 899px)').matches : false));
   const [isOpen, setIsOpen] = useState(false);
   const [isActionsOpen, setIsActionsOpen] = useState(false);
   const [isAddOpen, setIsAddOpen] = useState(false);
@@ -74,12 +88,13 @@ const SongNav = ({
   const addMenuRef = useRef<HTMLDivElement>(null);
   const actionsButtonRef = useRef<HTMLButtonElement>(null);
   const actionsMenuRef = useRef<HTMLDivElement>(null);
+  const controlsButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
     }
-    const mediaQuery = window.matchMedia('(max-width: 900px)');
+    const mediaQuery = window.matchMedia('(max-width: 899px)');
     const handler = (event: MediaQueryListEvent) => {
       setIsMobile(event.matches);
     };
@@ -110,6 +125,7 @@ const SongNav = ({
       const addMenu = addMenuRef.current;
       const actionsButton = actionsButtonRef.current;
       const actionsMenu = actionsMenuRef.current;
+      const controlsButton = controlsButtonRef.current;
 
       const insideNav = nav?.contains(target);
 
@@ -143,6 +159,13 @@ const SongNav = ({
         const onActionsToggle = actionsButton?.contains(target);
         if (!inActions && !onActionsToggle) {
           setIsActionsOpen(false);
+        }
+      }
+
+      if (controlsExpanded) {
+        const onControlsToggle = controlsButton?.contains(target);
+        if (!onControlsToggle && !onToggle && !insideOverlay) {
+          onToggleControls?.();
         }
       }
 
@@ -201,59 +224,11 @@ const SongNav = ({
   return (
     <nav className="song-nav" aria-label="Song navigation" ref={navRef}>
       <div className="song-nav__header">
-        <button
-          type="button"
-          className={clsx('song-nav__toggle', { 'is-active': isOpen })}
-          ref={songToggleRef}
-          aria-label="Toggle song list"
-          onClick={() => {
-            setIsOpen((prev) => !prev);
-            setIsAddOpen(false);
-            setIsActionsOpen(false);
-            setOpenSongMenuId(null);
-          }}
-          aria-expanded={isOpen}
-          aria-controls="song-nav-panel"
-        >
-          ♫
-        </button>
         <div className="song-nav__actions">
-          <div className="song-nav__menu" ref={addMenuRef}>
-            <button
-              type="button"
-              aria-label="Add song options"
-              onClick={() => {
-                if (selectedSongId) {
-                  onSelect(selectedSongId);
-                }
-                setIsAddOpen((prev) => !prev);
-                setIsActionsOpen(false);
-                setOpenSongMenuId(null);
-              }}
-              className="song-nav__add"
-              aria-expanded={isAddOpen}
-              ref={addButtonRef}
-            >
-              +
-            </button>
-            {isAddOpen && (
-              <div className="song-nav__menu-panel">
-                <button type="button" onClick={() => { onAddSong(); setIsAddOpen(false); }}>
-                  Create new
-                </button>
-                <button type="button" disabled={isImportingUltimateGuitar} onClick={() => { onAddFromSearch(); setIsAddOpen(false); }}>
-                  Search UG
-                </button>
-                <button type="button" disabled={isImportingUltimateGuitar} onClick={() => { onAddFromLink(); setIsAddOpen(false); }}>
-                  Import UG link
-                </button>
-              </div>
-            )}
-          </div>
           <div className="song-nav__menu" ref={actionsMenuRef}>
             <button
               type="button"
-              className="song-nav__more"
+              className={clsx('song-nav__more', { 'is-active': isActionsOpen })}
               aria-label="Settings and actions"
               onClick={() => {
                 if (selectedSongId) {
@@ -266,25 +241,92 @@ const SongNav = ({
               aria-expanded={isActionsOpen}
               ref={actionsButtonRef}
             >
-              ⚙
+              <span className="song-nav__icon song-nav__icon--dots" aria-hidden="true" />
             </button>
             {isActionsOpen && (
               <div className="song-nav__menu-panel">
                 <button type="button" onClick={() => { onImport(); setIsActionsOpen(false); }}>
-                  Import library
+                  <span className="song-nav__menu-icon song-nav__icon--import" aria-hidden="true" />
+                  <span>Import library</span>
                 </button>
                 <button type="button" onClick={() => { onExport(); setIsActionsOpen(false); }}>
-                  Export library
+                  <span className="song-nav__menu-icon song-nav__icon--export" aria-hidden="true" />
+                  <span>Export library</span>
                 </button>
                 <button type="button" onClick={() => { onSaveRemote(); setIsActionsOpen(false); }}>
-                  Save to server
+                  <span className="song-nav__menu-icon song-nav__icon--save" aria-hidden="true" />
+                  <span>Save to server</span>
                 </button>
                 <button type="button" onClick={() => { onOpenChordLibrary(); setIsActionsOpen(false); }}>
-                  Chord library
+                  <span className="song-nav__menu-icon song-nav__icon--library" aria-hidden="true" />
+                  <span>Chord library</span>
                 </button>
               </div>
             )}
           </div>
+          <button
+            type="button"
+            className={clsx('song-nav__toggle', { 'is-active': isOpen })}
+            ref={songToggleRef}
+            aria-label="Toggle song list"
+            onClick={() => {
+              setIsOpen((prev) => !prev);
+              setIsAddOpen(false);
+              setIsActionsOpen(false);
+              setOpenSongMenuId(null);
+            }}
+            aria-expanded={isOpen}
+            aria-controls="song-nav-panel"
+          >
+            <span className="song-nav__icon song-nav__icon--note" aria-hidden="true" />
+          </button>
+          <div className="song-nav__menu" ref={addMenuRef}>
+            <button
+              type="button"
+              aria-label="Add song options"
+              onClick={() => {
+                if (selectedSongId) {
+                  onSelect(selectedSongId);
+                }
+                setIsAddOpen((prev) => !prev);
+                setIsActionsOpen(false);
+                setOpenSongMenuId(null);
+              }}
+              className={clsx('song-nav__add', { 'is-active': isAddOpen })}
+              aria-expanded={isAddOpen}
+              ref={addButtonRef}
+            >
+              <span className="song-nav__icon song-nav__icon--plus" aria-hidden="true" />
+            </button>
+            {isAddOpen && (
+              <div className="song-nav__menu-panel">
+                <button type="button" onClick={() => { onAddSong(); setIsAddOpen(false); }}>
+                  <span className="song-nav__menu-icon song-nav__icon--plus" aria-hidden="true" />
+                  <span>Create new</span>
+                </button>
+                <button type="button" disabled={isImportingUltimateGuitar} onClick={() => { onAddFromSearch(); setIsAddOpen(false); }}>
+                  <span className="song-nav__menu-icon song-nav__icon--search" aria-hidden="true" />
+                  <span>Search UG</span>
+                </button>
+                <button type="button" disabled={isImportingUltimateGuitar} onClick={() => { onAddFromLink(); setIsAddOpen(false); }}>
+                  <span className="song-nav__menu-icon song-nav__icon--link" aria-hidden="true" />
+                  <span>Import UG link</span>
+                </button>
+              </div>
+            )}
+          </div>
+          {selectedSongId ? (
+            <button
+              type="button"
+              className={clsx('song-nav__controls', { 'is-active': controlsExpanded })}
+              aria-label="Toggle controls"
+              onClick={() => onToggleControls?.()}
+              aria-pressed={controlsExpanded}
+              ref={controlsButtonRef}
+            >
+              <span className="song-nav__icon song-nav__icon--panel" aria-hidden="true" />
+            </button>
+          ) : null}
         </div>
         <div className="song-nav__title">
           <div className="song-nav__title-text">
@@ -333,6 +375,9 @@ const SongNav = ({
                                 className={clsx({ 'is-active': song.id === selectedSongId })}
                                 onClick={() => handleSongSelect(song.id)}
                               >
+                                <span className="song-nav__item-type">
+                                  {typeLabels[(song.type as SongType) ?? 'chords']}
+                                </span>
                                 {song.title}
                               </button>
                               <div className="song-nav__item-actions">

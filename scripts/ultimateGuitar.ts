@@ -22,6 +22,20 @@ interface UltimateGuitarTab {
   urlWeb?: string;
 }
 
+const normalizeSongType = (value?: string | null): Song['type'] => {
+  const type = (value ?? '').toLowerCase().trim();
+  if (type.includes('uke')) return 'ukulele';
+  if (type.includes('ukulele')) return 'ukulele';
+  if (type.includes('bass')) return 'bass';
+  if (type.includes('drum')) return 'drums';
+  if (type.includes('power')) return 'power';
+  if (type.includes('pro')) return 'pro';
+  if (type.includes('video')) return 'video';
+  if (type.includes('tab')) return 'tab';
+  if (type.includes('chord')) return 'chords';
+  return 'other';
+};
+
 export interface ImportResult {
   tabId: number;
   source: string;
@@ -292,6 +306,7 @@ export const fetchUltimateGuitarSong = async (source: string): Promise<ImportRes
     defaultKey: resolveDefaultKey(tab),
     capo: tab.capo && Number.isFinite(tab.capo) && tab.capo > 0 ? tab.capo : undefined,
     ugUrl: tab.urlWeb ?? source,
+    type: normalizeSongType(tab.type),
     lines,
   };
 
@@ -319,7 +334,12 @@ export const searchUltimateGuitar = async (query: string, page = 1, limit = 12):
   if (!tabs.length) {
     tabs = await performSearchFallbackScrape(query, limit);
   }
-  const relevant = tabs.filter((tab) => tab.type?.toLowerCase().includes('chord'));
+  const blockedTypes = ['official', 'pro', 'guitar pro'];
+  const relevant = tabs.filter((tab) => {
+    const type = (tab.type ?? '').toLowerCase();
+    if (!type) return true;
+    return !blockedTypes.some((blocked) => type.includes(blocked));
+  });
 
   return relevant.map((tab) => ({
     tabId: tab.id,

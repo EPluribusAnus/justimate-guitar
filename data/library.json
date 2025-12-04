@@ -1,5 +1,5 @@
 {
-  "savedAt": "2025-12-03T19:22:24.446Z",
+  "savedAt": "2025-12-04T21:39:16.486Z",
   "customSongs": [
     {
       "id": "portugal-the-man-kokhanockers",
@@ -311,7 +311,8 @@
           "type": "line",
           "content": "Believing that you're happy"
         }
-      ]
+      ],
+      "type": "chords"
     },
     {
       "id": "billy-joel-only-the-good-die-young",
@@ -750,7 +751,8 @@
         {
           "type": "spacer"
         }
-      ]
+      ],
+      "type": "chords"
     },
     {
       "id": "portugal-the-man-tanana",
@@ -1047,7 +1049,8 @@
           "content": "Me and you",
           "chords": "      [Gm]"
         }
-      ]
+      ],
+      "type": "chords"
     },
     {
       "id": "george-harrison-my-sweet-lord",
@@ -1564,7 +1567,8 @@
           "type": "line",
           "content": "RIP George Harrison 1943-2001"
         }
-      ]
+      ],
+      "type": "chords"
     },
     {
       "id": "billy-joel-uptown-girl-2",
@@ -1965,7 +1969,8 @@
           "type": "line",
           "content": "(repeat and fade)"
         }
-      ]
+      ],
+      "type": "chords"
     },
     {
       "id": "portugal-the-man-so-american-2",
@@ -2368,6 +2373,1421 @@
           "content": "But somebody got there first and took them all",
           "chords": "             [E]                                 [Am]"
         }
+      ],
+      "type": "chords"
+    },
+    {
+      "id": "the-beatles-hey-jude",
+      "title": "Hey Jude",
+      "artist": "The Beatles",
+      "defaultKey": "F",
+      "ugUrl": "https://tabs.ultimate-guitar.com/tab/the-beatles/hey-jude-chords-17275",
+      "lines": [
+        {
+          "type": "section",
+          "label": "Verse 1"
+        },
+        {
+          "type": "line",
+          "content": "Hey Jude, don't make it bad",
+          "chords": "    [F]                   [C]"
+        },
+        {
+          "type": "line",
+          "content": "Take a   sad song and make it better",
+          "chords": "     [F/C] [C7]  [C7sus4]   [C7]      [F]"
+        },
+        {
+          "type": "line",
+          "content": "Remember to let her into your heart",
+          "chords": "  [Bb]                          [F]"
+        },
+        {
+          "type": "line",
+          "content": "and then you can start to make it better",
+          "chords": "                 [C]                [F]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 2"
+        },
+        {
+          "type": "line",
+          "content": "Hey Jude, don't be afraid",
+          "chords": "    [F]               [C]"
+        },
+        {
+          "type": "line",
+          "content": "You were made to  go out and get her",
+          "chords": "    [F/C]  [C7]   [C7sus4] [C7]      [F]"
+        },
+        {
+          "type": "line",
+          "content": "The minute you let her under your skin",
+          "chords": "    [Bb]                            [F]"
+        },
+        {
+          "type": "line",
+          "content": "then you begin to make it better",
+          "chords": "           [C]              [F]        [Fmaj7] [F7]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "line",
+          "content": "And anytime you feel the pain, hey Jude, refrain",
+          "chords": "                         [Bb]        [Bb/A]    [Gm]"
+        },
+        {
+          "type": "line",
+          "content": "Don't carry the world upon your shoulders",
+          "chords": "      [Bb/F]      [C/E]    [C]        [F]         [Fmaj7] [F7]"
+        },
+        {
+          "type": "line",
+          "content": "For well you know that it's a fool who plays it cool",
+          "chords": "                              [Bb]       [Bb/A]     [Gm]"
+        },
+        {
+          "type": "line",
+          "content": "by making his world a little colder",
+          "chords": "   [Bb/F]       [C/E]     [C]      [F]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Interlude"
+        },
+        {
+          "type": "line",
+          "content": "Na na na  na na   na na  na naa",
+          "chords": "[F]         [F7]      [C]      [C7]        [C]  [F]  [C7]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 3"
+        },
+        {
+          "type": "line",
+          "content": "Hey Jude, don't let me down",
+          "chords": "    [F]                  [C]"
+        },
+        {
+          "type": "line",
+          "content": "You have found her, now go and get her",
+          "chords": "    [F/C]  [C7]    [C7sus4]   [C7]     [F]"
+        },
+        {
+          "type": "line",
+          "content": "Remember to let her into you heart",
+          "chords": "  [Bb]                         [F]"
+        },
+        {
+          "type": "line",
+          "content": "then you can start to make it better",
+          "chords": "             [C]                [F]       [Fmaj7]  [F7]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Chorus"
+        },
+        {
+          "type": "line",
+          "content": "So let it out and let it in, hey Jude, begin",
+          "chords": "                         [Bb]      [Bb/A]    [Gm]"
+        },
+        {
+          "type": "line",
+          "content": "You're waiting for someone to perform with",
+          "chords": "       [Bb/F]        [C/E]     [C]     [F]            [Fmaj7]  [F7]"
+        },
+        {
+          "type": "line",
+          "content": "And don't you know that it's just you, hey Jude, you'll do",
+          "chords": "                                  [Bb]       [Bb/A]         [Gm]"
+        },
+        {
+          "type": "line",
+          "content": "The movement you need is on your shoulders",
+          "chords": "    [Bb/F]         [C/E]     [C]       [F]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Interlude"
+        },
+        {
+          "type": "line",
+          "content": "Na na na  na na   na na  na naa    yeah",
+          "chords": "[F]         [F7]      [C]      [C7]        [C]  [F]  [C7]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 4"
+        },
+        {
+          "type": "line",
+          "content": "Hey Jude, don't make it bad",
+          "chords": "    [F]                   [C]"
+        },
+        {
+          "type": "line",
+          "content": "Take a   sad song and make it better",
+          "chords": "     [F/C] [C7]  [C7sus4]   [C7]      [F]"
+        },
+        {
+          "type": "line",
+          "content": "Remember to let her under your skin",
+          "chords": "  [Bb]                           [F]"
+        },
+        {
+          "type": "line",
+          "content": "and then you'll begin to make it better, better, better, better, better, better, ahhhhhh!",
+          "chords": "                [C]                [F]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Outro"
+        },
+        {
+          "type": "line",
+          "content": "Na na na   na na na na",
+          "chords": "[F]          [Eb]"
+        },
+        {
+          "type": "line",
+          "content": "Na na na na",
+          "chords": "[Bb]"
+        },
+        {
+          "type": "line",
+          "content": "Hey Jude",
+          "chords": "    [F]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Na na na   na na na na",
+          "chords": "[F]          [Eb]"
+        },
+        {
+          "type": "line",
+          "content": "Na na na na",
+          "chords": "[Bb]"
+        },
+        {
+          "type": "line",
+          "content": "Hey Jude",
+          "chords": "    [F]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "(Repeat and fade)"
+        }
+      ],
+      "type": "chords"
+    },
+    {
+      "id": "house-of-heroes-god-save-the-foolish-kings",
+      "title": "God Save The Foolish Kings",
+      "artist": "House of Heroes",
+      "defaultKey": "C",
+      "type": "tab",
+      "ugUrl": "https://tabs.ultimate-guitar.com/tab/house-of-heroes/god-save-the-foolish-kings-tabs-972245",
+      "lines": [
+        {
+          "type": "line",
+          "content": "----------------------------------------------------------------------------"
+        },
+        {
+          "type": "line",
+          "content": "\t\t                   GOD SAVE THE FOOLISH KINGS - House of Heroes"
+        },
+        {
+          "type": "line",
+          "content": "----------------------------------------------------------------------------"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Tabbed by: Melody"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Tuning: Standard EADGBE"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "|-----------0-|",
+          "chords": "E"
+        },
+        {
+          "type": "line",
+          "content": "|---------0---|"
+        },
+        {
+          "type": "line",
+          "content": "|-------1-----|"
+        },
+        {
+          "type": "line",
+          "content": "|-----2-------|"
+        },
+        {
+          "type": "line",
+          "content": "|---2---------|"
+        },
+        {
+          "type": "line",
+          "content": "|-0-----------|"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-9h11-11-11-11-11-11-11--9h11-11-11-11-11-11-11-|"
+        },
+        {
+          "type": "line",
+          "content": "|-0--0--0--0--0--0--0--0--0--0--0--0--0--0--0--0-|"
+        },
+        {
+          "type": "line",
+          "content": "  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-11-11-11-11-11-11-11-11-11-11-11-11-11-11-11-11-|"
+        },
+        {
+          "type": "line",
+          "content": "|-9--9--9--9--9--9--9--9--9--9--9--9--9--9--9--9--|"
+        },
+        {
+          "type": "line",
+          "content": "  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-9h11-11-11-11-11-11-11--9h11-11-11-11-11-11-11-|"
+        },
+        {
+          "type": "line",
+          "content": "|-0--0--0--0--0--0--0--0--0--0--0--0--0--0--0--0-|"
+        },
+        {
+          "type": "line",
+          "content": "  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------|-x--x--x--x--|",
+          "chords": "\t\t\t\t\t                            C# G# C# B \t\t"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------|-x--x--x--x--|"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------|-6--x--6--4--|"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------|-6--6--6--4--|"
+        },
+        {
+          "type": "line",
+          "content": "|-11-11-11-11-11-11-11-11-|-4--6--4--2--|"
+        },
+        {
+          "type": "line",
+          "content": "|-9--9--9--9--9--9--9--9--|-x--4--x--x--|"
+        },
+        {
+          "type": "line",
+          "content": "  x  x  x  x  x  x  x  x"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "|-x------x------x-------x------x------|-x--x--x--x--|",
+          "chords": "  A      F#m    E       E/D#   E        C# G# C# B"
+        },
+        {
+          "type": "line",
+          "content": "|-x------x------x-------x------x------|-x--x--x--x--|"
+        },
+        {
+          "type": "line",
+          "content": "|-6------11-----9-------x------9------|-6--x--6--4--|"
+        },
+        {
+          "type": "line",
+          "content": "|-7------11-----9-------9------9------|-6--6--6--4--|"
+        },
+        {
+          "type": "line",
+          "content": "|-7--x8--9--x8--7--x12--6--x4--7--x8--|-4--6--4--2--|"
+        },
+        {
+          "type": "line",
+          "content": "|-5------x------x-------x------x------|-x--4--x--x--|"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "CHORUS & SOLO"
+        },
+        {
+          "type": "line",
+          "content": "(guitar 1)"
+        },
+        {
+          "type": "line",
+          "content": "E x16\tC#m x16\t"
+        },
+        {
+          "type": "line",
+          "content": "E x16\tC#m x16\t"
+        },
+        {
+          "type": "line",
+          "content": "E x8\t\tF#m x8\tE x16"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "(guitar 2)"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-9-9-9-9-9-9-9-9-9-9-9-9------9-9-9-9-9---------|"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------11-9----------11-9-----|"
+        },
+        {
+          "type": "line",
+          "content": "|---------------------------------------------11-|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "|------9-----------9b-9b-9b-9b-9b------9---------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-9-12---12-9-9-12----------------9-12---12-9-9-12-9---|"
+        },
+        {
+          "type": "line",
+          "content": "|----------------------------------------------------9-|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------------|"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "|-13b14-12--15b16r15b16-|"
+        },
+        {
+          "type": "line",
+          "content": "|-----------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-----------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-----------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-----------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-----------------------|"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "'Promise me...'"
+        },
+        {
+          "type": "line",
+          "content": "A x16"
+        },
+        {
+          "type": "line",
+          "content": "E x16"
+        },
+        {
+          "type": "line",
+          "content": "A x16"
+        },
+        {
+          "type": "line",
+          "content": "B x16"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "'We're outcasts...'"
+        },
+        {
+          "type": "line",
+          "content": "G#m x8"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x16"
+        },
+        {
+          "type": "line",
+          "content": "G#m x8"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x8"
+        },
+        {
+          "type": "line",
+          "content": "B   x8"
+        },
+        {
+          "type": "line",
+          "content": "G#m x8"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x4"
+        },
+        {
+          "type": "line",
+          "content": "B   x4"
+        },
+        {
+          "type": "line",
+          "content": "C#m x8"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "F#m x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x16"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "'Midnight, at the school...'"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-9h11-11-11-11-11-11-11--9h11-11-11-11-11-11-11-|"
+        },
+        {
+          "type": "line",
+          "content": "|-0--0--0--0--0--0--0--0--0--0--0--0--0--0--0--0-|"
+        },
+        {
+          "type": "line",
+          "content": "  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-11-11-11-11-11-11-11-11-11-11-11-11-11-11-11-11-|"
+        },
+        {
+          "type": "line",
+          "content": "|-9--9--9--9--9--9--9--9--9--9--9--9--9--9--9--9--|"
+        },
+        {
+          "type": "line",
+          "content": "  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-9h11-11-11-11-11-11-11--9h11-11-11-11-11-11-11-|"
+        },
+        {
+          "type": "line",
+          "content": "|-0--0--0--0--0--0--0--0--0--0--0--0--0--0--0--0-|"
+        },
+        {
+          "type": "line",
+          "content": "  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-------------------------------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-11-11-11-11-11-11-11-11-11-11-11-11-11-11-11-11-|"
+        },
+        {
+          "type": "line",
+          "content": "|-9--9--9--9--9--9--9--9--9--9--9--9--9--9--9--9--|"
+        },
+        {
+          "type": "line",
+          "content": "  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "F#m x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x8"
+        },
+        {
+          "type": "line",
+          "content": "B   x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x16"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "'We're Daring...'"
+        },
+        {
+          "type": "line",
+          "content": "G#m x8"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x16"
+        },
+        {
+          "type": "line",
+          "content": "G#m x8"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x8"
+        },
+        {
+          "type": "line",
+          "content": "B   x8 "
+        },
+        {
+          "type": "line",
+          "content": "G#m x8"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x4"
+        },
+        {
+          "type": "line",
+          "content": "B   x4"
+        },
+        {
+          "type": "line",
+          "content": "C#m x8"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "F#m x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x16"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "F#m x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x16"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "'Whoa-oh-oh-oh-oh-oh-oh'"
+        },
+        {
+          "type": "line",
+          "content": "A   x16"
+        },
+        {
+          "type": "line",
+          "content": "B   x16"
+        },
+        {
+          "type": "line",
+          "content": "C#m x16"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "E/D#x16"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "E\t\t\tB\t\tA"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Interlude"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "F#m\t\t\tE\t\tB"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "F#m\t\t\tE\t\tB"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "(slide guitar)"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|-6/14-13\\8-6/14-13\\8/16-|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------|"
+        },
+        {
+          "type": "line",
+          "content": "|------------------------|"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "'But I met God...'"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "A    F#m\tB\tG#m\t"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "C#m\tC#m\tA\tB\t"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "'Promise me you won't do anything crazy'"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "B   x8"
+        },
+        {
+          "type": "line",
+          "content": "C#m x8"
+        },
+        {
+          "type": "line",
+          "content": "B   x8"
+        },
+        {
+          "type": "line",
+          "content": "A   x16"
+        },
+        {
+          "type": "line",
+          "content": "B   x16"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "'Whoa-oh-oh'"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "A\t\tB\t\tE"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "'We're Devils...'"
+        },
+        {
+          "type": "line",
+          "content": "G#m x8"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x16"
+        },
+        {
+          "type": "line",
+          "content": "G#m x8"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x8"
+        },
+        {
+          "type": "line",
+          "content": "B   x8 "
+        },
+        {
+          "type": "line",
+          "content": "G#m x8"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x4"
+        },
+        {
+          "type": "line",
+          "content": "B   x4"
+        },
+        {
+          "type": "line",
+          "content": "C#m x8"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "F#m x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x16"
+        },
+        {
+          "type": "line",
+          "content": "A   x8"
+        },
+        {
+          "type": "line",
+          "content": "F#m x8"
+        },
+        {
+          "type": "line",
+          "content": "E   x16"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "A   x16"
+        },
+        {
+          "type": "line",
+          "content": "F#m x16"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "E\tA  E\t B  E  A  E"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "************************************"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "| /   slide up"
+        },
+        {
+          "type": "line",
+          "content": "| \\   slide down"
+        },
+        {
+          "type": "line",
+          "content": "| h   hammer-on"
+        },
+        {
+          "type": "line",
+          "content": "| p   pull-off"
+        },
+        {
+          "type": "line",
+          "content": "| ~   vibrato"
+        },
+        {
+          "type": "line",
+          "content": "| +   harmonic"
+        },
+        {
+          "type": "line",
+          "content": "| x   Mute note"
+        },
+        {
+          "type": "line",
+          "content": "| b   Bend"
+        },
+        {
+          "type": "line",
+          "content": "| pb  Pre-bend"
+        },
+        {
+          "type": "line",
+          "content": "| br  Bend release"
+        },
+        {
+          "type": "line",
+          "content": "| pbr Pre-bend release"
+        },
+        {
+          "type": "line",
+          "content": "| brb Bend release bend"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "************************************"
+        }
+      ]
+    },
+    {
+      "id": "billy-joel-movin-out-anthonys-song",
+      "title": "Movin' Out (Anthony's Song)",
+      "artist": "Billy Joel",
+      "defaultKey": "C",
+      "type": "chords",
+      "capo": 3,
+      "ugUrl": "https://tabs.ultimate-guitar.com/tab/billy-joel/movin-out-anthonys-song-chords-875864",
+      "lines": [
+        {
+          "type": "line",
+          "content": "(E9 can also be played as Bm/E.)"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Intro"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[Bm]  [Em]  [A] [A/C#] [D]  (x2)"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 1"
+        },
+        {
+          "type": "line",
+          "content": "Anthony works in the grocery store",
+          "chords": "[Bm]                    [Em]"
+        },
+        {
+          "type": "line",
+          "content": "saving his pennies for someday",
+          "chords": "[A]             [A/C#]         [D]"
+        },
+        {
+          "type": "line",
+          "content": "Mama Leone left a note on the door",
+          "chords": "[Bm]                 [E7]"
+        },
+        {
+          "type": "line",
+          "content": "She said, \"Sonny, move out to the country\"",
+          "chords": "           [A]           [A/C#]        [D]"
+        },
+        {
+          "type": "line",
+          "content": "Ah, but working too hard can give you a heart attack-ack-ack-ack-ack-ack!",
+          "chords": "        [Bm]                              [E9]"
+        },
+        {
+          "type": "line",
+          "content": "You oughta know by now (You oughta know by now)",
+          "chords": "[G]                   [A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "Who needs a house out in Hackensack?",
+          "chords": "[Bm]                        [Em]"
+        },
+        {
+          "type": "line",
+          "content": "Is that all you get for your money?",
+          "chords": "   [A]          [A/C#]             [D]"
+        },
+        {
+          "type": "line",
+          "content": "And it seems such a waste of time, if that's what it's all about",
+          "chords": "       [G]                     [A]        [F#]                    [Bm]"
+        },
+        {
+          "type": "line",
+          "content": "Mama, if that's movin' up then I'm       movin' out",
+          "chords": "[Bm/A]         [G]                 [C#m7]  [F#7]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Instrumental"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[Bm]  [Em]  [A] [A/C#] [D]  (x2)"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 2"
+        },
+        {
+          "type": "line",
+          "content": "Sergeant O'Leary is walking the beat",
+          "chords": "[Bm]                   [Em]"
+        },
+        {
+          "type": "line",
+          "content": "At night he becomes a bartender",
+          "chords": "   [A]           [A/C#]       [D]"
+        },
+        {
+          "type": "line",
+          "content": "He works at Mister Cacciatore's down on Sullivan Street",
+          "chords": "            [Bm]                          [E7]"
+        },
+        {
+          "type": "line",
+          "content": "Across from the medical center",
+          "chords": " [A]               [A/C#]     [D]"
+        },
+        {
+          "type": "line",
+          "content": "Yeah, and he's trading in his Chevy for a Cadillac-ac-ac-ac-ac-ac!",
+          "chords": "               [Bm]                         [E9]"
+        },
+        {
+          "type": "line",
+          "content": "You oughta know by now (You oughta know by now)",
+          "chords": "[G]                   [A]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "line",
+          "content": "And if he can't drive with a broken back",
+          "chords": "    [Bm]                       [E7]"
+        },
+        {
+          "type": "line",
+          "content": "At least he can polish the fenders",
+          "chords": "   [A]            [A/C#]           [D]"
+        },
+        {
+          "type": "line",
+          "content": "And it seems such a waste of time, if that's what it's all about",
+          "chords": "       [G]                     [A]        [F#]                    [Bm]"
+        },
+        {
+          "type": "line",
+          "content": "Mama, if that's movin' up then I'm      movin' out",
+          "chords": "[Bm/A]        [G]                   [C#m7] [F#7]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Instrumental"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[Bm]  [Em]  [A] [A/C#] [D]  (x2)"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Verse 3"
+        },
+        {
+          "type": "line",
+          "content": "You should never argue with a crazy mind-mind-mind-mind-mind-mind!",
+          "chords": "[Bm]                            [E9]"
+        },
+        {
+          "type": "line",
+          "content": "You oughta know by now (You oughta know by now)",
+          "chords": "[G]                   [A]"
+        },
+        {
+          "type": "line",
+          "content": "You can pay Uncle Sam with the overtime",
+          "chords": "         [Bm]                     [E7]"
+        },
+        {
+          "type": "line",
+          "content": "Is that all you get for your money?",
+          "chords": "   [A]            [A/C#]            [D]"
+        },
+        {
+          "type": "line",
+          "content": "And if that's what you have in mind, yeah, if that's what you're all about",
+          "chords": "       [G]                        [A]             [F#]                      [Bm]"
+        },
+        {
+          "type": "line",
+          "content": "Good luck movin' up cuz I'm      movin' out",
+          "chords": "[Bm/A]   [G]                [C#m7]  [F#7]"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "type": "section",
+          "label": "Instrumental"
+        },
+        {
+          "type": "line",
+          "content": "",
+          "chords": "[Bm]  [Em]  [A] [A/C#] [D]  (x2)"
+        },
+        {
+          "type": "spacer"
+        }
       ]
     }
   ],
@@ -2386,7 +3806,9 @@
     "billy-joel-only-the-good-die-young": 0,
     "george-harrison-my-sweet-lord": 4,
     "portugal-the-man-so-american-2": 7,
-    "portugal-the-man-tanana": 7
+    "portugal-the-man-tanana": 7,
+    "house-of-heroes-god-save-the-foolish-kings": 1,
+    "billy-joel-movin-out-anthonys-song": 0
   },
   "hiddenDefaultSongs": [
     "hallelujah",
@@ -2406,7 +3828,8 @@
     "portugal-the-man-so-american": "usa usa",
     "ac-dc-back-in-black": "",
     "hallelujah": "",
-    "portugal-the-man-tanana": ""
+    "portugal-the-man-tanana": "",
+    "billy-joel-movin-out-anthonys-song": ""
   },
   "customChordShapes": {
     "B": [
@@ -2467,6 +3890,35 @@
           }
         ],
         "isOpen": false
+      },
+      {
+        "id": "47a4ce6c-f14b-425d-a32c-668c75070603",
+        "frets": [
+          "x",
+          3,
+          5,
+          5,
+          4,
+          3
+        ],
+        "fingers": [
+          null,
+          1,
+          4,
+          3,
+          2,
+          1
+        ],
+        "barres": [
+          {
+            "fret": 3,
+            "fromString": 1,
+            "toString": 5,
+            "finger": 1
+          }
+        ],
+        "isOpen": false,
+        "label": "test"
       }
     ],
     "A": [
@@ -2519,6 +3971,82 @@
         ],
         "isOpen": false,
         "label": "test2"
+      }
+    ],
+    "Em": [
+      {
+        "id": "a29792bc-36b0-4c87-b450-3ff89a46d8e4",
+        "frets": [
+          0,
+          2,
+          2,
+          0,
+          0,
+          0
+        ],
+        "fingers": [
+          null,
+          1,
+          2,
+          null,
+          null,
+          null
+        ],
+        "isOpen": true,
+        "label": "test"
+      }
+    ],
+    "D9": [
+      {
+        "id": "caaa90d4-9783-4fe4-a1f1-8eab6198ceaf",
+        "frets": [
+          "x",
+          "x",
+          "x",
+          2,
+          1,
+          0
+        ],
+        "fingers": [
+          null,
+          null,
+          null,
+          2,
+          1,
+          null
+        ],
+        "isOpen": true
+      }
+    ],
+    "G": [
+      {
+        "id": "bd921e4b-10dd-4454-9128-80b9fecc5a02",
+        "frets": [
+          3,
+          5,
+          5,
+          4,
+          3,
+          3
+        ],
+        "fingers": [
+          null,
+          3,
+          4,
+          2,
+          null,
+          null
+        ],
+        "barres": [
+          {
+            "fret": 3,
+            "fromString": 0,
+            "toString": 5,
+            "finger": 1
+          }
+        ],
+        "isOpen": false,
+        "label": "barre"
       }
     ]
   },
