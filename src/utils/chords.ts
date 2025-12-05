@@ -29,6 +29,7 @@ export type ChordQuality =
   | 'sus2'
   | '7sus4'
   | 'add9'
+  | '9'
   | 'dim'
   | 'dim7'
   | 'm7b5'
@@ -143,6 +144,13 @@ const OPEN_SHAPES: Partial<Record<ShapeKey, ChordShape[]>> = {
       frets: [3, 0, 0, 2, 0, 2],
       fingers: [2, null, null, 1, null, 3],
       isOpen: true,
+    },
+  ],
+  'F:9': [
+    {
+      frets: [1, 3, 1, 2, 1, 3],
+      fingers: [1, 3, 1, 2, 1, 4],
+      isOpen: false,
     },
   ],
   'A:sus2': [
@@ -617,6 +625,10 @@ const getChordQuality = (suffix: string): ChordQuality => {
 
   if (lower.startsWith('add9')) {
     return 'add9';
+  }
+
+  if (lower.startsWith('9')) {
+    return '9';
   }
 
   if (lower.startsWith('dim7')) {

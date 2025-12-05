@@ -1807,6 +1807,7 @@ button:disabled {
   transform: none;
   transform-origin: center;
   margin-bottom: -1.6rem;
+  pointer-events: none;
 }
 
 .chord-diagram-picker__diagram svg {
@@ -1830,6 +1831,8 @@ button:disabled {
   justify-content: center;
   cursor: pointer;
   font-size: 0.95rem;
+  pointer-events: auto;
+  z-index: 1;
 }
 
 .chord-diagram-picker__arrow--prev {
@@ -2280,6 +2283,57 @@ button:disabled {
   align-items: flex-start;
 }
 
+.chord-palette__figure--missing {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: var(--text);
+  box-shadow: none;
+  padding: 0;
+}
+
+.chord-palette__missing {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0.5rem 0.6rem 0.6rem;
+  width: 100%;
+  color: var(--text);
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid var(--danger);
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+.chord-palette__missing-title {
+  margin: 0;
+  font-weight: 800;
+}
+
+.chord-palette__missing-text,
+.chord-palette__missing-hint {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+
+.chord-palette__missing-actions {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+
+.chord-palette__missing-actions button {
+  border: 1px solid var(--danger);
+  background: #fff;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.45rem 0.6rem;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.chord-palette__missing-actions button:hover {
+  background: rgba(239, 68, 68, 0.12);
+}
 .chord-line {
   position: relative;
   display: block;

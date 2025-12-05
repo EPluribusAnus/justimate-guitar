@@ -127,7 +127,14 @@ const SongSheet = ({
               </dl>
             </header>
 
-            {isChords ? <ChordPalette chords={uniqueChords} chordShapes={chordShapes} /> : null}
+          {isChords ? (
+            <ChordPalette
+              chords={uniqueChords}
+              chordShapes={chordShapes}
+              onAddChord={onAddChord}
+              onBuildFromSimilar={onBuildFromSimilar}
+            />
+          ) : null}
             {notesPanel ? (
               <section className="chord-palette song-sheet__notes" aria-label="Song notes">
                 <div

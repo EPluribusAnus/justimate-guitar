@@ -98,6 +98,9 @@ var getChordQuality = (suffix) => {
   if (lower.startsWith("add9")) {
     return "add9";
   }
+  if (lower.startsWith("9")) {
+    return "9";
+  }
   if (lower.startsWith("dim7")) {
     return "dim7";
   }
