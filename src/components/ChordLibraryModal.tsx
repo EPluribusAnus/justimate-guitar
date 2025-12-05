@@ -12,6 +12,7 @@ interface Props {
   onSave: (shapes: Record<string, CustomChordShape[]>) => void;
   onSetPreferred: (chord: string, selection: PreferredShapeSelection | null) => void;
   onClose: () => void;
+  seedChord?: { symbol: string; openEditor?: boolean; focusFamily?: boolean } | null;
 }
 
 type ShapeForm = {
@@ -55,7 +56,7 @@ const getChordFamily = (symbol: string): ChordFamily | null => {
   return null;
 };
 
-const ChordLibraryModal = ({ builtInShapes, customShapes, preferredShapes, onSave, onSetPreferred, onClose }: Props) => {
+const ChordLibraryModal = ({ builtInShapes, customShapes, preferredShapes, onSave, onSetPreferred, onClose, seedChord }: Props) => {
   const [form, setForm] = useState<ShapeForm>(emptyForm);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
@@ -82,6 +83,30 @@ const ChordLibraryModal = ({ builtInShapes, customShapes, preferredShapes, onSav
   useEffect(() => {
     setActiveFamilies((current) => current.filter((family) => availableFamilies.includes(family)));
   }, [availableFamilies]);
+  useEffect(() => {
+    if (!seedChord?.symbol) {
+      return;
+    }
+    const chord = seedChord.symbol;
+    setForm((prev) => ({
+      ...emptyForm,
+      ...prev,
+      chord,
+      editingId: null,
+      frets: [...emptyForm.frets],
+      fingers: [...emptyForm.fingers],
+      barre: { ...emptyForm.barre },
+    }));
+    if (seedChord.openEditor) {
+      setIsEditorOpen(true);
+    }
+    if (seedChord.focusFamily) {
+      const family = getChordFamily(chord);
+      if (family) {
+        setActiveFamilies((current) => (current.includes(family) ? current : [...current, family]));
+      }
+    }
+  }, [seedChord]);
   const filteredChords = useMemo(() => {
     if (!activeFamilies.length) {
       return chords;

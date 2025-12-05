@@ -5,9 +5,11 @@ import ChordToken from './ChordToken';
 interface Props {
   segments: LyricSegment[];
   chordShapes: Record<string, ChordShape[]>;
+  onAddChord?: (chord: string) => void;
+  onBuildFromSimilar?: (chord: string) => void;
 }
 
-const ChordLine = ({ segments, chordShapes }: Props) => {
+const ChordLine = ({ segments, chordShapes, onAddChord, onBuildFromSimilar }: Props) => {
   let lyricBuffer = '';
   const chordMarkers: { chord: string; offset: number }[] = [];
 
@@ -36,7 +38,12 @@ const ChordLine = ({ segments, chordShapes }: Props) => {
         <div className="chord-line__chords" aria-hidden="true">
           {chordMarkers.map((marker, index) => (
             <span key={`${marker.chord}-${index}`} className="chord-line__chord" style={{ left: `${marker.offset}ch` }}>
-              <ChordToken chord={marker.chord} shapes={chordShapes[marker.chord] ?? []} />
+              <ChordToken
+                chord={marker.chord}
+                shapes={chordShapes[marker.chord] ?? []}
+                onAddChord={onAddChord}
+                onBuildFromSimilar={onBuildFromSimilar}
+              />
             </span>
           ))}
         </div>

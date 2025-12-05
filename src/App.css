@@ -2389,6 +2389,27 @@ button:disabled {
   font-size: 0.8rem;
 }
 
+.chord-token__actions {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.chord-token__actions button {
+  border: 1px solid var(--border);
+  background: var(--control-button);
+  color: var(--control-text);
+  border-radius: 8px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.chord-token__actions button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
 .notes-panel {
   background: transparent;
   border-radius: 20px;

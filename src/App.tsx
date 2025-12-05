@@ -65,6 +65,7 @@ const App = () => {
   const [hiddenDefaultSongs, setHiddenDefaultSongs] = useState<string[]>([]);
   const [notes, setNotes] = useState<Record<string, string>>({});
   const [isDesktop, setIsDesktop] = useState(() => (typeof window !== 'undefined' ? window.matchMedia('(min-width: 900px)').matches : false));
+  const [chordLibrarySeed, setChordLibrarySeed] = useState<{ symbol: string; mode: 'add' | 'similar' } | null>(null);
   const visibleDefaultSongs = useMemo(
     () => defaultSongs.filter((song) => !hiddenDefaultSongs.includes(song.id)),
     [hiddenDefaultSongs],
@@ -707,6 +708,15 @@ const App = () => {
     reader.readAsText(file);
   };
 
+  const handleOpenChordLibrary = (seed?: { symbol: string; mode?: 'add' | 'similar' } | null) => {
+    if (seed) {
+      setChordLibrarySeed({ symbol: seed.symbol, mode: seed.mode ?? 'add' });
+    } else {
+      setChordLibrarySeed(null);
+    }
+    setShowChordLibrary(true);
+  };
+
   return (
     <div className="app" style={{ '--song-font-scale': songFontScale.toString() } as CSSProperties}>
       <header className={`app__header${controlsExpanded ? ' has-controls' : ''}`} ref={headerRef}>
@@ -729,7 +739,7 @@ const App = () => {
           onImport={handleImportClick}
           isImportingUltimateGuitar={isImportingFromUltimateGuitar}
           onSaveRemote={saveLibraryToServer}
-          onOpenChordLibrary={() => setShowChordLibrary(true)}
+          onOpenChordLibrary={() => handleOpenChordLibrary(null)}
           version={appVersion}
           isCustomSong={isCustomSong}
           isDefaultSong={isDefaultSong}
@@ -858,6 +868,8 @@ const App = () => {
               chordShapes={resolvedChordShapes}
               onInteract={() => setAutoScrollEnabled(false)}
               onEdit={(song) => setFormState({ mode: 'edit', song })}
+              onAddChord={(symbol) => handleOpenChordLibrary({ symbol, mode: 'add' })}
+              onBuildFromSimilar={(symbol) => handleOpenChordLibrary({ symbol, mode: 'similar' })}
               onSetLeftScrollContainer={(element) => {
                 songScrollContainerRef.current = element;
               }}
@@ -952,9 +964,13 @@ const App = () => {
           builtInShapes={builtInChordShapes}
           customShapes={customChordShapes}
           preferredShapes={preferredChordShapes}
+          seedChord={chordLibrarySeed ? { symbol: chordLibrarySeed.symbol, openEditor: chordLibrarySeed.mode === 'add', focusFamily: chordLibrarySeed.mode === 'similar' } : null}
           onSave={setCustomChordShapes}
           onSetPreferred={handleSetPreferredShape}
-          onClose={() => setShowChordLibrary(false)}
+          onClose={() => {
+            setShowChordLibrary(false);
+            setChordLibrarySeed(null);
+          }}
         />
       )}
       {formState && (

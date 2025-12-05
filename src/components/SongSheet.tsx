@@ -13,6 +13,8 @@ interface Props {
   onInteract?: () => void;
   onEdit?: (song: Song) => void;
   notesPanel?: ReactNode;
+  onAddChord?: (chord: string) => void;
+  onBuildFromSimilar?: (chord: string) => void;
   onSetLeftScrollContainer?: (element: HTMLDivElement | null) => void;
 }
 
@@ -23,7 +25,17 @@ interface ParsedLine {
   content?: string;
 }
 
-const SongSheet = ({ song, transposeSteps, chordShapes, onInteract, onEdit, notesPanel, onSetLeftScrollContainer }: Props) => {
+const SongSheet = ({
+  song,
+  transposeSteps,
+  chordShapes,
+  onInteract,
+  onEdit,
+  notesPanel,
+  onAddChord,
+  onBuildFromSimilar,
+  onSetLeftScrollContainer,
+}: Props) => {
   const { lines, uniqueChords } = useMemo(() => {
     const collected = new Set<string>();
     const processed: ParsedLine[] = song.lines.map((line) => {
@@ -157,7 +169,13 @@ const SongSheet = ({ song, transposeSteps, chordShapes, onInteract, onEdit, note
               }
 
               return isChords ? (
-                <ChordLine key={`line-${index}`} segments={line.segments ?? []} chordShapes={chordShapes} />
+                <ChordLine
+                  key={`line-${index}`}
+                  segments={line.segments ?? []}
+                  chordShapes={chordShapes}
+                  onAddChord={onAddChord}
+                  onBuildFromSimilar={onBuildFromSimilar}
+                />
               ) : (
                 <div key={`line-${index}`} className="song-sheet__plain-line">
                   {line.content ?? ''}

@@ -1,5 +1,5 @@
 {
-  "savedAt": "2025-12-05T02:31:04.683Z",
+  "savedAt": "2025-12-05T03:13:17.242Z",
   "customSongs": [
     {
       "id": "portugal-the-man-kokhanockers",
@@ -4047,6 +4047,182 @@
         ],
         "isOpen": false,
         "label": "barre"
+      }
+    ],
+    "A/C#": [
+      {
+        "id": "d214896d-1e53-45f3-8038-0193f11fe9c7",
+        "frets": [
+          "x",
+          4,
+          2,
+          2,
+          2,
+          5
+        ],
+        "fingers": [
+          null,
+          3,
+          1,
+          1,
+          1,
+          4
+        ],
+        "barres": [
+          {
+            "fret": 2,
+            "fromString": 2,
+            "toString": 5,
+            "finger": 1
+          }
+        ],
+        "isOpen": false
+      },
+      {
+        "id": "59f944c5-23ce-492f-987a-7e70ff6163d5",
+        "frets": [
+          "x",
+          4,
+          0,
+          0,
+          5,
+          5
+        ],
+        "fingers": [
+          null,
+          1,
+          null,
+          null,
+          3,
+          4
+        ],
+        "isOpen": true
+      }
+    ],
+    "E7": [
+      {
+        "id": "021f17b6-60ec-42e8-b2c2-1ed9f86bff28",
+        "frets": [
+          0,
+          2,
+          0,
+          1,
+          0,
+          2
+        ],
+        "fingers": [
+          null,
+          2,
+          null,
+          1,
+          null,
+          3
+        ],
+        "isOpen": true
+      }
+    ],
+    "F": [
+      {
+        "id": "7a941408-0515-48d1-a733-2ba3dda07787",
+        "frets": [
+          2,
+          4,
+          4,
+          3,
+          2,
+          2
+        ],
+        "fingers": [
+          null,
+          3,
+          4,
+          2,
+          null,
+          null
+        ],
+        "barres": [
+          {
+            "fret": 2,
+            "fromString": 0,
+            "toString": 5,
+            "finger": 1
+          }
+        ],
+        "isOpen": false
+      }
+    ],
+    "F#": [
+      {
+        "id": "7a941408-0515-48d1-a733-2ba3dda07787",
+        "frets": [
+          2,
+          4,
+          4,
+          3,
+          2,
+          2
+        ],
+        "fingers": [
+          null,
+          3,
+          4,
+          2,
+          null,
+          null
+        ],
+        "barres": [
+          {
+            "fret": 2,
+            "fromString": 0,
+            "toString": 5,
+            "finger": 1
+          }
+        ],
+        "isOpen": false
+      }
+    ],
+    "E9": [
+      {
+        "id": "021f17b6-60ec-42e8-b2c2-1ed9f86bff28",
+        "frets": [
+          0,
+          2,
+          0,
+          1,
+          0,
+          2
+        ],
+        "fingers": [
+          null,
+          2,
+          null,
+          1,
+          null,
+          3
+        ],
+        "isOpen": true
+      }
+    ],
+    "Bm/A": [
+      {
+        "id": "a8f435f5-9d49-46c0-a1dd-5575f01523b4",
+        "frets": [
+          "x",
+          0,
+          4,
+          4,
+          3,
+          2
+        ],
+        "fingers": [
+          null,
+          null,
+          3,
+          4,
+          2,
+          1
+        ],
+        "isOpen": true
       }
     ]
   },

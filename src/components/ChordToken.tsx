@@ -6,9 +6,11 @@ import ChordDiagramCarousel from './ChordDiagramCarousel';
 interface Props {
   chord: string;
   shapes: ChordShape[];
+  onAddChord?: (chord: string) => void;
+  onBuildFromSimilar?: (chord: string) => void;
 }
 
-const ChordToken = ({ chord, shapes }: Props) => {
+const ChordToken = ({ chord, shapes, onAddChord, onBuildFromSimilar }: Props) => {
   const [pinned, setPinned] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [popoverStyle, setPopoverStyle] = useState<CSSProperties>({});
@@ -88,6 +90,14 @@ const ChordToken = ({ chord, shapes }: Props) => {
             <div className="chord-token__missing">
               <p>No diagram available for {chord} yet.</p>
               <p className="chord-token__hint">Try editing the chord or add a custom shape.</p>
+              <div className="chord-token__actions">
+                <button type="button" onClick={() => onAddChord?.(chord)}>
+                  Add
+                </button>
+                <button type="button" onClick={() => onBuildFromSimilar?.(chord)}>
+                  Build from similar
+                </button>
+              </div>
             </div>
           )}
           <button type="button" className="chord-token__close" onClick={() => setPinned(false)}>
