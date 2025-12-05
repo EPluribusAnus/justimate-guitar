@@ -1,5 +1,5 @@
 {
-  "savedAt": "2025-12-05T04:25:16.797Z",
+  "savedAt": "2025-12-05T05:02:26.603Z",
   "customSongs": [
     {
       "id": "portugal-the-man-kokhanockers",
@@ -3808,7 +3808,7 @@
     "portugal-the-man-so-american-2": 7,
     "portugal-the-man-tanana": 7,
     "house-of-heroes-god-save-the-foolish-kings": 1,
-    "billy-joel-movin-out-anthonys-song": 0
+    "billy-joel-movin-out-anthonys-song": -2
   },
   "hiddenDefaultSongs": [
     "hallelujah",
@@ -4024,6 +4024,26 @@
         ],
         "isOpen": false,
         "label": "barre"
+      },
+      {
+        "id": "shape-1764909171457-3a930665a9da78",
+        "frets": [
+          "x",
+          2,
+          0,
+          0,
+          0,
+          3
+        ],
+        "fingers": [
+          2,
+          1,
+          null,
+          null,
+          null,
+          2
+        ],
+        "isOpen": true
       }
     ],
     "A/C#": [
@@ -5304,6 +5324,72 @@
           }
         ],
         "isOpen": false
+      }
+    ],
+    "Am/G": [
+      {
+        "id": "shape-1764909041279-2d7ddec15f78c",
+        "frets": [
+          3,
+          0,
+          2,
+          2,
+          1,
+          0
+        ],
+        "fingers": [
+          4,
+          null,
+          2,
+          3,
+          1,
+          null
+        ],
+        "isOpen": true
+      }
+    ],
+    "Bm7": [
+      {
+        "id": "shape-1764909142376-253a31b3df82c8",
+        "frets": [
+          "x",
+          2,
+          0,
+          2,
+          0,
+          2
+        ],
+        "fingers": [
+          null,
+          1,
+          null,
+          2,
+          null,
+          3
+        ],
+        "isOpen": true
+      }
+    ],
+    "G/B": [
+      {
+        "id": "shape-1764909171457-3a930665a9da78",
+        "frets": [
+          "x",
+          2,
+          0,
+          0,
+          0,
+          3
+        ],
+        "fingers": [
+          2,
+          1,
+          null,
+          null,
+          null,
+          2
+        ],
+        "isOpen": true
       }
     ]
   },

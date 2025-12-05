@@ -555,6 +555,40 @@ const App = () => {
     });
   };
 
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return;
+    }
+
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() !== 'a') {
+        return;
+      }
+
+      const active = document.activeElement;
+      if (active) {
+        const tag = active.tagName.toLowerCase();
+        const isEditable =
+          tag === 'input' ||
+          tag === 'textarea' ||
+          (active as HTMLElement).isContentEditable ||
+          tag === 'select' ||
+          tag === 'option';
+        if (isEditable) {
+          return;
+        }
+      }
+
+      event.preventDefault();
+      handleToggleAutoscroll();
+    };
+
+    window.addEventListener('keydown', handleKeydown);
+    return () => {
+      window.removeEventListener('keydown', handleKeydown);
+    };
+  }, []);
+
   const handleToggleTheme = () => {
     setTheme((current) => (current === 'dark' ? 'light' : 'dark'));
   };
