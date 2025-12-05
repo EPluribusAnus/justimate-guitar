@@ -225,6 +225,19 @@ var parseContent = (content) => {
 };
 
 // scripts/ultimateGuitar.ts
+var normalizeSongType = (value) => {
+  const type = (value ?? "").toLowerCase().trim();
+  if (type.includes("uke")) return "ukulele";
+  if (type.includes("ukulele")) return "ukulele";
+  if (type.includes("bass")) return "bass";
+  if (type.includes("drum")) return "drums";
+  if (type.includes("power")) return "power";
+  if (type.includes("pro")) return "pro";
+  if (type.includes("video")) return "video";
+  if (type.includes("tab")) return "tab";
+  if (type.includes("chord")) return "chords";
+  return "other";
+};
 var API_ENDPOINT = "https://api.ultimate-guitar.com/api/v1/tab/info";
 var buildApiKey = (deviceId, now = /* @__PURE__ */ new Date()) => {
   const formattedDate = `${now.toISOString().slice(0, 10)}:${now.getUTCHours()}`;
@@ -441,6 +454,7 @@ var fetchUltimateGuitarSong = async (source) => {
     defaultKey: resolveDefaultKey(tab),
     capo: tab.capo && Number.isFinite(tab.capo) && tab.capo > 0 ? tab.capo : void 0,
     ugUrl: tab.urlWeb ?? source,
+    type: normalizeSongType(tab.type),
     lines
   };
   return {
@@ -455,7 +469,12 @@ var searchUltimateGuitar = async (query, page = 1, limit = 12) => {
   if (!tabs.length) {
     tabs = await performSearchFallbackScrape(query, limit);
   }
-  const relevant = tabs.filter((tab) => tab.type?.toLowerCase().includes("chord"));
+  const blockedTypes = ["official", "pro", "guitar pro"];
+  const relevant = tabs.filter((tab) => {
+    const type = (tab.type ?? "").toLowerCase();
+    if (!type) return true;
+    return !blockedTypes.some((blocked) => type.includes(blocked));
+  });
   return relevant.map((tab) => ({
     tabId: tab.id,
     title: tab.song_name,

@@ -21,6 +21,8 @@ interface Props {
   onRemoveSong: () => void;
   onHideDefault: () => void;
   onCreateCopy: () => void;
+  controlsExpanded: boolean;
+  onToggleControls: () => void;
 }
 
 type ArtistGroup = {
@@ -128,6 +130,8 @@ const SongNav = ({
       const controlsButton = controlsButtonRef.current;
 
       const insideNav = nav?.contains(target);
+      const insideOverlay = overlay?.contains(target);
+      const onToggle = toggle?.contains(target);
 
       if (!insideNav) {
         setIsOpen(false);
@@ -138,8 +142,6 @@ const SongNav = ({
       }
 
       if (isOpen) {
-        const insideOverlay = overlay?.contains(target);
-        const onToggle = toggle?.contains(target);
         if (!insideOverlay && !onToggle) {
           setIsOpen(false);
           setOpenSongMenuId(null);
